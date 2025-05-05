@@ -19,7 +19,7 @@ public class Ext024Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT024_failure.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:sequenceFlow[@isImmediate='false'])[1]", 10);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow", 10);
     }
 
     @Test

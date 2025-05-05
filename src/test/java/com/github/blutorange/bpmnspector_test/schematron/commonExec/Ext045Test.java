@@ -20,14 +20,14 @@ public class Ext045Test extends TestCase {
     public void testConstraintFailDifferentItemDefNoStructureRef() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT045_failure_differentItemDef_noStructureRef.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:serviceTask[@operationRef])[1]", 17);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:serviceTask", 17);
     }
 
     @Test
     public void testConstraintFailDifferentItemDefUnequalStructureRef() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT045_failure_differentItemDef_unequalStructureRef.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:serviceTask[@operationRef])[1]", 17);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:serviceTask", 17);
     }
 
     @Test

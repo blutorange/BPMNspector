@@ -65,7 +65,11 @@ public class Ext013Test extends TestCase {
                 ERR_MSG,
                 "/bpmn:definitions/bpmn:correlationProperty/bpmn:correlationPropertyRetrievalExpression/bpmn:messagePath",
                 9);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:dataPath)[1]", 21);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:process/bpmn:correlationSubscription/bpmn:correlationPropertyBinding/bpmn:dataPath",
+                21);
     }
 
     @Test

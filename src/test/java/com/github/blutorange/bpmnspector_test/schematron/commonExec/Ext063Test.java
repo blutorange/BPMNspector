@@ -23,19 +23,22 @@ public class Ext063Test extends TestCase {
     public void testConstraintFailCalledProcessAdditionalInput() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT063_failure_calledProcess_additionalInput.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:callActivity[@calledElement])[1]", 62);
+        assertViolation(
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity", 62);
     }
 
     @Test
     public void testConstraintFailCalledProcessInputMissing() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_inputMissing.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:callActivity[@calledElement])[1]", 62);
+        assertViolation(
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity", 62);
     }
 
     @Test
     public void testConstraintFailCalledProcessOutputMissing() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_outputMissing.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:callActivity[@calledElement])[1]", 62);
+        assertViolation(
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity", 62);
     }
 
     @Test
@@ -45,12 +48,12 @@ public class Ext063Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:outputSet[ancestor::bpmn:callActivity/bpmn:ioSpecification/bpmn:dataOutput[@itemSubjectRef] and node()])[1]",
+                "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity/bpmn:ioSpecification/bpmn:outputSet",
                 73);
         assertViolation(
                 result.getViolations().get(1),
                 ERR_MSG,
-                "(//bpmn:dataOutput[ancestor::bpmn:callActivity and @itemSubjectRef])[1]",
+                "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity/bpmn:ioSpecification/bpmn:dataOutput",
                 69);
     }
 
@@ -58,7 +61,7 @@ public class Ext063Test extends TestCase {
     public void testConstraintFailCalledGlobalTaskAdditionalOutput() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT063_failure_calledGlobalTask_additionalOutput.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:callActivity[@calledElement])[1]", 16);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:callActivity", 16);
     }
 
     @Test

@@ -22,7 +22,7 @@ public class Ext068Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:multiInstanceLoopCharacteristics[bpmn:loopDataInputRef and not(parent::bpmn:subProcess) and ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:task/bpmn:multiInstanceLoopCharacteristics",
                 18);
     }
 

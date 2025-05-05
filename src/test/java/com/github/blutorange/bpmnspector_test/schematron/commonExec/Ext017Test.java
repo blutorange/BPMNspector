@@ -19,7 +19,7 @@ public class Ext017Test extends TestCase {
     public void testConstraintFailExclusiveGateway() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT017_failure_exclusiveGateway.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), ERR_MSG, "(/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway)[2]", 7);
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway[1]", 7);
     }
 
     @Test

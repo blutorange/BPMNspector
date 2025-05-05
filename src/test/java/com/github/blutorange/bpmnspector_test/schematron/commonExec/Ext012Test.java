@@ -52,10 +52,7 @@ public class Ext012Test extends TestCase {
     public void testConstraintFailComplexGateway() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_complexGateway.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0),
-                ERR_MSG,
-                "(//bpmn:complexGateway[bpmn:activationCondition and ancestor::bpmn:process[@isExecutable='true']])[1]",
-                18);
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:complexGateway[2]", 18);
     }
 
     @Test
@@ -95,7 +92,7 @@ public class Ext012Test extends TestCase {
     public void testConstraintFailSequenceFlow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_sequenceFlow.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), ERR_MSG, "(/bpmn:definitions/bpmn:process/bpmn:sequenceFlow)[3]", 16);
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[2]", 16);
     }
 
     @Test

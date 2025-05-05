@@ -19,7 +19,7 @@ public class Ext090Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A whileExecutingOutputRef must be listed as dataOutputRef.",
-                "(//bpmn:outputSet[bpmn:whileExecutingOutputRefs])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:ioSpecification/bpmn:outputSet[1]",
                 11);
     }
 

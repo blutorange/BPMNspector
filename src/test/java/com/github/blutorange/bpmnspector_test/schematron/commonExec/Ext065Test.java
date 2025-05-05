@@ -21,22 +21,14 @@ public class Ext065Test extends TestCase {
     public void testConstraintFailCalledProcess() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT065_failure_calledProcess_wrongInputData.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0),
-                ERR_MSG,
-                "(//bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding])[1]",
-                19);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process", 19);
     }
 
     @Test
     public void testConstraintFailCalledGlobalTask() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT065_failure_calledGlobalTask_wrongOutputData.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0),
-                ERR_MSG,
-                "(//bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding])[1]",
-                14);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:globalTask", 14);
     }
 
     @Override

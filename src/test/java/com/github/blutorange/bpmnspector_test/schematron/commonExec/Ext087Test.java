@@ -19,19 +19,31 @@ public class Ext087Test extends TestCase {
     @Test
     public void testConstraintFailInvalidReferencing() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT087_failure_invalidReferencing.bpmn"), 4);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:inputSet[bpmn:outputSetRefs])[1]", 8);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:process/bpmn:ioSpecification/bpmn:inputSet[1]",
+                8);
     }
 
     @Test
     public void testConstraintFailMissingInputSetRef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT087_failure_missingInputSetRef.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:inputSet[bpmn:outputSetRefs])[1]", 7);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:process/bpmn:ioSpecification/bpmn:inputSet",
+                7);
     }
 
     @Test
     public void testConstraintFailMissingOutputSetRef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT087_failure_missingOutputSetRef.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:outputSet[bpmn:inputSetRefs])[1]", 10);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:process/bpmn:ioSpecification/bpmn:outputSet",
+                10);
     }
 
     @Test

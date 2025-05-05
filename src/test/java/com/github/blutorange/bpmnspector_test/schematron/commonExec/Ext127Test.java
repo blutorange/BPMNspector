@@ -21,7 +21,7 @@ public class Ext127Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent/bpmn:messageEventDefinition",
                 25);
     }
 
@@ -31,7 +31,7 @@ public class Ext127Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent/bpmn:messageEventDefinition",
                 16);
     }
 
@@ -41,7 +41,7 @@ public class Ext127Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent/bpmn:messageEventDefinition",
                 20);
     }
 
@@ -51,7 +51,7 @@ public class Ext127Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent/bpmn:messageEventDefinition",
                 20);
     }
 
@@ -61,7 +61,7 @@ public class Ext127Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:startEvent/bpmn:messageEventDefinition",
                 13);
     }
 

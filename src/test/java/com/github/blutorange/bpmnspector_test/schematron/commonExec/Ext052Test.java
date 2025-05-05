@@ -19,22 +19,14 @@ public class Ext052Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT052_failure.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0),
-                ERR_MSG,
-                "(//bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput])[1]",
-                9);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:receiveTask", 9);
     }
 
     @Test
     public void testConstraintFailDifferentItemDefUnequalStructureRef() throws ValidationException {
         ValidationResult result =
                 verifyInvalidResult(createFile("EXT052_failure_differentItemDef_unequalStructureRef.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0),
-                ERR_MSG,
-                "(//bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput])[1]",
-                10);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:receiveTask", 10);
     }
 
     @Test

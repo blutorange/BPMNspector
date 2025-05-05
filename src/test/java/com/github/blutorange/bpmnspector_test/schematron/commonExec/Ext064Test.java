@@ -19,13 +19,13 @@ public class Ext064Test extends TestCase {
     @Test
     public void testConstraintFailCalledProcess() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT064_failure_calledProcess.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:*[bpmn:supportedInterfaceRef])[1]", 21);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[1]", 21);
     }
 
     @Test
     public void testConstraintFailCalledGlobalTask() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT064_failure_calledGlobalTask.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:*[bpmn:supportedInterfaceRef])[1]", 54);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:globalTask", 54);
     }
 
     @Test

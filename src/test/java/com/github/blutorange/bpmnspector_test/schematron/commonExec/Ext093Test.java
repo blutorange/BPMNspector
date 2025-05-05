@@ -20,7 +20,7 @@ public class Ext093Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If dataOutputs are used in a BoundaryEvent for each eventDefinition a DataOutput must be defined.",
-                "(//bpmn:boundaryEvent[bpmn:dataOutput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 26);
     }
 
@@ -30,7 +30,7 @@ public class Ext093Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If dataInputs are used in an EndEvent for each eventDefinition a DataInput must be defined.",
-                "(//bpmn:endEvent[bpmn:dataInput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent",
                 20);
     }
 
@@ -40,7 +40,7 @@ public class Ext093Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If dataOutputs are used in an IntermediateCatchEvent for each eventDefinition a DataOutput must be defined.",
-                "(//bpmn:intermediateCatchEvent[bpmn:dataOutput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent",
                 15);
     }
 
@@ -50,7 +50,7 @@ public class Ext093Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If dataInputs are used in an intermediateThrowEvent for each eventDefinition a DataInput must be defined.",
-                "(//bpmn:intermediateThrowEvent[bpmn:dataInput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 15);
     }
 
@@ -61,7 +61,7 @@ public class Ext093Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If dataOutputs are used in a StartEvent for each eventDefinition a DataOutput must be defined.",
-                "(//bpmn:startEvent[bpmn:dataOutput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:startEvent",
                 12);
     }
 

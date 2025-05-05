@@ -22,7 +22,7 @@ public class Ext094Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:signalEventDefinition[preceding-sibling::bpmn:dataInput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent/bpmn:signalEventDefinition",
                 36);
     }
 
@@ -32,7 +32,7 @@ public class Ext094Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:errorEventDefinition[preceding-sibling::bpmn:dataInput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent/bpmn:errorEventDefinition",
                 24);
     }
 
@@ -42,7 +42,7 @@ public class Ext094Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:escalationEventDefinition[preceding-sibling::bpmn:dataInput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent/bpmn:escalationEventDefinition",
                 24);
     }
 
@@ -52,7 +52,7 @@ public class Ext094Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:messageEventDefinition[preceding-sibling::bpmn:dataOutput])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:startEvent/bpmn:messageEventDefinition",
                 22);
     }
 
