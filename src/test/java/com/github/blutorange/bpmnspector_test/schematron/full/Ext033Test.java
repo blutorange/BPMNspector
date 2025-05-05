@@ -19,7 +19,7 @@ public class Ext033Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT033_failure.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:collaboration[bpmn:choreographyRef])[1]", 29);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:collaboration", 29);
     }
 
     @Test

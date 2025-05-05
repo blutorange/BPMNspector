@@ -18,14 +18,13 @@ public class Ext027Test extends TestCase {
     @Test
     public void testConstraintFailChoreography() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT027_failure_choreography.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:choreography[bpmn:choreographyRef])[1]", 3);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:choreography[1]", 3);
     }
 
     @Test
     public void testConstraintFailGlobalConversation() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT027_failure_globalConversation.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0), ERR_MSG, "(//bpmn:globalConversation[bpmn:choreographyRef])[1]", 14);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:globalConversation", 14);
     }
 
     @Test

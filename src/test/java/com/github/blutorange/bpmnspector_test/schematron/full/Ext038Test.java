@@ -19,7 +19,7 @@ public class Ext038Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT038_failure.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:*[@completionQuantity])[1]", 7);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:task", 7);
     }
 
     @Test

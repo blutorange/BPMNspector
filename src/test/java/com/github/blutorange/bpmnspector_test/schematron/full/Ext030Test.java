@@ -19,7 +19,11 @@ public class Ext030Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT030_failure.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:participantMultiplicity)[2]", 8);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:collaboration/bpmn:participant[2]/bpmn:participantMultiplicity",
+                8);
     }
 
     @Test

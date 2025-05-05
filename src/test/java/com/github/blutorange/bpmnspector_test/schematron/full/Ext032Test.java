@@ -19,7 +19,7 @@ public class Ext032Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT032_failure.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:globalConversation)[1]", 3);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:globalConversation", 3);
     }
 
     @Test
