@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  */
 public class Ext112Test extends TestCase {
 
-    private static final String ERR_MSG = "A boundary event must not be target of a Sequence Flow.";
+    private static final String ERR_MSG = "A boundary event must not be the target of a Sequence Flow.";
 
     @Test
     public void testConstraintFailIncomingSeqFlow() throws ValidationException {

@@ -249,7 +249,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
     }
 
     /**
-     * searches for the file and line, where the violation occured
+     * searches for the file and line, where the violation occurred
      *
      * @param xpathExpression the expression, through which the file and line should be identified
      * @param baseProcess baseProcess used for validation

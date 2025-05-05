@@ -9,7 +9,7 @@
 	<xs:element name="element" type="tElement"/>
 	<xs:complexType name="tElement">
 		<xs:sequence>
-			<!-- name of the parent element if needed for hierarchie -->
+			<!-- name of the parent element if needed for hierarchy -->
 			<xs:element name="parent" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<!-- names of the child elements -->
 			<xs:element name="child" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -24,7 +24,7 @@
 		<xs:sequence>
 			<!-- name of the reference -->
 			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
-			<!-- all possible (super-) types by their names (uses the hierarchie of the elements) -->
+			<!-- all possible (super-) types by their names (uses the hierarchy of the elements) -->
 			<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<!-- The number used in the bachelor thesis -->

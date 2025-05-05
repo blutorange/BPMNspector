@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
- * This test class tests the validator with the predefined BPMN files. The predefinitions of the tests can be looked up
+ * This test class tests the validator with the predefined BPMN files. The pre-definitions of the tests can be looked up
  * in the bachelor thesis with the T numbers. The tests are jUnit tests.
  *
  * @author Andreas Vorndran
@@ -259,7 +259,7 @@ public class TestBPMNFiles {
                 importAndTestProcess("src/test/resources/refCheck_existenceViolation_MsgEventDef_messageRef.bpmn");
         assertEquals(1, result.getFoundFiles().size());
         assertFalse(result.isValid());
-        assertEquals(result.getViolations().size(), 1);
+        assertEquals(1, result.getViolations().size());
         Violation existenceViolation = result.getViolations().get(0);
         assertEquals("REF_EXISTENCE", existenceViolation.getConstraint());
         assertEquals(13, existenceViolation.getLocation().getLocation().getRow());

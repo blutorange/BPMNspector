@@ -28,7 +28,7 @@ public class Ext027Test extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccessChorNoRef() throws ValidationException {
+    public void testConstraintSuccessChoreographyNoRef() throws ValidationException {
         verifyValidResult(createFile("EXT027_success_chorNoRef.bpmn"));
     }
 

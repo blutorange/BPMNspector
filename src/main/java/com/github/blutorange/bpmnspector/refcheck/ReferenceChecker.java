@@ -102,7 +102,7 @@ public class ReferenceChecker {
                                 validationResult, line, column, currentElement, checkingReference);
                     }
 
-                } else if (relevantImportedElements != null) { // NOPMD
+                } else if (relevantImportedElements != null) {
                     // namespace is used by an imported file
                     if (relevantImportedElements.containsKey(importedId)) {
                         checkTypeAndAddViolation(
@@ -172,9 +172,9 @@ public class ReferenceChecker {
         if (referencedTypes != null) {
             // find all possible types (with subtypes/children)
             List<String> types = new ArrayList<>(referencedTypes);
-            boolean childfound;
+            boolean childFound;
             do {
-                childfound = false;
+                childFound = false;
                 List<String> typesCopy = new ArrayList<>(types);
                 for (String type : typesCopy) {
                     if (bpmnRefElements.containsKey(type)) {
@@ -184,13 +184,13 @@ public class ReferenceChecker {
                             for (String child : children) {
                                 if (!typesCopy.contains(child)) {
                                     types.add(child);
-                                    childfound = true;
+                                    childFound = true;
                                 }
                             }
                         }
                     }
                 }
-            } while (childfound);
+            } while (childFound);
             // validate if the referenced element has one of the correct types
             for (String type : types) {
                 if (referencedElement.getName().equals(type)) {

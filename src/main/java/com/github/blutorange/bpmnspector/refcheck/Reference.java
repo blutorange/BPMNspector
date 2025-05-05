@@ -28,7 +28,7 @@ public class Reference {
      * @param name the name of reference
      * @param types a list with the possible referenced types or null if only existence check
      * @param qname identifies XSD:QName (true) or XSD:IDREF (false)
-     * @param attribute identifies whether the reference is an attribute (true) or an child element (false)
+     * @param attribute identifies whether the reference is an attribute (true) or a child element (false)
      */
     public Reference(int number, String name, List<String> types, boolean qname, boolean attribute) {
         this.number = number;

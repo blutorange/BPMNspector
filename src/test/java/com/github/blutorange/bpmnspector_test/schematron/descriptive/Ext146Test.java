@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class Ext146Test extends TestCase {
 
     private static final String ERRORMESSAGE =
-            "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events";
+            "Only messageEventDefinitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events";
     private static final String XPATHSTRING = "/bpmn:definitions/bpmn:process/bpmn:endEvent";
 
     @Test

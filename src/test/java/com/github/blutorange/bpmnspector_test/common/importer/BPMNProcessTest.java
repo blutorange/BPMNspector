@@ -37,7 +37,7 @@ public class BPMNProcessTest {
 
     @Test
     public void findElementByIdFindsCorrectElement() {
-        Element foundElem = simpleProcess.findElementById("_4").get();
+        Element foundElem = simpleProcess.findElementById("_4").orElseThrow();
 
         assertEquals("sequenceFlow", foundElem.getName());
         assertEquals("_4", foundElem.getAttribute("id").getValue());

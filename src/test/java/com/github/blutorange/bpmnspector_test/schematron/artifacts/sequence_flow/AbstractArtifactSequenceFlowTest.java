@@ -37,14 +37,14 @@ public abstract class AbstractArtifactSequenceFlowTest extends TestCase {
     }
 
     protected void assertFirstViolation(Violation v, String fileName) {
-        throw new UnsupportedOperationException("must be overriden by every child class!");
+        throw new UnsupportedOperationException("must be overridden by every child class!");
     }
 
     protected void assertSecondViolation(Violation v, String fileName, int line) {
-        throw new UnsupportedOperationException("must be overriden by every child class!");
+        throw new UnsupportedOperationException("must be overridden by every child class!");
     }
 
     protected void assertThirdViolation(Violation v, String fileName) {
-        throw new UnsupportedOperationException("must be overriden by every child class!");
+        throw new UnsupportedOperationException("must be overridden by every child class!");
     }
 }

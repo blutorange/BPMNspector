@@ -31,7 +31,7 @@ public class Ext062Test extends TestCase {
     }
 
     @Test
-    public void testConstraintFailChorActivity() throws ValidationException {
+    public void testConstraintFailChoreographyActivity() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:adHocSubProcess", 7);

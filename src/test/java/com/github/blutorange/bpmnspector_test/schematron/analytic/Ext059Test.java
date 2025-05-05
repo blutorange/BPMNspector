@@ -20,9 +20,9 @@ public class Ext059Test extends TestCase {
     private static final String ERR_CANCEL = " A cancelEventDefinition is not allowed for Event Sub-Processes.";
     private static final String ERR_LINK = " A linkEventDefinition is not allowed for Event Sub-Processes.";
     private static final String ERR_TERMINATE = " A terminateEventDefinition is not allowed for Event Sub-Processes.";
-    private static final String ERR_NONINTERRUPTING_COMPENSATE =
+    private static final String ERR_NON_INTERRUPTING_COMPENSATE =
             " Moreover, a compensateEventDefinition is not allowed for Non-Interrupting StartEvents.";
-    private static final String ERR_NONINTERRUPTING_ERROR =
+    private static final String ERR_NON_INTERRUPTING_ERROR =
             " Moreover, an errorEventDefinition is not allowed for Non-Interrupting StartEvents.";
 
     @Test
@@ -71,7 +71,7 @@ public class Ext059Test extends TestCase {
                 verifyInvalidResult(createFile("EXT059_fail_nonInterrupting_illegal_compensateEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                ERR_MSG_DEFAULT + ERR_NONINTERRUPTING_COMPENSATE,
+                ERR_MSG_DEFAULT + ERR_NON_INTERRUPTING_COMPENSATE,
                 "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent",
                 28);
     }
@@ -82,7 +82,7 @@ public class Ext059Test extends TestCase {
                 verifyInvalidResult(createFile("EXT059_fail_nonInterrupting_illegal_errorEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                ERR_MSG_DEFAULT + ERR_NONINTERRUPTING_ERROR,
+                ERR_MSG_DEFAULT + ERR_NON_INTERRUPTING_ERROR,
                 "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent",
                 28);
     }

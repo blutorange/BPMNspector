@@ -10,10 +10,12 @@ import com.github.blutorange.bpmnspector.api.Warning;
 import com.github.blutorange.bpmnspector.common.util.ConstantHelper;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
@@ -116,21 +118,17 @@ public class ProcessImporter {
                         processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
                     }
 
-                    if (rootProcess == null) {
-                        resolveAndAddImports(process, process, result, removeDI);
-                    } else {
-                        resolveAndAddImports(process, rootProcess, result, removeDI);
-                    }
+                    resolveAndAddImports(process, Objects.requireNonNullElse(rootProcess, process), result, removeDI);
                     return process;
                 } else {
                     // Invalid BPMN file
                     return null;
                 }
             } catch (ValidationException e) {
-                // Thrown if file is not well-formed or does not have claimed encoding- error is already logged and
+                // Thrown if file is not well-formed or does not have claimed encoding error is already logged and
                 // added to the validation result - but further processing is not
                 // possible
-                LOGGER.debug("caught: " + e);
+                LOGGER.debug("caught: {}", String.valueOf(e));
                 return null;
             } catch (JDOMException | IOException e) {
                 throw new ValidationException(
@@ -169,7 +167,7 @@ public class ProcessImporter {
             String location = elem.getAttributeValue("location");
 
             Resource resource = null;
-            // determine whether a absolute URL or a file is used and create corresponding Resource
+            // determine whether an absolute URL or a file is used and create corresponding Resource
             try {
 
                 var importUri = new URI(location);
@@ -181,7 +179,7 @@ public class ProcessImporter {
                     resource = new Resource(asURL);
                 } else {
                     // process as file
-                    var decodedUrlString = URLDecoder.decode(importUri.toString(), "UTF-8");
+                    var decodedUrlString = URLDecoder.decode(importUri.toString(), StandardCharsets.UTF_8);
                     var importPath = Paths.get(decodedUrlString);
                     if (!importPath.isAbsolute()) {
                         // resolve relative path based on the baseURI from the process
@@ -205,52 +203,54 @@ public class ProcessImporter {
                 var msg = "Import could not be resolved: Path " + location + " is invalid.";
                 Violation violation = createViolation(process, elem, msg);
                 result.addViolation(violation);
-            } catch (UnsupportedEncodingException e) {
-                throw new ValidationException("URI could not be decoded correctly.", e);
             }
 
             if (resource != null) {
-                if (ConstantHelper.BPMN_NAMESPACE_STRING.equals(importType)) {
-                    if (!isFileAlreadyImported(resource.getResourceName(), rootProcess)) {
-                        try {
-                            BPMNProcess importedProcess =
-                                    importProcessRecursively(resource, process, rootProcess, result, removeDI);
+                switch (importType) {
+                    case ConstantHelper.BPMN_NAMESPACE_STRING:
+                        if (!isFileAlreadyImported(resource.getResourceName(), rootProcess)) {
+                            try {
+                                BPMNProcess importedProcess =
+                                        importProcessRecursively(resource, process, rootProcess, result, removeDI);
 
-                            if (importedProcess != null) {
-                                process.getChildren().add(importedProcess);
+                                if (importedProcess != null) {
+                                    process.getChildren().add(importedProcess);
+                                }
+                            } catch (ValidationException e) {
+                                result.addViolation(createViolation(process, elem, e.getMessage()));
                             }
-                        } catch (ValidationException e) {
-                            result.addViolation(createViolation(process, elem, e.getMessage()));
                         }
-                    }
-                } else if (ConstantHelper.WSDL2_NAMESPACE.equals(importType)) {
-                    try (InputStream stream = openStreamToResource(resource)) {
+                        break;
+                    case ConstantHelper.WSDL2_NAMESPACE:
+                        try (InputStream stream = openStreamToResource(resource)) {
 
-                        result.addResource(resource);
+                            result.addResource(resource);
 
-                        process.getWsdls().add(builder.build(stream));
-                    } catch (ValidationException e) {
-                        // Creation of stream failed object could not be found
-                        result.addViolation(createViolation(process, elem, e.getMessage()));
-                    } catch (IOException | JDOMException e) {
-                        throw new ValidationException(
-                                "WSDL validation of file " + resource.getResourceName() + " failed.", e);
-                    }
-                } else if (ConstantHelper.XSD_NAMESPACE.equals(importType)) {
-                    try (InputStream stream = openStreamToResource(resource)) {
-                        result.addResource(resource);
-                        var schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                        schemaFactory.newSchema(new StreamSource(stream));
-                    } catch (ValidationException e) {
-                        // Creation of stream failed object could not be found
-                        result.addViolation(createViolation(process, elem, e.getMessage()));
-                    } catch (SAXException e) {
-                        String msg = "File " + resource.getResourceName() + " is not a valid XSD file.";
-                        result.addViolation(createViolation(process, elem, msg));
-                    } catch (IOException e) {
-                        throw new ValidationException(
-                                "XSD file check for  " + resource.getResourceName() + " failed.", e);
-                    }
+                            process.getWsdls().add(builder.build(stream));
+                        } catch (ValidationException e) {
+                            // Creation of stream failed object could not be found
+                            result.addViolation(createViolation(process, elem, e.getMessage()));
+                        } catch (IOException | JDOMException e) {
+                            throw new ValidationException(
+                                    "WSDL validation of file " + resource.getResourceName() + " failed.", e);
+                        }
+                        break;
+                    case ConstantHelper.XSD_NAMESPACE:
+                        try (InputStream stream = openStreamToResource(resource)) {
+                            result.addResource(resource);
+                            var schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                            schemaFactory.newSchema(new StreamSource(stream));
+                        } catch (ValidationException e) {
+                            // Creation of stream failed object could not be found
+                            result.addViolation(createViolation(process, elem, e.getMessage()));
+                        } catch (SAXException e) {
+                            String msg = "File " + resource.getResourceName() + " is not a valid XSD file.";
+                            result.addViolation(createViolation(process, elem, msg));
+                        } catch (IOException e) {
+                            throw new ValidationException(
+                                    "XSD file check for  " + resource.getResourceName() + " failed.", e);
+                        }
+                        break;
                 }
             }
         }
@@ -289,16 +289,16 @@ public class ProcessImporter {
     private InputStream openStreamToResource(Resource resource) throws ValidationException, IOException {
 
         if (resource.getType() == Resource.ResourceType.URL) {
-            LOGGER.debug("Trying to openStream to: " + resource.getResourceName());
+            LOGGER.debug("Trying to openStream to: {}", resource.getResourceName());
             try {
-                return resource.getUrl().get().openConnection().getInputStream();
+                return resource.getUrl().orElseThrow().openConnection().getInputStream();
             } catch (UnknownHostException e) {
                 throw new ValidationException("Host " + e.getMessage() + " is unknown.", e);
             } catch (FileNotFoundException e) {
                 throw new ValidationException("File cannot be resolved from URL: " + e.getMessage(), e);
             }
         } else if (resource.getType() == Resource.ResourceType.FILE) {
-            return new FileInputStream(resource.getPath().get().toFile());
+            return new FileInputStream(resource.getPath().orElseThrow().toFile());
         } else {
             throw new IllegalArgumentException(
                     "Import processing of resource type " + resource.getType() + " is not supported.");

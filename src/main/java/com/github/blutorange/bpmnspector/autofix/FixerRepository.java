@@ -37,7 +37,7 @@ public class FixerRepository {
     public List<ViolationFixer> getAllFixersForConstraint(String constraintId) {
         return availableFixes.entrySet().stream()
                 .filter(entry -> entry.getKey().constraintId.equals(constraintId))
-                .map(entry -> entry.getValue())
+                .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
     }
 }

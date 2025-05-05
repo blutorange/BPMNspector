@@ -128,7 +128,7 @@ public class BPMNProcess {
 
     public Location determineLocationByXPath(String xpathExpression) throws ValidationException {
 
-        LOGGER.debug("Found ID:" + xpathExpression);
+        LOGGER.debug("Found ID:{}", xpathExpression);
 
         var line = -1;
         var column = -1;
@@ -136,7 +136,7 @@ public class BPMNProcess {
         // use ID with generated prefix for lookup
         var xpathObjectId = createIdBpmnExpression(xpathExpression);
 
-        LOGGER.debug("Expression to evaluate: " + xpathObjectId);
+        LOGGER.debug("Expression to evaluate: {}", xpathObjectId);
         XPathFactory fac = XPathFactory.instance();
         List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null, ConstantHelper.BPMN_NAMESPACE)
                 .evaluate(processAsDoc);
@@ -213,7 +213,7 @@ public class BPMNProcess {
     }
 
     /**
-     * creates an xpath expression for finding the id
+     * Creates an XPath expression for finding the id
      *
      * @param id the id, to which the expression should refer
      * @return the xpath expression, which refers the given id

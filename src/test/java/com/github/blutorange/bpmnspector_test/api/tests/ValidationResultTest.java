@@ -1,6 +1,8 @@
 package com.github.blutorange.bpmnspector_test.api.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.blutorange.bpmnspector.api.BPMNspector;
 import com.github.blutorange.bpmnspector.api.Location;
@@ -66,7 +68,7 @@ public class ValidationResultTest {
         ValidationResult sorted = new SimpleValidationResult();
         sorted.addFile(result.getFoundFiles().get(0));
 
-        result.getViolations().stream().forEach(sorted::addViolation);
+        result.getViolations().forEach(sorted::addViolation);
 
         assertEquals(result.getViolations().get(2), sorted.getViolations().get(0));
         testValidationResult(sorted);
@@ -75,13 +77,13 @@ public class ValidationResultTest {
     private void testValidationResult(ValidationResult result) {
         assertFalse(result.isValid());
 
-        assertEquals(result.getFoundFiles().size(), 1);
+        assertEquals(1, result.getFoundFiles().size());
         assertEquals(result.getFoundFiles().get(0), path);
 
-        assertEquals(result.getFilesWithViolations().size(), 1);
-        assertEquals(result.getFilesWithViolations().get(0), path);
+        assertEquals(1, result.getFilesWithViolations().size());
+        assertEquals(path, result.getFilesWithViolations().get(0));
 
-        assertEquals(result.getViolations().size(), 5);
+        assertEquals(5, result.getViolations().size());
 
         List<String> expectedConstraints = new LinkedList<>();
         expectedConstraints.add("EXT.021");
@@ -102,9 +104,11 @@ public class ValidationResultTest {
         result.addWarning(new Warning(warn1Msg, new Location(Paths.get("dummy path"), LocationCoordinate.EMPTY)));
 
         assertTrue(result.isValid());
-        assertEquals(result.getWarnings().size(), 2);
-        assertEquals(result.getWarnings().get(0).getMessage(), warn1Msg);
-        assertEquals(result.getWarnings().get(0).getLocation().getLocation(), LocationCoordinate.EMPTY);
-        assertEquals(result.getWarnings().get(1).getMessage(), warn2Msg);
+        assertEquals(2, result.getWarnings().size());
+        assertEquals(warn1Msg, result.getWarnings().get(0).getMessage());
+        assertEquals(
+                LocationCoordinate.EMPTY,
+                result.getWarnings().get(0).getLocation().getLocation());
+        assertEquals(warn2Msg, result.getWarnings().get(1).getMessage());
     }
 }

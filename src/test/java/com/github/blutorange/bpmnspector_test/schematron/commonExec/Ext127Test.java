@@ -76,7 +76,7 @@ public class Ext127Test extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccessIntCatchw() throws ValidationException {
+    public void testConstraintSuccessIntCatch() throws ValidationException {
         verifyValidResult(createFile("EXT127_success_intCatch.bpmn"));
     }
 

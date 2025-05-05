@@ -9,7 +9,7 @@ import org.jdom2.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Implements the second potential fix for EXT.012 violations, i.e., marking the a Condition as a "FormalExpression" */
+/** Implements the second potential fix for EXT.012 violations, i.e., marking the Condition as a "FormalExpression" */
 public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
 
     private static final Logger LOGGER =
@@ -43,7 +43,7 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
     @Override
     public boolean fixSingleViolation(Document docToFix, String xPath) {
         Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(docToFix, xPath);
-        if (!elementOptional.isPresent()) {
+        if (elementOptional.isEmpty()) {
             LOGGER.warn("Could not fix EXT.012 violation: affected Element was not found");
             return false;
         }

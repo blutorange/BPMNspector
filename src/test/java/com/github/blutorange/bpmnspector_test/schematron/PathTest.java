@@ -8,7 +8,7 @@ import java.io.File;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for testing the right resolvement of pathes
+ * Test class for testing the resolution of paths
  *
  * @author Philipp Neugebauer
  * @version 1.0

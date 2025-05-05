@@ -39,7 +39,7 @@ public class EXT151AutoFixer implements ViolationFixer {
     public boolean fixSingleViolation(Document processAsDoc, String xPath) {
         Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(processAsDoc, xPath);
 
-        if (!elementOptional.isPresent()) {
+        if (elementOptional.isEmpty()) {
             return false;
         }
 

@@ -1,7 +1,8 @@
 package com.github.blutorange.bpmnspector_test.autofix;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
@@ -70,7 +71,7 @@ public class EXT150AutoFixerTest {
     }
 
     @Test
-    public void fixAddsParallelGatewayToExistingStartEventAndConnectsUnconncetedSubProcess()
+    public void fixAddsParallelGatewayToExistingStartEventAndConnectsUnconnectedSubProcess()
             throws IOException, ValidationException, JDOMException {
         Document doc = DocHandlingHelper.loadResourceAsDoc("150/fail_normal_sequence_flow_missing_2.bpmn");
         testViolation = new Violation(
@@ -93,7 +94,7 @@ public class EXT150AutoFixerTest {
     }
 
     @Test
-    public void fixAddsParallelGatewayToExistingStartEventAndConnectsToUnconncetedTask()
+    public void fixAddsParallelGatewayToExistingStartEventAndConnectsToUnconnectedTask()
             throws IOException, ValidationException, JDOMException {
         Document doc = DocHandlingHelper.loadResourceAsDoc("150/fail_normal_sequence_flow_missing_1.bpmn");
         testViolation = new Violation(
@@ -116,7 +117,7 @@ public class EXT150AutoFixerTest {
     }
 
     @Test
-    public void fixAddsParallelGatewayToExistingStartEventAndConnectsToUnconncetedTaskInSubProcess()
+    public void fixAddsParallelGatewayToExistingStartEventAndConnectsToUnconnectedTaskInSubProcess()
             throws IOException, ValidationException, JDOMException {
         Document doc = DocHandlingHelper.loadResourceAsDoc("150/fail_sequence_flow_in_sub_process_missing_1.bpmn");
         testViolation = new Violation(

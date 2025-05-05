@@ -196,7 +196,7 @@ public class BPMNReferenceValidator implements BpmnProcessValidator {
         }
         // log violations
         if (!validationResult.isValid()) {
-            var violationListLogText = new StringBuilder("VIOLATIONSLIST:").append(System.lineSeparator());
+            var violationListLogText = new StringBuilder("VIOLATIONS_LIST:").append(System.lineSeparator());
             for (Violation violation : validationResult.getViolations()) {
                 violationListLogText.append(violation.getMessage()).append(System.lineSeparator());
             }

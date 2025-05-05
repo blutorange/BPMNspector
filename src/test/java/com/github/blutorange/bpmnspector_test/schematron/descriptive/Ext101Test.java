@@ -23,7 +23,7 @@ public class Ext101Test extends TestCase {
                 9);
         assertViolation(
                 result.getViolations().get(1),
-                "A startEvent must have a outgoing subelement",
+                "A startEvent must have an outgoing sub element",
                 "/bpmn:definitions/bpmn:process/bpmn:startEvent",
                 4);
     }

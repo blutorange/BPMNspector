@@ -42,7 +42,7 @@ public class EXT097AutoFixer implements ViolationFixer {
     public boolean fixSingleViolation(Document processAsDoc, String xPath) {
         Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(processAsDoc, xPath);
 
-        if (!elementOptional.isPresent()) {
+        if (elementOptional.isEmpty()) {
             return false;
         }
 
@@ -64,11 +64,11 @@ public class EXT097AutoFixer implements ViolationFixer {
                 .collect(Collectors.toList());
 
         if (unconnectedElems.size() == 1) {
-            // if exactly one unconncected Element is found, it can be directly connected to the StartEvent
+            // if exactly one unconnected Element is found, it can be directly connected to the StartEvent
             bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, newStart, unconnectedElems.get(0));
         } else if (unconnectedElems.size() > 1) {
             // if more than one unconnected Element is found, a parallel Gateway is needed
-            // add new ParallelGateway to parent
+            // to add new ParallelGateway to parent
             Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE_STRING);
             parallelGateway.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
             parallelGateway.setAttribute("name", "Auto-created Gateway");

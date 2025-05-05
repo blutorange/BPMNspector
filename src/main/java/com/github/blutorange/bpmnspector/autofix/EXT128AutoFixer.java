@@ -37,7 +37,7 @@ public class EXT128AutoFixer implements ViolationFixer {
     @Override
     public boolean fixSingleViolation(Document processAsDoc, String xPath) {
         Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(processAsDoc, xPath);
-        if (!elementOptional.isPresent()) {
+        if (elementOptional.isEmpty()) {
             LOGGER.warn("Could not fix EXT.128 violation: affected MessageEventDefinition was not found");
             return false;
         }
@@ -45,7 +45,7 @@ public class EXT128AutoFixer implements ViolationFixer {
 
         Optional<Element> optionalParent = bpmnXPathHelper.findParentOfElementByNameRecursively(elem, "process");
 
-        if (!optionalParent.isPresent()) {
+        if (optionalParent.isEmpty()) {
             return false;
         }
         Element processElem = optionalParent.get();

@@ -4,14 +4,14 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
 /**
- * Customized LSInput in order to provide access to an resolved resource.
+ * Customized LSInput in order to provide access to a resolved resource.
  *
  * <p>Needed for &lt;xs:include&gt;-resolution when generating a {@link javax.xml.validation.Schema} when using
  * getClass().getResourceAsStream("path/to/file.xsd")
@@ -45,170 +45,86 @@ public class Input implements LSInput {
         this.inputStream = new BufferedInputStream(input);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getPublicId()
-     */
     @Override
     public String getPublicId() {
         return publicId;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setPublicId(java.lang.String)
-     */
     @Override
     public void setPublicId(String publicId) {
         this.publicId = publicId;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getBaseURI()
-     */
     @Override
     public String getBaseURI() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getByteStream()
-     */
     @Override
     public InputStream getByteStream() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getCertifiedText()
-     */
     @Override
-    public boolean getCertifiedText() { // NOPMD
+    public boolean getCertifiedText() {
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getCharacterStream()
-     */
     @Override
     public Reader getCharacterStream() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getEncoding()
-     */
     @Override
     public String getEncoding() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getStringData()
-     */
     @Override
     public String getStringData() {
-        synchronized (inputStream) {
-            try {
-                var input = new byte[inputStream.available()];
-                inputStream.read(input);
-                return new String(input, Charset.forName("UTF-8"));
-            } catch (IOException e) {
-                LOGGER.debug("Input stream couldn't be converted to String. Cause: {}", e);
-                return null;
-            }
+        try {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            LOGGER.debug("Input stream couldn't be converted to String.", e);
+            return null;
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setBaseURI(java.lang.String)
-     */
     @Override
     public void setBaseURI(String baseURI) {
         // not used
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setByteStream(java.io.InputStream)
-     */
     @Override
     public void setByteStream(InputStream byteStream) {
         // not used
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setCertifiedText(boolean)
-     */
     @Override
     public void setCertifiedText(boolean certifiedText) {
         // not used
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setCharacterStream(java.io.Reader)
-     */
     @Override
     public void setCharacterStream(Reader characterStream) {
         // not used
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setEncoding(java.lang.String)
-     */
     @Override
     public void setEncoding(String encoding) {
         // not used
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setStringData(java.lang.String)
-     */
     @Override
     public void setStringData(String stringData) {
         // not used
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#getSystemId()
-     */
     @Override
     public String getSystemId() {
         return systemId;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.w3c.dom.ls.LSInput#setSystemId(java.lang.String)
-     */
     @Override
     public void setSystemId(String systemId) {
         this.systemId = systemId;

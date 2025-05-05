@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class is resposible for the check of the EXT.002 constraint
+ * This class is responsible for the check of the EXT.002 constraint
  *
  * @author Philipp Neugebauer
  * @author Matthias Geiger
@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 class Ext002Checker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ext002Checker.class.getSimpleName());
-    private static final String CONSTRAINTNUMBER = "EXT.002";
+    private static final String CONSTRAINT_NUMBER = "EXT.002";
 
     private final XPathFactory xPathFactory = XPathFactory.instance();
 
@@ -79,15 +79,15 @@ class Ext002Checker {
             String file2XPath = XPathHelper.getAbsolutePath(secondAttrib);
 
             Location location = new Location(firstResource, new LocationCoordinate(file1Line, file1Column), file1XPath);
-            Violation violation = new Violation(location, "Resources have id duplicates", CONSTRAINTNUMBER);
+            Violation violation = new Violation(location, "Resources have id duplicates", CONSTRAINT_NUMBER);
             validationResult.addViolation(violation);
 
             Location location2 =
                     new Location(secondResource, new LocationCoordinate(file2Line, file2Column), file2XPath);
-            Violation violation2 = new Violation(location2, "Resources have id duplicates", CONSTRAINTNUMBER);
+            Violation violation2 = new Violation(location2, "Resources have id duplicates", CONSTRAINT_NUMBER);
             validationResult.addViolation(violation2);
 
-            LOGGER.debug("violation of constraint {} found.", CONSTRAINTNUMBER);
+            LOGGER.debug("violation of constraint {} found.", CONSTRAINT_NUMBER);
         } catch (ValidationException e) {
             throw new IllegalArgumentException("Invalid baseURI detected.", e);
         }

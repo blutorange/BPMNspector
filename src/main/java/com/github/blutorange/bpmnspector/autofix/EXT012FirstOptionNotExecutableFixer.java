@@ -41,7 +41,7 @@ public class EXT012FirstOptionNotExecutableFixer implements ViolationFixer {
     public boolean fixSingleViolation(Document docToFix, String xPath) {
 
         Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(docToFix, xPath);
-        if (!elementOptional.isPresent()) {
+        if (elementOptional.isEmpty()) {
             LOGGER.warn("Could not fix EXT.012 violation: affected Element was not found");
             return false;
         }
@@ -49,12 +49,12 @@ public class EXT012FirstOptionNotExecutableFixer implements ViolationFixer {
 
         Optional<Element> optionalParent = bpmnXPathHelper.findParentOfElementByNameRecursively(elem, "process");
 
-        if (!optionalParent.isPresent()) {
+        if (optionalParent.isEmpty()) {
             return false;
         }
         Element processElem = optionalParent.get();
         processElem.setAttribute("isExecutable", "false");
-        LOGGER.info("Set isExecutable attribute of element " + processElem + " to false");
+        LOGGER.debug("Set isExecutable attribute of element {} to false", processElem);
         return true;
     }
 

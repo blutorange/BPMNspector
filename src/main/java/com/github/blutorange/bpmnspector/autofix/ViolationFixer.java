@@ -31,7 +31,7 @@ public interface ViolationFixer {
                                 getConstraintId(),
                                 singleViolation.getConstraint());
             }
-            if (!singleViolation.getLocation().getXpath().isPresent()) {
+            if (singleViolation.getLocation().getXpath().isEmpty()) {
                 getLogger()
                         .warn("Could not fix {} violation {}: no XPath present.", getConstraintId(), singleViolation);
                 continue;

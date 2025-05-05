@@ -289,12 +289,12 @@
 
     <iso:pattern name="EXT.098">
         <iso:rule context="bpmn:startEvent[parent::bpmn:process]">
-            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
-            <iso:assert test="not(./bpmn:escalationEventDefinition or ./bpmn:eventDefinitionRef = $escalationEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
-            <iso:assert test="not(./bpmn:errorEventDefinition or ./bpmn:eventDefinitionRef = $errorEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
-            <iso:assert test="not(./bpmn:cancelEventDefinition or ./bpmn:eventDefinitionRef = $cancelEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
-            <iso:assert test="not(./bpmn:compensateEventDefinition or ./bpmn:eventDefinitionRef = $compensateEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
-            <iso:assert test="not(./bpmn:terminateEventDefinition or ./bpmn:eventDefinitionRef = $terminateEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefinitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:escalationEventDefinition or ./bpmn:eventDefinitionRef = $escalationEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefinitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:errorEventDefinition or ./bpmn:eventDefinitionRef = $errorEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefinitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:cancelEventDefinition or ./bpmn:eventDefinitionRef = $cancelEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefinitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:compensateEventDefinition or ./bpmn:eventDefinitionRef = $compensateEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefinitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:terminateEventDefinition or ./bpmn:eventDefinitionRef = $terminateEventDefinitions/@id)" diagnostics="id">EXT.098|Only messageEventDefinitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
         </iso:rule>
     </iso:pattern>
 
@@ -318,7 +318,7 @@
 
     <iso:pattern name="EXT.101">
         <iso:rule context="bpmn:startEvent">
-            <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.101|A startEvent must have a outgoing subelement</iso:assert>
+            <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.101|A startEvent must have an outgoing sub element</iso:assert>
         </iso:rule>
     </iso:pattern>
 
@@ -391,9 +391,9 @@
 
     <iso:pattern name="EXT.146">
         <iso:rule context="bpmn:endEvent">
-            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)" diagnostics="id">EXT.146|Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
-            <iso:assert test="not(./bpmn:conditionalEventDefinition or ./bpmn:eventDefinitionRef = $conditionalEventDefinitions/@id)" diagnostics="id">EXT.146|Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
-            <iso:assert test="not(./bpmn:timerEventDefinition or ./bpmn:eventDefinitionRef = $timerEventDefinitions/@id)" diagnostics="id">EXT.146|Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
+            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)" diagnostics="id">EXT.146|Only messageEventDefinitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
+            <iso:assert test="not(./bpmn:conditionalEventDefinition or ./bpmn:eventDefinitionRef = $conditionalEventDefinitions/@id)" diagnostics="id">EXT.146|Only messageEventDefinitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
+            <iso:assert test="not(./bpmn:timerEventDefinition or ./bpmn:eventDefinitionRef = $timerEventDefinitions/@id)" diagnostics="id">EXT.146|Only messageEventDefinitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
         </iso:rule>
     </iso:pattern>
 

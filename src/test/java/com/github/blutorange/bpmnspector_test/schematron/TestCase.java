@@ -82,7 +82,12 @@ public class TestCase {
         assertViolation(v, message, xpath, line);
         assertEquals(
                 fileName,
-                v.getLocation().getResource().getPath().get().getFileName().toString());
+                v.getLocation()
+                        .getResource()
+                        .getPath()
+                        .orElseThrow()
+                        .getFileName()
+                        .toString());
     }
 
     protected void assertURLViolation(Violation v, String message, String url, String xpath, int line) {
@@ -101,10 +106,10 @@ public class TestCase {
     }
 
     protected String getErrorMessage() {
-        throw new UnsupportedOperationException("must be overriden by every child class!");
+        throw new UnsupportedOperationException("must be overridden by every child class!");
     }
 
     protected String getExtNumber() {
-        throw new UnsupportedOperationException("must be overriden by every child class!");
+        throw new UnsupportedOperationException("must be overridden by every child class!");
     }
 }

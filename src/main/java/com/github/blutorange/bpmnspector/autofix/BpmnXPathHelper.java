@@ -53,10 +53,10 @@ public class BpmnXPathHelper {
                 Namespace.getNamespace("bpmn", "http://www.omg.org/spec/BPMN/20100524/MODEL"));
         List<Element> foundElements = expression.evaluate(document);
         if (foundElements.isEmpty()) {
-            LOGGER.warn("XPath expression '" + xPathExp + "' returned an empty list.");
+            LOGGER.warn("XPath expression '{}' returned an empty list.", xPathExp);
             return Optional.empty();
         } else if (foundElements.size() > 1) {
-            LOGGER.warn("XPath expression '" + xPathExp + "' returned more than one hit - return the first one.");
+            LOGGER.warn("XPath expression '{}' returned more than one hit - return the first one.", xPathExp);
         }
         return Optional.of(foundElements.get(0));
     }
@@ -86,7 +86,7 @@ public class BpmnXPathHelper {
     }
 
     public String createRandomUniqueId() {
-        return "id_" + UUID.randomUUID().toString();
+        return "id_" + UUID.randomUUID();
     }
 
     public List<Element> determineFlowNodesWithNeededIncomingFlow(Element baseElem) {
@@ -113,27 +113,27 @@ public class BpmnXPathHelper {
                 .collect(Collectors.toList());
     }
 
-    public void insertOutgoingElementToFlowNode(Element flownode, String outgoingIDREF) {
+    public void insertOutgoingElementToFlowNode(Element flowNode, String outgoingIDREF) {
         Element newSubElem = new Element("outgoing", ConstantHelper.BPMN_NAMESPACE_STRING);
         newSubElem.setText(outgoingIDREF);
 
-        int index = determineIndexForElementInsertion(flownode);
-        if (index > flownode.getChildren().size()) {
-            flownode.addContent(newSubElem);
+        int index = determineIndexForElementInsertion(flowNode);
+        if (index > flowNode.getChildren().size()) {
+            flowNode.addContent(newSubElem);
         } else {
-            flownode.addContent(index, newSubElem);
+            flowNode.addContent(index, newSubElem);
         }
     }
 
-    public void insertIncomingElementToFlowNode(Element flownode, String incomingIDREF) {
+    public void insertIncomingElementToFlowNode(Element flowNode, String incomingIDREF) {
         Element newSubElem = new Element("incoming", ConstantHelper.BPMN_NAMESPACE_STRING);
         newSubElem.setText(incomingIDREF);
 
-        int index = determineIndexForElementInsertion(flownode);
-        if (index > flownode.getChildren().size()) {
-            flownode.addContent(newSubElem);
+        int index = determineIndexForElementInsertion(flowNode);
+        if (index > flowNode.getChildren().size()) {
+            flowNode.addContent(newSubElem);
         } else {
-            flownode.addContent(index, newSubElem);
+            flowNode.addContent(index, newSubElem);
         }
     }
 

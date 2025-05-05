@@ -42,7 +42,7 @@ public class ConstraintFixer {
                         .isPresent())
                 .map(e -> fixerRepository
                         .getFixerForConstraintAndStrategy(e.getKey().getConstraint(), e.getValue())
-                        .get())
+                        .orElseThrow())
                 .collect(Collectors.toList());
 
         Map<ViolationFixer, List<Violation>> fixerViolationMap = new HashMap<>();

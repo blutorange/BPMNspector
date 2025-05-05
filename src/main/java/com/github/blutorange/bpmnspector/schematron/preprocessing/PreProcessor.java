@@ -72,7 +72,7 @@ public class PreProcessor {
 
         // Preprocessing can be skipped if no files are imported and there is no Prefix used for the targetNamespace
         if (process.getChildren().isEmpty()
-                && !JDOMUtils.getUsedPrefixForTargetNamespace(cloneOfDoc).isPresent()) {
+                && JDOMUtils.getUsedPrefixForTargetNamespace(cloneOfDoc).isEmpty()) {
             LOGGER.debug("Skipping preprocessing.");
             return cloneOfDoc;
         }

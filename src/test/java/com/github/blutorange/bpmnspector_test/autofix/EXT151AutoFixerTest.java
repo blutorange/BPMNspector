@@ -71,7 +71,7 @@ public class EXT151AutoFixerTest {
     }
 
     @Test
-    public void fixAddsAdditionalEndElementToUnconncetedSubProcess()
+    public void fixAddsAdditionalEndElementToUnconnectedSubProcess()
             throws IOException, ValidationException, JDOMException {
         Document doc = DocHandlingHelper.loadResourceAsDoc("151/fail_normal_sequence_flow_missing_1.bpmn");
         testViolation = new Violation(
@@ -94,7 +94,7 @@ public class EXT151AutoFixerTest {
     }
 
     @Test
-    public void fixAddsAdditionalEndElementToUnconncetedTask() throws IOException, ValidationException, JDOMException {
+    public void fixAddsAdditionalEndElementToUnconnectedTask() throws IOException, ValidationException, JDOMException {
         Document doc = DocHandlingHelper.loadResourceAsDoc("151/fail_normal_sequence_flow_missing_2.bpmn");
         testViolation = new Violation(
                 new Location(
@@ -116,7 +116,7 @@ public class EXT151AutoFixerTest {
     }
 
     @Test
-    public void fixAddsAdditionalEndElementToUnconncetedTaskInSubProcess()
+    public void fixAddsAdditionalEndElementToUnconnectedTaskInSubProcess()
             throws IOException, ValidationException, JDOMException {
         Document doc = DocHandlingHelper.loadResourceAsDoc("151/fail_sequence_flow_in_sub_process_missing_1.bpmn");
         testViolation = new Violation(

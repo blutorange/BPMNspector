@@ -15,13 +15,13 @@ import org.junit.jupiter.api.Test;
  */
 public class Ext056Test extends TestCase {
 
-    private static final String ERRORMESSAGETARGET =
+    private static final String ERROR_MESSAGE_TARGET =
             "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";
-    private static final String ERRORMESSAGECOREGRAPHY = "A SubProcess must not contain Choreography Activities";
-    private static final String ERRORMESSAGESOURCE =
+    private static final String ERROR_MESSAGE_CHOREOGRAPHY = "A SubProcess must not contain Choreography Activities";
+    private static final String ERROR_MESSAGE_SOURCE =
             "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source";
-    private static final String XPATHSTRINGTARGET = "/bpmn:definitions/bpmn:process/bpmn:%s/bpmn:%s";
-    private static final String XPATHSTRINGSOURCE = "/bpmn:definitions/bpmn:process/bpmn:%s/bpmn:%s";
+    private static final String XPATH_STRING_TARGET = "/bpmn:definitions/bpmn:process/bpmn:%s/bpmn:%s";
+    private static final String XPATH_STRING_SOURCE = "/bpmn:definitions/bpmn:process/bpmn:%s/bpmn:%s";
 
     @Test
     public void testConstraintCallChoreographyFail() throws ValidationException {
@@ -43,21 +43,21 @@ public class Ext056Test extends TestCase {
         assertTests("fail_sub_choreography.bpmn", "subProcess", "subChoreography");
     }
 
-    private void assertTests(String fileName, String processType, String chorType) throws ValidationException {
+    private void assertTests(String fileName, String processType, String choreographyType) throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
         assertViolation(
                 result.getViolations().get(0),
-                ERRORMESSAGESOURCE,
-                format(XPATHSTRINGSOURCE, processType, chorType),
+                ERROR_MESSAGE_SOURCE,
+                format(XPATH_STRING_SOURCE, processType, choreographyType),
                 11);
         assertViolation(
                 result.getViolations().get(1),
-                ERRORMESSAGETARGET,
-                format(XPATHSTRINGTARGET, processType, chorType),
+                ERROR_MESSAGE_TARGET,
+                format(XPATH_STRING_TARGET, processType, choreographyType),
                 11);
         assertViolation(
                 result.getViolations().get(2),
-                ERRORMESSAGECOREGRAPHY,
+                ERROR_MESSAGE_CHOREOGRAPHY,
                 format("/bpmn:definitions/bpmn:process/bpmn:%s", processType),
                 4);
     }

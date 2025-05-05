@@ -13,21 +13,21 @@ import org.junit.jupiter.api.Test;
  */
 public class Ext150Test extends TestCase {
 
-    private static final String ERRORMESSAGEONE =
+    private static final String ERROR_MESSAGE_ONE =
             "If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow";
 
     @Test
     public void testConstraintNormalSequenceFlowFail1() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_1.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), ERRORMESSAGEONE, "/bpmn:definitions/bpmn:process/bpmn:task[2]", 68);
+                result.getViolations().get(0), ERROR_MESSAGE_ONE, "/bpmn:definitions/bpmn:process/bpmn:task[2]", 68);
     }
 
     @Test
     public void testConstraintNormalSequenceFlowFail2() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_2.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), ERRORMESSAGEONE, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 14);
+                result.getViolations().get(0), ERROR_MESSAGE_ONE, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 14);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class Ext150Test extends TestCase {
                 verifyInvalidResult(createFile("fail_sequence_flow_in_sub_process_missing_1.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                ERRORMESSAGEONE,
+                ERROR_MESSAGE_ONE,
                 "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:serviceTask",
                 17);
     }

@@ -24,7 +24,7 @@
     <!-- activities as direct children of context -->
     <let name="activities" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask | bpmn:callActivity | bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>
 
-    <!-- chorography activities as direct children of context -->
+    <!-- choreography activities as direct children of context -->
     <let name="chorActivities" value="bpmn:choreographyTask | bpmn:callChoreography | bpmn:subChoreography" />
     <let name="callActivities" value="//bpmn:callActivity"/>
 
@@ -268,7 +268,7 @@
     <iso:pattern name="EXT.112">
         <iso:rule context="bpmn:boundaryEvent[bpmn:incoming]">
             <iso:assert test="false()" diagnostics="id">
-                EXT.112|A boundary event must not be target of a Sequence Flow.
+                EXT.112|A boundary event must not be the target of a Sequence Flow.
             </iso:assert>
         </iso:rule>
     </iso:pattern>

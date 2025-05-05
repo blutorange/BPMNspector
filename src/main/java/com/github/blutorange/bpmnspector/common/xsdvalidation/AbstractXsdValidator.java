@@ -13,7 +13,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.xml.sax.SAXException;
 
 /**
- * Super class for all validators to avoid code redundance
+ * Super class for all validators to avoid code redundancy
  *
  * @author Philipp Neugebauer
  * @author Matthias Geiger
@@ -47,7 +47,7 @@ public abstract class AbstractXsdValidator {
             throws IOException, SAXException, ValidationException;
 
     /**
-     * The method simplifies the search for a resource and returns the streamsource with the searched source
+     * The method simplifies the search for a resource and returns the stream source with the searched source
      *
      * @param resourceName the name of the resource file
      * @return the streamsource of the file to be load
