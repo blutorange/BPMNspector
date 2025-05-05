@@ -10,5 +10,6 @@ validator.log
 *.iml
 *.ipr
 *.iws
-.idea/*
+.idea
 reports/
+target

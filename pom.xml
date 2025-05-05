@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.blutorange</groupId>
+  <artifactId>bpmnspector</artifactId>
+  <version>1.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>BPMNspector</name>
+  <description>Static analysis for BPMN 2.0 process models</description>
+  <url>http://github.com/blutorange/bpmnspector</url>
+
+  <organization>
+    <name>Andre Wachsmuth</name>
+    <url>http://github.com/blutorange</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License v3.0</name>
+      <url>https://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://github.com/blutorange/bpmnspector.git</connection>
+    <developerConnection>scm:git:git@github.com:blutorange/bpmnspector.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/blutorange/bpmnspector</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/blutorange/bpmnspector/issues</url>
+  </issueManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <site>
+      <id>github</id>
+      <url>scm:git:git@github.com:blutorange/bpmnspector.git</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <!-- General -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <github.global.server>github</github.global.server>
+
+    <!-- Dependencies -->
+    <ph-schematron.version>7.1.3</ph-schematron.version>
+    <commons-io.version>2.19.0</commons-io.version>
+    <jdom2.version>2.0.6.1</jdom2.version>
+    <jaxen.version>2.0.0</jaxen.version>
+
+    <!-- Transitive conflicts -->
+    <ph-commons.version>11.1.3</ph-commons.version>
+    <saxon.version>12.4</saxon.version>
+
+    <!-- Plugins -->
+    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+    <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+    <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+    <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+    <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
+    <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+    <maven-scm-publish-plugin.version>3.3.0</maven-scm-publish-plugin.version>
+    <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
+    <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+
+    <git-build-hook-maven-plugin.version>3.5.0</git-build-hook-maven-plugin.version>
+    <nexus-staging.version>1.7.0</nexus-staging.version>
+    <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+    <site-maven-plugin.version>0.12</site-maven-plugin.version>
+    <spotless.version>2.44.3</spotless.version>
+    <clean-that.version>2.22</clean-that.version>
+
+    <!-- Testing -->
+    <junit.version>5.12.0</junit.version>
+    <log4j.version>2.24.3</log4j.version>
+    <slf4j.version>2.0.17</slf4j.version>
+    <logback-classic.version>1.5.17</logback-classic.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <groupId>com.github.blutorange.ph_commons</groupId>
+        <artifactId>ph-jaxb</artifactId>
+        <version>${ph-commons.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.helger.commons</groupId>
+        <artifactId>ph-commons</artifactId>
+        <version>${ph-commons.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.schematron</groupId>
+        <artifactId>ph-schematron-pure</artifactId>
+        <version>${ph-schematron.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.helger.commons</groupId>
+            <artifactId>ph-jaxb</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>jaxen</groupId>
+        <artifactId>jaxen</artifactId>
+        <version>${jaxen.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>net.sf.saxon</groupId>
+        <artifactId>Saxon-HE</artifactId>
+        <version>${saxon.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j2-impl</artifactId>
+        <version>${log4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jdom</groupId>
+        <artifactId>jdom2</artifactId>
+        <version>${jdom2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- Test -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Provided -->
+
+    <!-- Compile -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.helger.schematron</groupId>
+      <artifactId>ph-schematron-pure</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.blutorange.ph_commons</groupId>
+      <artifactId>ph-jaxb</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven-javadoc-plugin.version}</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+            <source>11</source>
+            <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-report-plugin</artifactId>
+          <version>${maven-plugin-report-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${maven-project-info-reports-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless.version}</version>
+        <configuration>
+          <upToDateChecking>
+            <enabled>true</enabled>
+            <indexFile>${project.basedir}/.spotless-index</indexFile>
+          </upToDateChecking>
+          <java>
+            <includes>
+              <include>src/main/java/**/*.java</include>
+              <include>src/test/java/**/*.java</include>
+            </includes>
+            <excludes>
+              <exclude>**/target/**</exclude>
+            </excludes>
+            <cleanthat>
+              <version>${clean-that.version}</version>
+              <includeDraft>false</includeDraft>
+              <sourceJdk>11</sourceJdk>
+              <mutators>
+                <mutator>SafeAndConsensual</mutator>
+                <mutator>AvoidUncheckedExceptionsInSignatures</mutator>
+                <mutator>EmptyControlStatement</mutator>
+                <mutator>LambdaIsMethodReference</mutator>
+                <mutator>LocalVariableTypeInference</mutator>
+                <mutator>PrimitiveWrapperInstantiation</mutator>
+                <mutator>UnnecessarySemicolon</mutator>
+                <mutator>UseUnderscoresInNumericLiterals</mutator>
+                <mutator>UnnecessarySemicolon</mutator>
+                <mutator>RemoveExplicitCallToSuper</mutator>
+                <mutator>ObjectEqualsForPrimitives</mutator>
+                <mutator>LambdaReturnsSingleStatement</mutator>
+              </mutators>
+            </cleanthat>
+            <palantirJavaFormat>
+              <version>2.50.0</version>
+              <style>PALANTIR</style>
+              <formatJavadoc>true</formatJavadoc>
+            </palantirJavaFormat>
+            <importOrder/>
+            <removeUnusedImports/>
+            <formatAnnotations/>
+          </java>
+          <pom>
+            <includes>
+              <include>pom.xml</include>
+            </includes>
+            <sortPom>
+              <encoding>UTF-8</encoding>
+              <lineSeparator>${line.separator}</lineSeparator>
+              <expandEmptyElements>false</expandEmptyElements>
+              <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
+              <keepBlankLines>true</keepBlankLines>
+              <nrOfIndentSpace>2</nrOfIndentSpace>
+              <sortDependencyManagement>groupId,artifactId</sortDependencyManagement>
+              <sortPlugins>groupId,artifactId</sortPlugins>
+            </sortPom>
+          </pom>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.rudikershaw.gitbuildhook</groupId>
+        <artifactId>git-build-hook-maven-plugin</artifactId>
+        <version>${git-build-hook-maven-plugin.version}</version>
+        <configuration>
+          <installHooks>
+            <pre-commit>${project.basedir}/hooks/pre-commit.sh</pre-commit>
+          </installHooks>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>initialize</goal>
+              <goal>install</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <release>11</release>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <dependencyConvergence>
+                  <excludedScopes/>
+                </dependencyConvergence>
+                <requireUpperBoundDeps/>
+                <requireMavenVersion>
+                  <version>[3.8,)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>[11,)</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <version>${maven-scm-publish-plugin.version}</version>
+        <configuration>
+          <scmBranch>gh-pages</scmBranch>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>${maven-site-plugin.version}</version>
+        <configuration>
+          <locales>default</locales>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <!-- see: https://stackoverflow.com/questions/53010200/maven-surefire-could-not-find-forkedbooter-class -->
+          <argLine>-Xmx1024m -Xms1024m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+        </configuration>
+      </plugin>
+
+      <!-- Release the deployment to the central repository -->
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>${central-publishing-maven-plugin.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>sonatype</publishingServerId>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-report-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>dependency-info</report>
+              <report>dependency-management</report>
+              <report>issue-management</report>
+              <report>licenses</report>
+              <report>plugin-management</report>
+              <report>plugins</report>
+              <report>team</report>
+              <report>scm</report>
+              <report>summary</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <id>site</id>
+      <build/>
+    </profile>
+
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,56 @@
+package com.github.blutorange.bpmnspector.autofix;
+
+import com.github.blutorange.bpmnspector.common.util.ConstantHelper;
+import java.util.Optional;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class EXT106RemoveInvalidTypeFixer implements ViolationFixer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EXT106RemoveInvalidTypeFixer.class.getSimpleName());
+    private static final String CONSTRAINT_ID = "EXT.106";
+    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.REMOVE;
+
+    private final BpmnXPathHelper bpmnXPathHelper = new BpmnXPathHelper();
+
+    @Override
+    public String getConstraintId() {
+        return CONSTRAINT_ID;
+    }
+
+    @Override
+    public FixingStrategy getSupportedStrategy() {
+        return SUPPORTED_STRATEGY;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Removes the invalid cancel event definition - resulting in a 'None EndEvent'";
+    }
+
+    @Override
+    public Logger getLogger() {
+        return LOGGER;
+    }
+
+    @Override
+    public boolean fixSingleViolation(Document processAsDoc, String xPath) {
+        Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(processAsDoc, xPath);
+
+        if (!elementOptional.isPresent()) {
+            return false;
+        }
+        elementOptional
+                .get()
+                .removeChild("cancelEventDefinition", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING));
+
+        return true;
+    }
+
+    public static FixerIdentifier getFixerIdentifier() {
+        return new FixerIdentifier(CONSTRAINT_ID, SUPPORTED_STRATEGY);
+    }
+}
