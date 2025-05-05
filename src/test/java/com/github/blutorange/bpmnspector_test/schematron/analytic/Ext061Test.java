@@ -18,7 +18,8 @@ public class Ext061Test extends TestCase {
     @Test
     public void testConstraintFailEmptyAdHoc() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT061_fail_empty_AdHoc.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:adHocSubProcess)[1]", 7);
+        assertViolation(
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:adHocSubProcess", 7);
     }
 
     @Test

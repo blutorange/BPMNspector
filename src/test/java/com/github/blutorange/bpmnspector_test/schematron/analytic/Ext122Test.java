@@ -22,7 +22,7 @@ public class Ext122Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateCatchEvent[bpmn:compensateEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent",
                 7);
     }
 

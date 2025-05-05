@@ -25,7 +25,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_TRUE,
-                "(//bpmn:boundaryEvent[@cancelActivity='true'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -35,7 +35,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_TRUE,
-                "(//bpmn:boundaryEvent[@cancelActivity='true'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -45,7 +45,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_TRUE,
-                "(//bpmn:boundaryEvent[@cancelActivity='true'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -55,7 +55,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
-                "(//bpmn:boundaryEvent[@cancelActivity='false'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -65,7 +65,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
-                "(//bpmn:boundaryEvent[@cancelActivity='false'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -75,7 +75,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
-                "(//bpmn:boundaryEvent[@cancelActivity='false'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -85,7 +85,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
-                "(//bpmn:boundaryEvent[@cancelActivity='false'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 
@@ -95,7 +95,7 @@ public class Ext110Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
-                "(//bpmn:boundaryEvent[@cancelActivity='false'])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent",
                 16);
     }
 

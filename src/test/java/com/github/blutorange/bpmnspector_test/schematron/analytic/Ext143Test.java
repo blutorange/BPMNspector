@@ -19,8 +19,7 @@ public class Ext143Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT143_failure.bpmn"), 2);
-        assertViolation(
-                result.getViolations().get(0), ERR_MSG, "(//bpmn:boundaryEvent[bpmn:compensateEventDefinition])[1]", 5);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent", 5);
     }
 
     @Test

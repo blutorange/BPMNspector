@@ -22,7 +22,7 @@ public class Ext123Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent/bpmn:conditionalEventDefinition",
                 7);
     }
 
@@ -32,7 +32,7 @@ public class Ext123Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent/bpmn:conditionalEventDefinition",
                 7);
     }
 

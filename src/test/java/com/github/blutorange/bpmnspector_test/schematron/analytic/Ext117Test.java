@@ -22,7 +22,7 @@ public class Ext117Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateThrowEvent[bpmn:linkEventDefinition and bpmn:outgoing])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 11);
     }
 
@@ -32,7 +32,7 @@ public class Ext117Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateCatchEvent[bpmn:linkEventDefinition and bpmn:incoming])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent",
                 19);
     }
 

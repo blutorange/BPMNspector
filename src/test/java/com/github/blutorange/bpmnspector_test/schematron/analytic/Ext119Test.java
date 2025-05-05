@@ -22,7 +22,7 @@ public class Ext119Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CATCH,
-                "(//bpmn:intermediateCatchEvent[bpmn:messageEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent",
                 10);
     }
 
@@ -32,7 +32,7 @@ public class Ext119Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CATCH,
-                "(//bpmn:intermediateCatchEvent[bpmn:messageEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent",
                 10);
     }
 
@@ -42,7 +42,7 @@ public class Ext119Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_THROW,
-                "(//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 
@@ -52,7 +52,7 @@ public class Ext119Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_THROW,
-                "(//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 

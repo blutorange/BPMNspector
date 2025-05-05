@@ -21,7 +21,7 @@ public class Ext126Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:linkEventDefinition[parent::bpmn:intermediateThrowEvent and bpmn:target])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:intermediateThrowEvent/bpmn:linkEventDefinition",
                 19);
     }
 

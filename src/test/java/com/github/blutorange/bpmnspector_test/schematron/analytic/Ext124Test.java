@@ -22,7 +22,7 @@ public class Ext124Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:linkEventDefinition[parent::bpmn:intermediateCatchEvent])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateCatchEvent/bpmn:linkEventDefinition",
                 9);
     }
 

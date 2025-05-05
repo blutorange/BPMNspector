@@ -18,7 +18,8 @@ public class Ext136Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT136_failure.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:eventBasedGateway)[1]", 4);
+        assertViolation(
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:eventBasedGateway", 4);
     }
 
     @Test

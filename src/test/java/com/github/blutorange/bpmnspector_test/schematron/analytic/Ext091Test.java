@@ -22,7 +22,7 @@ public class Ext091Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:dataInputAssociation[not(./bpmn:transformation)])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:task/bpmn:dataInputAssociation",
                 14);
     }
 

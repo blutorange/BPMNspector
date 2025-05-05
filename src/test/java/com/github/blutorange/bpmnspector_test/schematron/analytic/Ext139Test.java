@@ -20,10 +20,7 @@ public class Ext139Test extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT139_failure.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0),
-                ERR_MSG,
-                "(//bpmn:eventBasedGateway[bpmn:outgoing=//bpmn:sequenceFlow[@targetRef=//bpmn:receiveTask/@id]/@id])[1]",
-                4);
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:eventBasedGateway", 4);
     }
 
     @Override

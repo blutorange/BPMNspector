@@ -20,7 +20,7 @@ public class Ext142Test extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT142_failure.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), ERR_MSG, "(//bpmn:eventBasedGateway[@instantiate='true'])[1]", 4);
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:eventBasedGateway", 4);
     }
 
     @Test

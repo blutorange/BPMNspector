@@ -23,8 +23,7 @@ public class Ext149Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or "
-                        + "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 
@@ -34,8 +33,7 @@ public class Ext149Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or "
-                        + "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 
@@ -45,8 +43,7 @@ public class Ext149Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or"
-                        + " bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 
@@ -56,8 +53,7 @@ public class Ext149Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or "
-                        + "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 
@@ -67,8 +63,7 @@ public class Ext149Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or "
-                        + "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent",
                 7);
     }
 

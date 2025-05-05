@@ -18,7 +18,8 @@ public class Ext112Test extends TestCase {
     @Test
     public void testConstraintFailIncomingSeqFlow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT112_failure_incomingSeqFlow.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:boundaryEvent[bpmn:incoming])[1]", 23);
+        assertViolation(
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:boundaryEvent", 23);
     }
 
     @Override

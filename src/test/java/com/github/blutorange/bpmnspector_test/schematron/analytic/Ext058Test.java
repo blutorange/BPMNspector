@@ -18,13 +18,13 @@ public class Ext058Test extends TestCase {
     @Test
     public void testConstraintFailTwoStartEvents() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT058_fail_twoStartEvents.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:subProcess[@triggeredByEvent='true'])[1]", 27);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 27);
     }
 
     @Test
     public void testConstraintFailNoStartEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT058_fail_noStartEvent.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), ERR_MSG, "(//bpmn:subProcess[@triggeredByEvent='true'])[1]", 27);
+        assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 27);
     }
 
     @Override

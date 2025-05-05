@@ -20,7 +20,7 @@ public class Ext137Test extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT137_failure.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), ERR_MSG, "(/bpmn:definitions/bpmn:process/bpmn:sequenceFlow)[2]", 18);
+                result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[2]", 18);
     }
 
     @Override
