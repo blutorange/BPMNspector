@@ -70,7 +70,10 @@
 
     <!-- Plugins -->
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
+    <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+    <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
     <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
@@ -79,14 +82,14 @@
     <maven-scm-publish-plugin.version>3.3.0</maven-scm-publish-plugin.version>
     <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <maven-surefire-junit5-tree-reporter.version>1.4.0</maven-surefire-junit5-tree-reporter.version>
 
     <git-build-hook-maven-plugin.version>3.5.0</git-build-hook-maven-plugin.version>
     <nexus-staging.version>1.7.0</nexus-staging.version>
     <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
     <site-maven-plugin.version>0.12</site-maven-plugin.version>
-    <spotless.version>2.44.3</spotless.version>
+    <spotless.version>2.44.4</spotless.version>
     <clean-that.version>2.22</clean-that.version>
 
     <!-- Testing -->
@@ -224,6 +227,60 @@
   <build>
     <pluginManagement>
       <plugins>
+
+        <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>${spotless.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.rudikershaw.gitbuildhook</groupId>
+          <artifactId>git-build-hook-maven-plugin</artifactId>
+          <version>${git-build-hook-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${maven-gpg-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven-install-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin.version}</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -240,6 +297,42 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${maven-project-info-reports-plugin.version}</version>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>${maven-scm-publish-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>${maven-site-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${maven-source-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${central-publishing-maven-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -247,7 +340,6 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>${spotless.version}</version>
         <configuration>
           <upToDateChecking>
             <enabled>true</enabled>
@@ -310,7 +402,6 @@
       <plugin>
         <groupId>com.rudikershaw.gitbuildhook</groupId>
         <artifactId>git-build-hook-maven-plugin</artifactId>
-        <version>${git-build-hook-maven-plugin.version}</version>
         <configuration>
           <installHooks>
             <pre-commit>${project.basedir}/hooks/pre-commit.sh</pre-commit>
@@ -326,10 +417,10 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <release>11</release>
@@ -339,10 +430,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>${maven-enforcer-plugin.version}</version>
         <executions>
           <execution>
-            <id>enforce-versions</id>
+            <id>default-cli</id>
             <goals>
               <goal>enforce</goal>
             </goals>
@@ -352,6 +442,7 @@
                   <excludedScopes/>
                 </dependencyConvergence>
                 <requireUpperBoundDeps/>
+                <requirePluginVersions/>
                 <requireMavenVersion>
                   <version>[3.8,)</version>
                 </requireMavenVersion>
@@ -367,7 +458,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin.version}</version>
         <configuration>
           <archive>
             <manifest>
@@ -380,7 +470,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven-resources-plugin.version}</version>
         <configuration>
           <encoding>UTF-8</encoding>
         </configuration>
@@ -389,7 +478,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-publish-plugin</artifactId>
-        <version>${maven-scm-publish-plugin.version}</version>
         <configuration>
           <scmBranch>gh-pages</scmBranch>
         </configuration>
@@ -398,7 +486,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>${maven-site-plugin.version}</version>
         <configuration>
           <locales>default</locales>
         </configuration>
@@ -407,7 +494,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <useModulePath>true</useModulePath>
           <reportFormat>plain</reportFormat>
@@ -440,7 +526,6 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <version>${central-publishing-maven-plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
           <publishingServerId>sonatype</publishingServerId>
@@ -492,7 +577,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven-gpg-plugin.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -520,7 +604,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
-            <version>${maven-source-plugin.version}</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
