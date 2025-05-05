@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +17,13 @@ public class Ext057Test extends TestCase {
 
     @Test
     public void testConstraintFailInvalidIncoming() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT057_fail_incoming_seqFlow.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT057_fail_incoming_seqFlow.bpmn"), 2);
         assertViolation(result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 30);
     }
 
     @Test
     public void testConstraintFailInvalidOutgoing() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT057_fail_outgoing_seqFlow.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT057_fail_outgoing_seqFlow.bpmn"), 2);
         assertViolation(result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 30);
     }
 

@@ -4,7 +4,7 @@ import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.Resource;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public abstract class AbstractXsdValidator {
      * @throws SAXException when validation process fails somehow
      * @throws ValidationException thrown if checked file is not well-formed or does not have a valid encoding
      */
-    public abstract void validateAgainstXsd(File xmlFile, ValidationResult validationResult)
+    public abstract void validateAgainstXsd(File xmlFile, ValidationResultBuilder validationResult)
             throws IOException, SAXException, ValidationException;
 
     /**
@@ -43,7 +43,8 @@ public abstract class AbstractXsdValidator {
      * @throws SAXException when validation process fails somehow
      * @throws ValidationException thrown if checked file is not well-formed or does not have a valid encoding
      */
-    public abstract void validateAgainstXsd(InputStream stream, Resource resource, ValidationResult validationResult)
+    public abstract void validateAgainstXsd(
+            InputStream stream, Resource resource, ValidationResultBuilder validationResult)
             throws IOException, SAXException, ValidationException;
 
     /**

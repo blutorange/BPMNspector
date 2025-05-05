@@ -1,8 +1,8 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -20,31 +20,31 @@ public class Ext146Test extends TestCase {
 
     @Test
     public void testConstraintLinkFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_link.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_link.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintTimerFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_timer.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_timer.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintTimerRefFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_timer_ref.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_timer_ref.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 8);
     }
 
     @Test
     public void testConstraintMultipleFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_multiple.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_multiple.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintConditionalFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_conditional.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_conditional.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 

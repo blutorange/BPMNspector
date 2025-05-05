@@ -1,11 +1,14 @@
-package com.github.blutorange.bpmnspector.api;
+package com.github.blutorange.bpmnspector.validation;
 
+import com.github.blutorange.bpmnspector.api.Resource;
+import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.api.Warning;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UnsortedValidationResult implements ValidationResult {
+public class UnsortedValidationResult implements ValidationResultBuilder {
 
     private final List<Violation> violations = new ArrayList<>();
     private final List<Warning> warnings = new ArrayList<>();

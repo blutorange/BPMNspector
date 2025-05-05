@@ -1,8 +1,8 @@
 package com.github.blutorange.bpmnspector_test.schematron.artifacts.sequence_flow;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ public abstract class AbstractArtifactSequenceFlowTest extends TestCase {
     }
 
     private void assertTests(String fileName, int line) throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
+        ValidationResultBuilder result = verifyInvalidResult(createFile(fileName), 3);
         assertFirstViolation(result.getViolations().get(0), fileName);
         assertSecondViolation(result.getViolations().get(1), fileName, line);
         assertThirdViolation(result.getViolations().get(2), fileName);

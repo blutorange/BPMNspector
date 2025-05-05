@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,20 +18,20 @@ public class Ext135Test extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail.bpmn"), 2);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:parallelGateway[1]", 10);
         assertViolation(result.getViolations().get(1), "/bpmn:definitions/bpmn:process/bpmn:parallelGateway[2]", 20);
     }
 
     @Test
     public void testConstraintSubFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_no_connection.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:parallelGateway", 4);
     }
 
     @Test
     public void testConstraintEXSubFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_ex_no_connection.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_ex_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway", 4);
     }
 

@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class Ext149Test extends TestCase {
 
     @Test
     public void testConstraintFailCancelThrow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_cancelThrow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT149_failure_cancelThrow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -29,7 +29,7 @@ public class Ext149Test extends TestCase {
 
     @Test
     public void testConstraintFailConditionalThrow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_conditionalThrow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT149_failure_conditionalThrow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -39,7 +39,7 @@ public class Ext149Test extends TestCase {
 
     @Test
     public void testConstraintFailErrorThrow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_errorThrow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT149_failure_errorThrow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -49,7 +49,7 @@ public class Ext149Test extends TestCase {
 
     @Test
     public void testConstraintFailTerminateThrow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_terminateThrow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT149_failure_terminateThrow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -59,7 +59,7 @@ public class Ext149Test extends TestCase {
 
     @Test
     public void testConstraintFailTimerThrow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_timerThrow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT149_failure_timerThrow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,

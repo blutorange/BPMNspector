@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ public class Ext063Test extends TestCase {
 
     @Test
     public void testConstraintFailCalledProcessAdditionalInput() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT063_failure_calledProcess_additionalInput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity", 62);
@@ -29,21 +29,23 @@ public class Ext063Test extends TestCase {
 
     @Test
     public void testConstraintFailCalledProcessInputMissing() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_inputMissing.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT063_failure_calledProcess_inputMissing.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity", 62);
     }
 
     @Test
     public void testConstraintFailCalledProcessOutputMissing() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_outputMissing.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT063_failure_calledProcess_outputMissing.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:callActivity", 62);
     }
 
     @Test
     public void testConstraintFailCalledProcessItemsNotMatching() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT063_failure_calledProcess_itemsNotMatching.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(0),
@@ -59,7 +61,7 @@ public class Ext063Test extends TestCase {
 
     @Test
     public void testConstraintFailCalledGlobalTaskAdditionalOutput() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT063_failure_calledGlobalTask_additionalOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:callActivity", 16);
     }

@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -15,19 +15,19 @@ public class Ext099Test extends TestCase {
 
     @Test
     public void testConstraintEventFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_event.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process[2]", 6);
     }
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_eventref.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_eventref.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process[2]", 7);
     }
 
     @Test
     public void testConstraintImportedProcessFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_call_ref_process.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_call_ref_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "//bpmn:*[@id = 'PROCESS_1']", 3);
     }
 

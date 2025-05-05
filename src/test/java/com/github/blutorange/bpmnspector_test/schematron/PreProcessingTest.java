@@ -1,8 +1,8 @@
 package com.github.blutorange.bpmnspector_test.schematron;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -18,27 +18,27 @@ public class PreProcessingTest extends TestCase {
 
     @Test
     public void testConstraintImportedProcessFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_call_ref_process.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_call_ref_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "ref_process.bpmn", 3);
     }
 
     @Test
     public void testConstraintImportedProcessFail1() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_call_ref_process_call.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_call_ref_process_call.bpmn"), 2);
         assertViolation(result.getViolations().get(0), "fail_call_ref_process.bpmn", 4);
         assertViolation(result.getViolations().get(1), "ref_process.bpmn", 3);
     }
 
     @Test
     public void testConstraintImportedProcessFail2() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_call_ref_process_call_call.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_call_ref_process_call_call.bpmn"), 2);
         assertViolation(result.getViolations().get(0), "fail_call_ref_process.bpmn", 4);
         assertViolation(result.getViolations().get(1), "ref_process.bpmn", 3);
     }
 
     @Test
     public void testConstraintParticipantImportedProcessFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_call_participant_process.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_call_participant_process.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 "An end event must be present when a start event is used in the same process level",

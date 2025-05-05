@@ -1,8 +1,8 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,27 +19,27 @@ public class Ext031Test extends TestCase {
 
     @Test
     public void testConstraintCircleFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail_circle.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail_circle.bpmn"), 1);
         assertFirstViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFromPoolFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail_message_flow_from_pool.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail_message_flow_from_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
         assertTargetViolation(result.getViolations().get(1));
     }
 
     @Test
     public void testConstraintToPoolFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail_message_flow_to_pool.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail_message_flow_to_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
         assertSourceViolation(result.getViolations().get(1));
     }
 
     @Test
     public void testConstraintSamePoolFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail_message_flow_in_same_pool.bpmn"), 3);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail_message_flow_in_same_pool.bpmn"), 3);
         assertFirstViolation(result.getViolations().get(0));
         assertSourceViolation(result.getViolations().get(1));
         assertTargetViolation(result.getViolations().get(2));

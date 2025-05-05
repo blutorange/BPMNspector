@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class Ext087Test extends TestCase {
 
     @Test
     public void testConstraintFailInvalidReferencing() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT087_failure_invalidReferencing.bpmn"), 4);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT087_failure_invalidReferencing.bpmn"), 4);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -28,7 +28,7 @@ public class Ext087Test extends TestCase {
 
     @Test
     public void testConstraintFailMissingInputSetRef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT087_failure_missingInputSetRef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT087_failure_missingInputSetRef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -38,7 +38,7 @@ public class Ext087Test extends TestCase {
 
     @Test
     public void testConstraintFailMissingOutputSetRef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT087_failure_missingOutputSetRef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT087_failure_missingOutputSetRef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,

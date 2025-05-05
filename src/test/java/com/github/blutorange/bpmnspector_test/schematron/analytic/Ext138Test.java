@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,21 +19,21 @@ public class Ext138Test extends TestCase {
 
     @Test
     public void testConstraintFailInvalidEventType() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT138_failure_invalidEventType.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT138_failure_invalidEventType.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process[2]/bpmn:sequenceFlow[7]", 47);
     }
 
     @Test
     public void testConstraintFailThrowEvent() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT138_failure_invalidThrowEvent.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT138_failure_invalidThrowEvent.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[3]", 24);
     }
 
     @Test
     public void testConstraintFailInvalidTaskType() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT138_failure_invalidTaskType.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT138_failure_invalidTaskType.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[3]", 24);
     }

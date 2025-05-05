@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,8 @@ public class Ext013Test extends TestCase {
 
     @Test
     public void testConstraintFailTimerEventTimeDateNoBody() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_timerEvent_timeDate_noBody.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT013_failure_timerEvent_timeDate_noBody.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -29,7 +30,7 @@ public class Ext013Test extends TestCase {
 
     @Test
     public void testConstraintFailTransformation() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_transformation.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT013_failure_transformation.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -44,7 +45,8 @@ public class Ext013Test extends TestCase {
 
     @Test
     public void testConstraintFailComplexBehaviorDefinition() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_complexBehaviorDefinition.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT013_failure_complexBehaviorDefinition.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -59,7 +61,7 @@ public class Ext013Test extends TestCase {
 
     @Test
     public void testConstraintFailCorrelation() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_correlation.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT013_failure_correlation.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1),
                 ERR_MSG,

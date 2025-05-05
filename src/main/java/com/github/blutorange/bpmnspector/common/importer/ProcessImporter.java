@@ -4,10 +4,10 @@ import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.Resource;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.api.Warning;
 import com.github.blutorange.bpmnspector.common.util.ConstantHelper;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -54,11 +54,11 @@ public class ProcessImporter {
         builder.setJDOMFactory(new LocatedJDOMFactory());
     }
 
-    public BPMNProcess importProcessFromPath(Path path, ValidationResult result) throws ValidationException {
+    public BPMNProcess importProcessFromPath(Path path, ValidationResultBuilder result) throws ValidationException {
         return importProcessFromPath(path, result, true);
     }
 
-    public BPMNProcess importProcessFromPath(Path path, ValidationResult result, boolean removeDI)
+    public BPMNProcess importProcessFromPath(Path path, ValidationResultBuilder result, boolean removeDI)
             throws ValidationException {
         if (Files.notExists(path) || !Files.isRegularFile(path)) {
             var msg = "BPMNProcess cannot be created: Path " + path + " is invalid.";
@@ -68,13 +68,13 @@ public class ProcessImporter {
         return importProcessRecursively(resource, null, null, result, removeDI);
     }
 
-    public BPMNProcess importProcessFromStreamSource(InputStream src, String resourceName, ValidationResult result)
-            throws ValidationException {
+    public BPMNProcess importProcessFromStreamSource(
+            InputStream src, String resourceName, ValidationResultBuilder result) throws ValidationException {
         return importProcessFromStreamSource(src, resourceName, result, true);
     }
 
     public BPMNProcess importProcessFromStreamSource(
-            InputStream src, String resourceName, ValidationResult result, boolean removeDI)
+            InputStream src, String resourceName, ValidationResultBuilder result, boolean removeDI)
             throws ValidationException {
         try {
             Resource resource = new Resource(resourceName);
@@ -105,7 +105,11 @@ public class ProcessImporter {
     }
 
     private BPMNProcess importProcessRecursively(
-            Resource resource, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result, boolean removeDI)
+            Resource resource,
+            BPMNProcess parent,
+            BPMNProcess rootProcess,
+            ValidationResultBuilder result,
+            boolean removeDI)
             throws ValidationException {
         result.addResource(resource);
         try (InputStream stream = openStreamToResource(resource)) {
@@ -148,7 +152,7 @@ public class ProcessImporter {
     }
 
     private void resolveAndAddImports(
-            BPMNProcess process, BPMNProcess rootProcess, ValidationResult result, boolean removeDI)
+            BPMNProcess process, BPMNProcess rootProcess, ValidationResultBuilder result, boolean removeDI)
             throws ValidationException {
 
         List<Element> importElements =

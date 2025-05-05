@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class Ext017Test extends TestCase {
 
     @Test
     public void testConstraintFailExclusiveGateway() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT017_failure_exclusiveGateway.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT017_failure_exclusiveGateway.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway[1]", 7);
     }

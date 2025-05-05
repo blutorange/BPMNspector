@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ public class Ext093Test extends TestCase {
 
     @Test
     public void testConstraintFailBoundaryEventMissingDataOutput() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT093_failure_boundaryEvent_missingDataOutput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
@@ -26,7 +26,8 @@ public class Ext093Test extends TestCase {
 
     @Test
     public void testConstraintFailEndEventMissingDataInput() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT093_failure_endEvent_missingDataInput.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT093_failure_endEvent_missingDataInput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 "If dataInputs are used in an EndEvent for each eventDefinition a DataInput must be defined.",
@@ -36,7 +37,8 @@ public class Ext093Test extends TestCase {
 
     @Test
     public void testConstraintFailIntCatchMissingDataOutput() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT093_failure_intCatch_missingDataOutput.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT093_failure_intCatch_missingDataOutput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 "If dataOutputs are used in an IntermediateCatchEvent for each eventDefinition a DataOutput must be defined.",
@@ -46,7 +48,8 @@ public class Ext093Test extends TestCase {
 
     @Test
     public void testConstraintFailIntThrowMissingDataInput() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT093_failure_intThrow_missingDataInput.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT093_failure_intThrow_missingDataInput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 "If dataInputs are used in an intermediateThrowEvent for each eventDefinition a DataInput must be defined.",
@@ -56,7 +59,7 @@ public class Ext093Test extends TestCase {
 
     @Test
     public void testConstraintFailStartEventMissingDataOutput() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT093_failure_startEvent_missingDataOutput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,14 +18,14 @@ public class Ext019Test extends TestCase {
 
     @Test
     public void testConstraintFailExclusiveDiverging() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT019_failure_exclusiveDiverging.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT019_failure_exclusiveDiverging.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway", 12);
     }
 
     @Test
     public void testConstraintFailParallelConverging() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT019_failure_parallelConverging.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT019_failure_parallelConverging.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:parallelGateway", 18);
     }

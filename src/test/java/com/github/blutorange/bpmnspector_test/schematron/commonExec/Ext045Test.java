@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,14 +18,14 @@ public class Ext045Test extends TestCase {
 
     @Test
     public void testConstraintFailDifferentItemDefNoStructureRef() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT045_failure_differentItemDef_noStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:serviceTask", 17);
     }
 
     @Test
     public void testConstraintFailDifferentItemDefUnequalStructureRef() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT045_failure_differentItemDef_unequalStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:serviceTask", 17);
     }

@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ public class Ext148Test extends TestCase {
 
     @Test
     public void testConstraintFailCancelCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT148_failure_cancelCatch.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT148_failure_cancelCatch.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -29,7 +29,7 @@ public class Ext148Test extends TestCase {
 
     @Test
     public void testConstraintFailCompensateCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT148_failure_compensateCatch.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT148_failure_compensateCatch.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1),
                 ERR_MSG,
@@ -39,7 +39,7 @@ public class Ext148Test extends TestCase {
 
     @Test
     public void testConstraintFailErrorCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT148_failure_errorCatch.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT148_failure_errorCatch.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -49,7 +49,7 @@ public class Ext148Test extends TestCase {
 
     @Test
     public void testConstraintFailEscalationCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT148_failure_escalationCatch.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT148_failure_escalationCatch.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -59,7 +59,7 @@ public class Ext148Test extends TestCase {
 
     @Test
     public void testConstraintFailNoneCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT148_failure_noneCatch.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT148_failure_noneCatch.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -69,7 +69,7 @@ public class Ext148Test extends TestCase {
 
     @Test
     public void testConstraintFailTerminateCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT148_failure_terminateCatch.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT148_failure_terminateCatch.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,

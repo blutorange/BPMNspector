@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,21 +18,21 @@ public class Ext150Test extends TestCase {
 
     @Test
     public void testConstraintNormalSequenceFlowFail1() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_1.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_1.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERROR_MESSAGE_ONE, "/bpmn:definitions/bpmn:process/bpmn:task[2]", 68);
     }
 
     @Test
     public void testConstraintNormalSequenceFlowFail2() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_2.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_2.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERROR_MESSAGE_ONE, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 14);
     }
 
     @Test
     public void testConstraintSequenceFlowInSubProcessFail1() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("fail_sequence_flow_in_sub_process_missing_1.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

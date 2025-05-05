@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +19,13 @@ public class Ext001Test extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFail2() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail2.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail2.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 

@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailCancelNone() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_cancel_none.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_cancel_none.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_TRUE,
@@ -31,7 +31,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailCancelTerminate() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_cancel_terminate.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_cancel_terminate.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_TRUE,
@@ -41,7 +41,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailCancelLink() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_cancel_link.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_cancel_link.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_TRUE,
@@ -51,7 +51,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailNoCancelNone() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_noCancel_none.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_noCancel_none.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
@@ -61,7 +61,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailNoCancelTerminate() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_noCancel_terminate.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_noCancel_terminate.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
@@ -71,7 +71,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailNoCancelCancel() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_noCancel_cancel.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_noCancel_cancel.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
@@ -81,7 +81,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailNoCancelCompensate() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_noCancel_compensate.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_noCancel_compensate.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,
@@ -91,7 +91,7 @@ public class Ext110Test extends TestCase {
 
     @Test
     public void testConstraintFailNoCancelError() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT110_failure_noCancel_error.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT110_failure_noCancel_error.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CANCEL_FALSE,

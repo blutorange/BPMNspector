@@ -1,8 +1,8 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -16,13 +16,13 @@ public class Ext026Test extends TestCase {
 
     @Test
     public void testConstraintActivityFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_activity.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_activity.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:task[1]");
     }
 
     @Test
     public void testConstraintGatewayFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_gateway.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_gateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway");
     }
 

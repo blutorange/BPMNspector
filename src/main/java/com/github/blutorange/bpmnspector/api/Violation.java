@@ -2,6 +2,7 @@ package com.github.blutorange.bpmnspector.api;
 
 import java.util.Objects;
 
+/** A violation of a constraint in a BPMN diagram. */
 public final class Violation implements Comparable<Violation> {
 
     // what
@@ -11,20 +12,42 @@ public final class Violation implements Comparable<Violation> {
     // where
     private final Location location;
 
+    /**
+     * Creates a new violation.
+     *
+     * @param location the location of the violation
+     * @param message the message describing the violation
+     * @param constraint the constraint that was violated
+     */
     public Violation(Location location, String message, String constraint) {
         this.location = Objects.requireNonNull(location);
         this.message = Objects.requireNonNull(message);
         this.constraint = Objects.requireNonNull(constraint);
     }
 
+    /**
+     * The constraint that was violated.
+     *
+     * @return the constraint
+     */
     public String getConstraint() {
         return constraint;
     }
 
+    /**
+     * The message describing the violation.
+     *
+     * @return the message
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * The location of the violation in the BPMN diagram.
+     *
+     * @return the location
+     */
     public Location getLocation() {
         return location;
     }

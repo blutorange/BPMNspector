@@ -43,7 +43,7 @@ public class NonWellFormedXmlTest {
         var affectedFile = "import_xsd_non_wellformed.bpmn";
         var affectedLine = 3;
 
-        ValidationResult result = nspector.inspectFile(file, EXT_ONLY);
+        var result = nspector.inspectFile(file, EXT_ONLY);
         assertAffectedFileAndLine(result, affectedFile, affectedLine);
     }
 

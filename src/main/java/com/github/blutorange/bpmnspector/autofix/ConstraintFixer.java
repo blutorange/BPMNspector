@@ -8,13 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ConstraintFixer {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConstraintFixer.class.getSimpleName());
-
     private final BPMNProcess baseProcess;
     private final Map<Violation, FixingStrategy> foundViolations;
     private final FixerRepository fixerRepository;

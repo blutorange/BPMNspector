@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Warning;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class Ext076Test extends TestCase {
                         new LocationCoordinate(5, 79),
                         "/bpmn:definitions/bpmn:process/bpmn:dataObjectReference")));
 
-        ValidationResult result = validator.validate(createFile("Fail_1.bpmn"));
+        ValidationResultBuilder result = validator.validate(createFile("Fail_1.bpmn"));
 
         assertTrue(result.isValid());
         assertEquals(expectedWarnings, result.getWarnings());
@@ -47,7 +47,7 @@ public class Ext076Test extends TestCase {
                         new LocationCoordinate(5, 88),
                         "/bpmn:definitions/bpmn:process/bpmn:dataObjectReference")));
 
-        ValidationResult result = validator.validate(createFile("Fail_2.bpmn"));
+        ValidationResultBuilder result = validator.validate(createFile("Fail_2.bpmn"));
 
         assertTrue(result.isValid());
         assertEquals(expectedWarnings, result.getWarnings());
@@ -63,7 +63,7 @@ public class Ext076Test extends TestCase {
                         new LocationCoordinate(5, 74),
                         "/bpmn:definitions/bpmn:process/bpmn:dataObjectReference")));
 
-        ValidationResult result = validator.validate(createFile("Fail_3.bpmn"));
+        ValidationResultBuilder result = validator.validate(createFile("Fail_3.bpmn"));
 
         assertTrue(result.isValid());
         assertEquals(expectedWarnings, result.getWarnings());

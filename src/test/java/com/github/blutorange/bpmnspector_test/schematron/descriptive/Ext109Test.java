@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ public class Ext109Test extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("Fail.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("Fail.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 "If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present",

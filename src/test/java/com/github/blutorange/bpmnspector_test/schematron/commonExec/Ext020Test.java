@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class Ext020Test extends TestCase {
 
     @Test
     public void testConstraintFailDataInput() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataInput.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT020_failure_dataInput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -28,7 +28,8 @@ public class Ext020Test extends TestCase {
 
     @Test
     public void testConstraintFailDataInputDefaultValue() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataInput_defaultValue.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT020_failure_dataInput_defaultValue.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -38,7 +39,7 @@ public class Ext020Test extends TestCase {
 
     @Test
     public void testConstraintFailDataOutput() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataOutput.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT020_failure_dataOutput.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -48,7 +49,7 @@ public class Ext020Test extends TestCase {
 
     @Test
     public void testConstraintFailDataObject() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataObject.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT020_failure_dataObject.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:dataObject", 32);
     }
 

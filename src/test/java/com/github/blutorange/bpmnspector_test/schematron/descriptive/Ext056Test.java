@@ -3,7 +3,7 @@ package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 import static java.lang.String.format;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +44,7 @@ public class Ext056Test extends TestCase {
     }
 
     private void assertTests(String fileName, String processType, String choreographyType) throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
+        ValidationResultBuilder result = verifyInvalidResult(createFile(fileName), 3);
         assertViolation(
                 result.getViolations().get(0),
                 ERROR_MESSAGE_SOURCE,

@@ -4,11 +4,11 @@ import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.Resource;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import com.github.blutorange.bpmnspector.common.util.ConstantHelper;
 import com.github.blutorange.bpmnspector.common.util.ResourceUtils;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +41,7 @@ class Ext002Checker {
      * @param process the process to be checked
      * @param validationResult the current validation result of validating process for adding found violations
      */
-    public void checkConstraint002(BPMNProcess process, ValidationResult validationResult) {
+    public void checkConstraint002(BPMNProcess process, ValidationResultBuilder validationResult) {
 
         Map<String, Map<String, Attribute>> nspIdMap = new HashMap<>();
 
@@ -63,7 +63,8 @@ class Ext002Checker {
         }
     }
 
-    private void createViolation(Attribute firstAttrib, Attribute secondAttrib, ValidationResult validationResult) {
+    private void createViolation(
+            Attribute firstAttrib, Attribute secondAttrib, ValidationResultBuilder validationResult) {
         try {
             Resource firstResource = ResourceUtils.determineAndCreateResourceFromString(
                     firstAttrib.getDocument().getBaseURI(), null);

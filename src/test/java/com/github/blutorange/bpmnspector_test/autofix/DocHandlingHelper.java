@@ -5,11 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.github.blutorange.bpmnspector.api.BPMNspector;
-import com.github.blutorange.bpmnspector.api.SimpleValidationResult;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import com.github.blutorange.bpmnspector.common.importer.ProcessImporter;
+import com.github.blutorange.bpmnspector.validation.SimpleValidationResult;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -58,15 +57,15 @@ public class DocHandlingHelper {
     }
 
     public static void assertValidBPMNspectorResult(Document docToCheck) throws ValidationException, IOException {
-        XMLOutputter outputter = new XMLOutputter();
+        var outputter = new XMLOutputter();
         outputter.setFormat(Format.getPrettyFormat());
 
         var bos = new ByteArrayOutputStream();
         outputter.output(docToCheck, bos);
 
         var bis = new ByteArrayInputStream(bos.toByteArray());
-        BPMNspector inspector = new BPMNspector();
-        ValidationResult result = inspector.validate(bis, "name");
+        var inspector = new BPMNspector();
+        var result = inspector.validate(bis, "name");
         assertTrue(result.isValid());
     }
 }

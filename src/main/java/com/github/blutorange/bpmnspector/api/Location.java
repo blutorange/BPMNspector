@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public final class Location implements Comparable<Location> {
-
     private final LocationCoordinate location;
     private final String xpath;
     private final Resource resource;
@@ -46,14 +45,29 @@ public final class Location implements Comparable<Location> {
         this.resource = resource;
     }
 
+    /**
+     * The location (row and column) of the node in the XML document.
+     *
+     * @return The location
+     */
     public LocationCoordinate getLocation() {
         return location != null ? location : LocationCoordinate.EMPTY;
     }
 
+    /**
+     * The xpath identifier the node in the XML document.
+     *
+     * @return The xpath
+     */
     public String getXpath() {
         return xpath != null ? xpath : "";
     }
 
+    /**
+     * The resource this location refers to.
+     *
+     * @return The resource
+     */
     public Resource getResource() {
         return resource;
     }

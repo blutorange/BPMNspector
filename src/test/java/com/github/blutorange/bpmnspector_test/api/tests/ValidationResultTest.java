@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.blutorange.bpmnspector.api.BPMNspector;
 import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
-import com.github.blutorange.bpmnspector.api.SimpleValidationResult;
-import com.github.blutorange.bpmnspector.api.UnsortedValidationResult;
 import com.github.blutorange.bpmnspector.api.ValidationException;
 import com.github.blutorange.bpmnspector.api.ValidationResult;
-import com.github.blutorange.bpmnspector.api.Validator;
 import com.github.blutorange.bpmnspector.api.Warning;
+import com.github.blutorange.bpmnspector.validation.SimpleValidationResult;
+import com.github.blutorange.bpmnspector.validation.UnsortedValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
@@ -28,7 +28,7 @@ public class ValidationResultTest {
             .resolve("resources")
             .resolve("036")
             .resolve("fail_call_choreography.bpmn");
-    private final Validator validator;
+    private final BPMNspector validator;
 
     public ValidationResultTest() throws ValidationException {
         validator = new BPMNspector();
@@ -44,7 +44,7 @@ public class ValidationResultTest {
         testEmptyValidationResult(new UnsortedValidationResult());
     }
 
-    private void testEmptyValidationResult(ValidationResult result) {
+    private void testEmptyValidationResult(ValidationResultBuilder result) {
         assertTrue(result.isValid());
         assertEquals(0, result.getViolations().size());
         assertEquals(0, result.getViolatedConstraints().size());
@@ -55,7 +55,7 @@ public class ValidationResultTest {
 
     @Test
     public void testUnsortedValidationResult() throws ValidationException {
-        ValidationResult result = validator.validate(path);
+        var result = validator.validate(path);
         testValidationResult(result);
 
         assertEquals("EXT.021", result.getViolations().get(2).getConstraint());
@@ -63,9 +63,9 @@ public class ValidationResultTest {
 
     @Test
     public void testSimpleValidationResult() throws ValidationException {
-        ValidationResult result = validator.validate(path);
+        var result = validator.validate(path);
 
-        ValidationResult sorted = new SimpleValidationResult();
+        ValidationResultBuilder sorted = new SimpleValidationResult();
         sorted.addFile(result.getFoundFiles().get(0));
 
         result.getViolations().forEach(sorted::addViolation);
@@ -96,7 +96,7 @@ public class ValidationResultTest {
 
     @Test
     public void testSimpleValidationResultWithWarning() {
-        ValidationResult result = new SimpleValidationResult();
+        ValidationResultBuilder result = new SimpleValidationResult();
 
         var warn1Msg = "1-sample warning";
         var warn2Msg = "2-sample warning";

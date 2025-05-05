@@ -3,7 +3,7 @@ package com.github.blutorange.bpmnspector_test.schematron;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.io.File;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +30,7 @@ public class PathTest extends TestCase {
 
     @Test
     public void testInvalidUrlImports() throws ValidationException {
-        ValidationResult result = validate(createFile("import_URL.bpmn"));
+        ValidationResultBuilder result = validate(createFile("import_URL.bpmn"));
         assertEquals(2, result.getViolations().size());
     }
 

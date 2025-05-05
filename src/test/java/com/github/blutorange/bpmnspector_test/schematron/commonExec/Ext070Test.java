@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class Ext070Test extends TestCase {
 
     @Test
     public void testConstraintFailIsCollection() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT070_failure_isCollection.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070_failure_isCollection.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -27,7 +27,7 @@ public class Ext070Test extends TestCase {
 
     @Test
     public void testConstraintFailUnequalStructureRef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT070_failure_unequalStructureRef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070_failure_unequalStructureRef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,

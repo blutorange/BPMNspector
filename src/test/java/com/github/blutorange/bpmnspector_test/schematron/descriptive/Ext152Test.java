@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ public class Ext152Test extends TestCase {
 
     @Test
     public void testConstraintFail1() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_1.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_1.bpmn"), 2);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[1]", 16);
         assertViolation(
                 result.getViolations().get(1),
@@ -26,7 +26,7 @@ public class Ext152Test extends TestCase {
 
     @Test
     public void testConstraintFail2() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_2.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_2.bpmn"), 2);
         assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[2]", 17);
         assertViolation(
                 result.getViolations().get(1),

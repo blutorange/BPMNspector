@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailAdHocSubProcess() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_adHocSubProcess.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT012_failure_adHocSubProcess.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:adHocSubProcess", 7);
     }
@@ -35,7 +35,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailAssignment() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_assignment.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT012_failure_assignment.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -50,7 +50,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailComplexGateway() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_complexGateway.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT012_failure_complexGateway.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:complexGateway[2]", 18);
     }
@@ -62,7 +62,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailMultiInstanceLoopCharacteristicsInvalidCardinality() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
+        ValidationResultBuilder result = verifyInvalidResult(
                 createFile("EXT012_failure_multiInstanceLoopCharacteristics_invalidCardinality.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
@@ -74,7 +74,7 @@ public class Ext012Test extends TestCase {
     @Test
     public void testConstraintFailMultiInstanceLoopCharacteristicsInvalidCompletionCondition()
             throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
+        ValidationResultBuilder result = verifyInvalidResult(
                 createFile("EXT012_failure_multiInstanceLoopCharacteristics_invalidCompletionCondition.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
@@ -90,7 +90,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailSequenceFlow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_sequenceFlow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT012_failure_sequenceFlow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[2]", 16);
     }
@@ -102,7 +102,8 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailStandardLoopCharacteristics() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_standardLoopCharacteristics.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT012_failure_standardLoopCharacteristics.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -117,7 +118,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailTimerEventTimeCycle() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeCycle.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeCycle.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -132,7 +133,7 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailTimerEventTimeDate() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeDate.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeDate.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -147,7 +148,8 @@ public class Ext012Test extends TestCase {
 
     @Test
     public void testConstraintFailTimerEventTimeDuration() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeDuration.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeDuration.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,

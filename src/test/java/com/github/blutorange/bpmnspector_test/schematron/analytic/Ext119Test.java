@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class Ext119Test extends TestCase {
 
     @Test
     public void testConstraintFailCatchInOut() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_catchInOut.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT119_failure_catchInOut.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CATCH,
@@ -28,7 +28,7 @@ public class Ext119Test extends TestCase {
 
     @Test
     public void testConstraintFailCatchOutgoing() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_catchOutgoing.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT119_failure_catchOutgoing.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_CATCH,
@@ -38,7 +38,7 @@ public class Ext119Test extends TestCase {
 
     @Test
     public void testConstraintFailThrowInOut() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_throwInOut.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT119_failure_throwInOut.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_THROW,
@@ -48,7 +48,7 @@ public class Ext119Test extends TestCase {
 
     @Test
     public void testConstraintFailThrowIncoming() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_throwIncoming.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT119_failure_throwIncoming.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_THROW,

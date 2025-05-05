@@ -1,11 +1,11 @@
 package com.github.blutorange.bpmnspector.refcheck;
 
-import com.github.blutorange.bpmnspector.api.BpmnProcessValidator;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import com.github.blutorange.bpmnspector.refcheck.utils.JDOMUtils;
+import com.github.blutorange.bpmnspector.validation.BpmnProcessValidator;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * @author Andreas Vorndran
  * @author Matthias Geiger
  * @version 1.0
- * @see ValidationResult
+ * @see ValidationResultBuilder
  * @see ValidationException
  */
 public class BPMNReferenceValidator implements BpmnProcessValidator {
@@ -58,7 +58,7 @@ public class BPMNReferenceValidator implements BpmnProcessValidator {
      * @throws NullPointerException if one of the parameters is <code>null</code>
      */
     @Override
-    public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
+    public void validate(BPMNProcess process, ValidationResultBuilder validationResult) throws ValidationException {
         Objects.requireNonNull(process, "process must not be null.");
         Objects.requireNonNull(validationResult, "validationResult must not be null.");
 
@@ -106,7 +106,7 @@ public class BPMNReferenceValidator implements BpmnProcessValidator {
      * @param validationResult the ValidationResult to be used to store the validation results
      * @throws ValidationException if technical problems occurred
      */
-    private void startValidation(BPMNProcess baseProcess, ValidationResult validationResult)
+    private void startValidation(BPMNProcess baseProcess, ValidationResultBuilder validationResult)
             throws ValidationException {
 
         LOGGER.debug("Starting to process {} :", baseProcess.getBaseURI());

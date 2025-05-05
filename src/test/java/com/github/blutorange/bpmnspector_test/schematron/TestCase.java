@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.github.blutorange.bpmnspector.api.UnsortedValidationResult;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.api.Warning;
 import com.github.blutorange.bpmnspector.schematron.SchematronBPMNValidator;
+import com.github.blutorange.bpmnspector.validation.UnsortedValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
@@ -42,37 +42,37 @@ public class TestCase {
         return new File(path);
     }
 
-    protected ValidationResult validate(File f) throws ValidationException {
+    protected ValidationResultBuilder validate(File f) throws ValidationException {
         return validator.validate(f);
     }
 
-    private ValidationResult validValidationResultForFile(String filename) {
-        ValidationResult result = new UnsortedValidationResult();
+    private ValidationResultBuilder validValidationResultForFile(String filename) {
+        ValidationResultBuilder result = new UnsortedValidationResult();
         result.addFile(createFile(filename).toPath());
         return result;
     }
 
     protected void assertValidValidationResultForFile(String filename) throws ValidationException {
-        ValidationResult expected = validValidationResultForFile(filename);
-        ValidationResult result = validator.validate(createFile(filename));
+        ValidationResultBuilder expected = validValidationResultForFile(filename);
+        ValidationResultBuilder result = validator.validate(createFile(filename));
 
         assertEquals(expected, result);
     }
 
-    protected ValidationResult createValidationResultWithWarnings(String filename, List<Warning> warningList) {
-        ValidationResult result = validValidationResultForFile(filename);
+    protected ValidationResultBuilder createValidationResultWithWarnings(String filename, List<Warning> warningList) {
+        ValidationResultBuilder result = validValidationResultForFile(filename);
         warningList.forEach(result::addWarning);
         return result;
     }
 
     protected void verifyValidResult(File f) throws ValidationException {
-        ValidationResult result = validate(f);
+        ValidationResultBuilder result = validate(f);
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
 
-    protected ValidationResult verifyInvalidResult(File f, int violationsCount) throws ValidationException {
-        ValidationResult result = validate(f);
+    protected ValidationResultBuilder verifyInvalidResult(File f, int violationsCount) throws ValidationException {
+        ValidationResultBuilder result = validate(f);
         assertFalse(result.isValid());
         assertEquals(violationsCount, result.getViolations().size());
         return result;

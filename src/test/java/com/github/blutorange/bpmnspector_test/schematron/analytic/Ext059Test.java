@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ public class Ext059Test extends TestCase {
 
     @Test
     public void testConstraintFailNoEventDef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_no_eventDef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT059_fail_no_eventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_DEFAULT,
@@ -37,7 +37,7 @@ public class Ext059Test extends TestCase {
 
     @Test
     public void testConstraintFailIllegalCancelEventDef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_cancelEventDef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT059_fail_illegal_cancelEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_DEFAULT + ERR_CANCEL,
@@ -47,7 +47,7 @@ public class Ext059Test extends TestCase {
 
     @Test
     public void testConstraintFailIllegalLinkEventDef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_linkEventDef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT059_fail_illegal_linkEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_DEFAULT + ERR_LINK,
@@ -57,7 +57,8 @@ public class Ext059Test extends TestCase {
 
     @Test
     public void testConstraintFailIllegalTerminateEventDef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_terminateEventDef.bpmn"), 1);
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT059_fail_illegal_terminateEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG_DEFAULT + ERR_TERMINATE,
@@ -67,7 +68,7 @@ public class Ext059Test extends TestCase {
 
     @Test
     public void testConstraintFailNonInterruptingIllegalCompensateEventDef() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT059_fail_nonInterrupting_illegal_compensateEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
@@ -78,7 +79,7 @@ public class Ext059Test extends TestCase {
 
     @Test
     public void testConstraintFailNonInterruptingIllegalErrorEventDef() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 verifyInvalidResult(createFile("EXT059_fail_nonInterrupting_illegal_errorEventDef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

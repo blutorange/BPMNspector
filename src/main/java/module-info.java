@@ -23,5 +23,7 @@ module com.github.blutorange.bpmnspector {
             com.github.blutorange.bpmnspector_test;
     exports com.github.blutorange.bpmnspector.schematron.preprocessing to
             com.github.blutorange.bpmnspector_test;
+    exports com.github.blutorange.bpmnspector.validation to
+            com.github.blutorange.bpmnspector_test;
     exports com.github.blutorange.bpmnspector.api;
 }

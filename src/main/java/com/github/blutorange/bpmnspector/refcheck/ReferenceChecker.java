@@ -3,9 +3,9 @@ package com.github.blutorange.bpmnspector.refcheck;
 import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.refcheck.utils.ViolationMessageCreator;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
@@ -48,7 +48,7 @@ public class ReferenceChecker {
     public void validateReferenceType(
             Map<String, Element> elements,
             Map<String, Map<String, Element>> importedElements,
-            ValidationResult validationResult,
+            ValidationResultBuilder validationResult,
             Element currentElement,
             int line,
             int column,
@@ -159,7 +159,7 @@ public class ReferenceChecker {
      * @throws ValidationException thrown if errors occur during creation of the Violation
      */
     private void checkTypeAndAddViolation(
-            ValidationResult validationResult,
+            ValidationResultBuilder validationResult,
             int line,
             int column,
             Element currentElement,
@@ -219,7 +219,7 @@ public class ReferenceChecker {
      * @throws ValidationException thrown if the Validation could not be created
      */
     private void createAndAddReferenceTypeViolation(
-            ValidationResult validationResult,
+            ValidationResultBuilder validationResult,
             int line,
             int column,
             Element currentElement,
@@ -249,7 +249,7 @@ public class ReferenceChecker {
      * @throws ValidationException thrown if the Validation could not be created
      */
     public void createAndAddExistenceViolation(
-            ValidationResult validationResult,
+            ValidationResultBuilder validationResult,
             int line,
             int column,
             Element currentElement,

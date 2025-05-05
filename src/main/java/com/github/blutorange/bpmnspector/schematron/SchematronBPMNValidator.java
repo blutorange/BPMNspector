@@ -1,17 +1,17 @@
 package com.github.blutorange.bpmnspector.schematron;
 
-import com.github.blutorange.bpmnspector.api.BpmnProcessValidator;
 import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
-import com.github.blutorange.bpmnspector.api.UnsortedValidationResult;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.api.Warning;
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import com.github.blutorange.bpmnspector.common.importer.ProcessImporter;
 import com.github.blutorange.bpmnspector.common.util.ConstantHelper;
 import com.github.blutorange.bpmnspector.schematron.preprocessing.PreProcessor;
+import com.github.blutorange.bpmnspector.validation.BpmnProcessValidator;
+import com.github.blutorange.bpmnspector.validation.UnsortedValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.pure.SchematronResourcePure;
 import com.helger.schematron.pure.xpath.XPathConfig;
@@ -66,17 +66,17 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
         schemaToCheck = loadAndValidateSchematronFiles();
     }
 
-    public List<ValidationResult> validateFiles(List<File> xmlFiles) throws ValidationException {
-        List<ValidationResult> validationResults = new ArrayList<>();
+    public List<ValidationResultBuilder> validateFiles(List<File> xmlFiles) throws ValidationException {
+        List<ValidationResultBuilder> validationResults = new ArrayList<>();
         for (File xmlFile : xmlFiles) {
             validationResults.add(validate(xmlFile));
         }
         return validationResults;
     }
 
-    public ValidationResult validate(File xmlFile) throws ValidationException {
+    public ValidationResultBuilder validate(File xmlFile) throws ValidationException {
 
-        ValidationResult validationResult = new UnsortedValidationResult();
+        ValidationResultBuilder validationResult = new UnsortedValidationResult();
         // Trying to import process
         BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
         if (process != null) {
@@ -85,7 +85,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
         return validationResult;
     }
 
-    public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
+    public void validate(BPMNProcess process, ValidationResultBuilder validationResult) throws ValidationException {
 
         LOGGER.debug("Validating {}", process.getBaseURI());
 
@@ -183,7 +183,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
      * @param failedAssert the error of the schematron validation
      */
     private void handleSchematronErrors(
-            BPMNProcess baseProcess, ValidationResult validationResult, FailedAssert failedAssert) {
+            BPMNProcess baseProcess, ValidationResultBuilder validationResult, FailedAssert failedAssert) {
         String message = textToString(SVRLHelper.getText(failedAssert)).trim();
         var constraint = message.substring(0, message.indexOf('|'));
         var errorMessage = message.substring(message.indexOf('|') + 1);

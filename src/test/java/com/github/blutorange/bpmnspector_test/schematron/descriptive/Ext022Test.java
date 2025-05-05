@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ public class Ext022Test extends TestCase {
 
     @Test
     public void testConstraintEventSubProcessFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_event_sub_process.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_event_sub_process.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(0),
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",

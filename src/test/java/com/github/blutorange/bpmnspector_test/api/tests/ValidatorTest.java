@@ -2,7 +2,6 @@ package com.github.blutorange.bpmnspector_test.api.tests;
 
 import com.github.blutorange.bpmnspector.api.BPMNspector;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.Validator;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ public class ValidatorTest {
             .resolve("test")
             .resolve("resources")
             .resolve("test-1-gruppe-c.bpmn");
-    private final Validator validator;
+    private final BPMNspector validator;
 
     public ValidatorTest() throws ValidationException {
         validator = new BPMNspector();

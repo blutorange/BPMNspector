@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.descriptive;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -15,21 +15,21 @@ public class Ext100Test extends TestCase {
 
     @Test
     public void testConstraintEventFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_event.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_event.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent", 10);
     }
 
     @Test
     public void testConstraintTransactionEventFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_event_transaction.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_event_transaction.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:transaction/bpmn:startEvent", 10);
     }
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("fail_event_ref.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("fail_event_ref.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent", 11);
     }

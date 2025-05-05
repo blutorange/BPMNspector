@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.analytic;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -18,21 +18,21 @@ public class Ext062Test extends TestCase {
 
     @Test
     public void testConstraintFailStartEvent() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:adHocSubProcess", 7);
     }
 
     @Test
     public void testConstraintFailEndEvent() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:adHocSubProcess", 7);
     }
 
     @Test
     public void testConstraintFailChoreographyActivity() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(1), ERR_MSG, "/bpmn:definitions/bpmn:process/bpmn:adHocSubProcess", 7);
     }

@@ -1,7 +1,7 @@
 package com.github.blutorange.bpmnspector_test.schematron.commonExec;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import com.github.blutorange.bpmnspector_test.schematron.TestCase;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class Ext128Test extends TestCase {
 
     @Test
     public void testConstraintFailBoundary() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT128_failure_boundary.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT128_failure_boundary.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -27,7 +27,7 @@ public class Ext128Test extends TestCase {
 
     @Test
     public void testConstraintFailEndEvent() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT128_failure_endEvent.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT128_failure_endEvent.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -37,7 +37,7 @@ public class Ext128Test extends TestCase {
 
     @Test
     public void testConstraintFailIntCatch() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT128_failure_intCatch.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT128_failure_intCatch.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -47,7 +47,7 @@ public class Ext128Test extends TestCase {
 
     @Test
     public void testConstraintFailIntThrow() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT128_failure_intThrow.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT128_failure_intThrow.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -57,7 +57,7 @@ public class Ext128Test extends TestCase {
 
     @Test
     public void testConstraintFailStartEvent() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT128_failure_startEvent.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT128_failure_startEvent.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,

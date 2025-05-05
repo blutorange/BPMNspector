@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.github.blutorange.bpmnspector.api.UnsortedValidationResult;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import com.github.blutorange.bpmnspector.api.ValidationResult;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import com.github.blutorange.bpmnspector.common.importer.ProcessImporter;
 import com.github.blutorange.bpmnspector.refcheck.BPMNReferenceValidator;
 import com.github.blutorange.bpmnspector.refcheck.ReferenceChecker;
+import com.github.blutorange.bpmnspector.validation.UnsortedValidationResult;
+import com.github.blutorange.bpmnspector.validation.ValidationResultBuilder;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class TestBPMNFiles {
     @Test
     public void testValidateWithT1() throws ValidationException {
 
-        ValidationResult result = importAndTestProcess("src/test/resources/test-1-gruppe-c.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-1-gruppe-c.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -49,7 +49,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT2() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-2-gruppe-d.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-2-gruppe-d.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -60,7 +60,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT3() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-3-gruppe-e.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-3-gruppe-e.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -72,7 +72,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT4() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-4-gruppe-f.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-4-gruppe-f.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -84,7 +84,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT5() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-5-gruppe-g.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-5-gruppe-g.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -95,7 +95,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT6() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-6-gruppe-h.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-6-gruppe-h.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -106,7 +106,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT7() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-7-gruppe-i1.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-7-gruppe-i1.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -118,7 +118,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT8() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-8-gruppe-l.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-8-gruppe-l.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -129,7 +129,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT9() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-9-gruppe-m.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-9-gruppe-m.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -140,7 +140,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT10() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-10-gruppe-n.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-10-gruppe-n.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -151,7 +151,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT11() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-11-gruppe-o.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-11-gruppe-o.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -163,7 +163,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT12() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-12-gruppe-p.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-12-gruppe-p.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -174,7 +174,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT13() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-13-gruppe-q.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-13-gruppe-q.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -185,7 +185,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT14() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-14-gruppe-r.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-14-gruppe-r.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -197,7 +197,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT15() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-15-gruppe-s.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-15-gruppe-s.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -208,7 +208,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT16() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-16-gruppe-t.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-16-gruppe-t.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -219,7 +219,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT17() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-17-gruppe-u.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-17-gruppe-u.bpmn");
 
         assertEquals(1, result.getFoundFiles().size());
 
@@ -230,7 +230,7 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT18() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-18-referenz-6-teil-2.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-18-referenz-6-teil-2.bpmn");
 
         assertEquals(2, result.getFoundFiles().size());
 
@@ -241,7 +241,8 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT18Subfolder() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-18-referenz-6-teil-2-subfolder.bpmn");
+        ValidationResultBuilder result =
+                importAndTestProcess("src/test/resources/test-18-referenz-6-teil-2-subfolder.bpmn");
         assertEquals(2, result.getFoundFiles().size());
 
         assertViolationCount(result, 1);
@@ -251,14 +252,14 @@ public class TestBPMNFiles {
 
     @Test
     public void testValidateWithT19() throws ValidationException {
-        ValidationResult result = importAndTestProcess("src/test/resources/test-19-referenz-6-korrekt.bpmn");
+        ValidationResultBuilder result = importAndTestProcess("src/test/resources/test-19-referenz-6-korrekt.bpmn");
         assertEquals(2, result.getFoundFiles().size());
         assertTrue(result.isValid());
     }
 
     @Test
     public void testExistenceViolationMsgEventDef() throws ValidationException {
-        ValidationResult result =
+        ValidationResultBuilder result =
                 importAndTestProcess("src/test/resources/refCheck_existenceViolation_MsgEventDef_messageRef.bpmn");
         assertEquals(1, result.getFoundFiles().size());
         assertFalse(result.isValid());
@@ -269,8 +270,8 @@ public class TestBPMNFiles {
         assertEquals(64, existenceViolation.getLocation().getLocation().getColumn());
     }
 
-    private ValidationResult importAndTestProcess(String filename) throws ValidationException {
-        ValidationResult result = new UnsortedValidationResult();
+    private ValidationResultBuilder importAndTestProcess(String filename) throws ValidationException {
+        ValidationResultBuilder result = new UnsortedValidationResult();
         BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(filename), result);
 
         application.validate(process, result);
@@ -299,7 +300,7 @@ public class TestBPMNFiles {
         }
     }
 
-    private static void assertViolationCount(ValidationResult result, int expectedViolationsCount) {
+    private static void assertViolationCount(ValidationResultBuilder result, int expectedViolationsCount) {
         if (expectedViolationsCount != 0) {
             assertFalse(result.isValid());
             assertEquals(expectedViolationsCount, result.getViolations().size());
