@@ -1,7 +1,13 @@
 package com.github.blutorange.bpmnspector.autofix;
 
 import com.github.blutorange.bpmnspector.common.util.ConstantHelper;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.jdom2.Document;
 import org.jdom2.Element;

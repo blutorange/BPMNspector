@@ -1,6 +1,8 @@
 package com.github.blutorange.bpmnspector_test.autofix;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.github.blutorange.bpmnspector.api.BPMNspector;
 import com.github.blutorange.bpmnspector.api.SimpleValidationResult;

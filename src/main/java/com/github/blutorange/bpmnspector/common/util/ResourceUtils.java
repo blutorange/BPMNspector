@@ -2,7 +2,9 @@ package com.github.blutorange.bpmnspector.common.util;
 
 import com.github.blutorange.bpmnspector.api.Resource;
 import com.github.blutorange.bpmnspector.api.ValidationException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;

@@ -1,6 +1,9 @@
 package com.github.blutorange.bpmnspector_test.common.importer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import java.io.ByteArrayInputStream;

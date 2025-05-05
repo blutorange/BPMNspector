@@ -2,7 +2,11 @@ package com.github.blutorange.bpmnspector.refcheck;
 
 import com.github.blutorange.bpmnspector.api.ValidationException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
