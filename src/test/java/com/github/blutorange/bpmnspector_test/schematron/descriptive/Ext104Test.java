@@ -19,7 +19,7 @@ public class Ext104Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "An End Event must not have an outgoing sequence flow",
-                "(//bpmn:endEvent)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent",
                 7);
     }
 

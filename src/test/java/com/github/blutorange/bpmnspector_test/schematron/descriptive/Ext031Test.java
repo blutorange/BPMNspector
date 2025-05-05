@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class Ext031Test extends TestCase {
 
     private static final String ERRORMESSAGE = "A message flow must connect 'InteractionNodes' from different Pools";
-    private static final String XPATHSTRING = "(//bpmn:messageFlow)[1]";
+    private static final String XPATHSTRING = "/bpmn:definitions/bpmn:collaboration/bpmn:messageFlow";
 
     @Test
     public void testConstraintCircleFail() throws ValidationException {
@@ -56,12 +56,18 @@ public class Ext031Test extends TestCase {
 
     private void assertSourceViolation(Violation v) {
         assertViolation(
-                v, "A Start Event MUST NOT be a source for a message flow", "(//bpmn:messageFlow[@sourceRef])[1]", 7);
+                v,
+                "A Start Event MUST NOT be a source for a message flow",
+                "/bpmn:definitions/bpmn:collaboration/bpmn:messageFlow",
+                7);
     }
 
     private void assertTargetViolation(Violation v) {
         assertViolation(
-                v, "An End Event MUST NOT be a target for a message flow", "(//bpmn:messageFlow[@targetRef])[1]", 7);
+                v,
+                "An End Event MUST NOT be a target for a message flow",
+                "/bpmn:definitions/bpmn:collaboration/bpmn:messageFlow",
+                7);
     }
 
     @Override

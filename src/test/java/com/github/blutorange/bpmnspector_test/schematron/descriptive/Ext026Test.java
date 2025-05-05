@@ -17,13 +17,13 @@ public class Ext026Test extends TestCase {
     @Test
     public void testConstraintActivityFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_activity.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:task[@default])[1]");
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:task[1]");
     }
 
     @Test
     public void testConstraintGatewayFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_gateway.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:exclusiveGateway[@default])[1]");
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway");
     }
 
     @Test

@@ -17,13 +17,18 @@ public class Ext095Test extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("Fail.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0), "(//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition)[1]", 14);
+                result.getViolations().get(0),
+                "/bpmn:definitions/bpmn:process/bpmn:intermediateThrowEvent/bpmn:messageEventDefinition",
+                14);
     }
 
     @Test
     public void testConstraintEndFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_end.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:endEvent/bpmn:messageEventDefinition)[1]", 10);
+        assertViolation(
+                result.getViolations().get(0),
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent/bpmn:messageEventDefinition",
+                10);
     }
 
     @Test

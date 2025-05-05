@@ -19,7 +19,7 @@ public class Ext028Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A Sequence Flow must not cross the border of a Pool",
-                "(//bpmn:sequenceFlow)[1]",
+                "/bpmn:definitions/bpmn:process[1]/bpmn:sequenceFlow[1]",
                 16);
     }
 

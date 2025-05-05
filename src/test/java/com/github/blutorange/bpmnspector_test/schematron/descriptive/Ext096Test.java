@@ -19,7 +19,7 @@ public class Ext096Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A Start Event must not have an incoming sequence flow",
-                "(//bpmn:startEvent)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:startEvent",
                 4);
     }
 

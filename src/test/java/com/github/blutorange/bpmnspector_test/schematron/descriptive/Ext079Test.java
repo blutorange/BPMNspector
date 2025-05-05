@@ -19,7 +19,7 @@ public class Ext079Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "InputOutputSpecifications are not allowed in SubProcesses",
-                "(//bpmn:subProcess)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess",
                 7);
     }
 

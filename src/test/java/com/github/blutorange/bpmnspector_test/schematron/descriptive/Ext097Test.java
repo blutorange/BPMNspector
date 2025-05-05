@@ -17,13 +17,14 @@ public class Ext097Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_end_without_sub-events.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), 8);
+        assertViolation(result.getViolations().get(0), 8, "/bpmn:definitions/bpmn:process/bpmn:endEvent");
     }
 
     @Test
     public void testConstraintSubFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_with_sub-endevent.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), 10);
+        assertViolation(
+                result.getViolations().get(0), 10, "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:endEvent");
     }
 
     @Test
@@ -36,8 +37,8 @@ public class Ext097Test extends TestCase {
         verifyValidResult(createFile("success_without_sub-events.bpmn"));
     }
 
-    private void assertViolation(Violation v, int line) {
-        assertViolation(v, "(//bpmn:endEvent)[1]", line);
+    private void assertViolation(Violation v, int line, String xpath) {
+        assertViolation(v, xpath, line);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Ext023Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                "(//bpmn:sequenceFlow[@targetRef])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow",
                 10);
     }
 
@@ -29,7 +29,7 @@ public class Ext023Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
-                "(//bpmn:sequenceFlow[@sourceRef])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow",
                 10);
     }
 

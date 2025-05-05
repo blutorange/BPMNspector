@@ -16,22 +16,22 @@ public class Ext152Test extends TestCase {
     @Test
     public void testConstraintFail1() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_1.bpmn"), 2);
-        assertViolation(result.getViolations().get(0), "(//bpmn:sequenceFlow)[1]", 16);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[1]", 16);
         assertViolation(
                 result.getViolations().get(1),
                 "If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
-                "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess",
                 7);
     }
 
     @Test
     public void testConstraintFail2() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_2.bpmn"), 2);
-        assertViolation(result.getViolations().get(0), "(//bpmn:sequenceFlow)[2]", 17);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[2]", 17);
         assertViolation(
                 result.getViolations().get(1),
                 "If end events are used, all flow nodes must have an outgoing sequence flow",
-                "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess",
                 7);
     }
 

@@ -19,7 +19,7 @@ public class Ext022Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
-                "(//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess",
                 7);
     }
 

@@ -14,10 +14,7 @@ import org.junit.jupiter.api.Test;
  */
 public class Ext025Test extends TestCase {
 
-    private static final String XPATHSTRING = "(//bpmn:sequenceFlow[bpmn:conditionExpression] "
-            + "[not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] "
-            + "[not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] "
-            + "[not(@sourceRef = //bpmn:eventBasedGateway/@id)])[1]";
+    private static final String XPATHSTRING = "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow[2]";
 
     @Test
     public void testConstraintNoIncomingFail() throws ValidationException {

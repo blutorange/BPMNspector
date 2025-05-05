@@ -17,24 +17,21 @@ public class Ext100Test extends TestCase {
     public void testConstraintEventFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_event.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0),
-                "(//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent)[1]",
-                10);
+                result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent", 10);
     }
 
     @Test
     public void testConstraintTransactionEventFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_event_transaction.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:transaction/bpmn:startEvent)[1]", 10);
+        assertViolation(
+                result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:transaction/bpmn:startEvent", 10);
     }
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_event_ref.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0),
-                "(//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent)[1]",
-                11);
+                result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent", 11);
     }
 
     @Test

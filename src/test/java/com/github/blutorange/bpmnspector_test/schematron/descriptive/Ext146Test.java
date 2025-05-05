@@ -16,7 +16,7 @@ public class Ext146Test extends TestCase {
 
     private static final String ERRORMESSAGE =
             "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events";
-    private static final String XPATHSTRING = "(//bpmn:endEvent)[1]";
+    private static final String XPATHSTRING = "/bpmn:definitions/bpmn:process/bpmn:endEvent";
 
     @Test
     public void testConstraintLinkFail() throws ValidationException {

@@ -19,7 +19,7 @@ public class Ext109Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present",
-                "(//bpmn:endEvent[@id = //bpmn:messageFlow/@sourceRef])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent",
                 16);
     }
 

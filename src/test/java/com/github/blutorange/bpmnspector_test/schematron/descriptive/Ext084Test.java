@@ -19,7 +19,7 @@ public class Ext084Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A DataInput must be referenced by at least one InputSet",
-                "(//bpmn:dataInput)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:ioSpecification/bpmn:dataInput",
                 5);
     }
 

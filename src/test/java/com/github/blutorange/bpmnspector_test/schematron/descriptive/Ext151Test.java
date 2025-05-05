@@ -20,20 +20,13 @@ public class Ext151Test extends TestCase {
     public void testConstraintNormalSequenceFlowFail1() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_1.bpmn"), 1);
         assertViolation(
-                result.getViolations().get(0),
-                ERROR_MESSAGE,
-                "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent])[1]",
-                10);
+                result.getViolations().get(0), ERROR_MESSAGE, "/bpmn:definitions/bpmn:process/bpmn:subProcess", 10);
     }
 
     @Test
     public void testConstraintNormalSequenceFlowFail2() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_normal_sequence_flow_missing_2.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0),
-                ERROR_MESSAGE,
-                "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent])[4]",
-                55);
+        assertViolation(result.getViolations().get(0), ERROR_MESSAGE, "/bpmn:definitions/bpmn:process/bpmn:task", 55);
     }
 
     @Test
@@ -43,7 +36,7 @@ public class Ext151Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 ERROR_MESSAGE,
-                "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:task[1]",
                 17);
     }
 

@@ -17,7 +17,7 @@ public class Ext098Test extends TestCase {
 
     private static final String ERRORMESSAGE =
             "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events";
-    private static final String XPATHSTRING = "(//bpmn:startEvent[parent::bpmn:process])[1]";
+    private static final String XPATHSTRING = "/bpmn:definitions/bpmn:process/bpmn:startEvent";
 
     @Test
     public void testConstraintCancelFail() throws ValidationException {

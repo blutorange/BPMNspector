@@ -19,7 +19,7 @@ public class Ext103Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If a Start Event is target of a MessageFlow definition, at least one messageEventDefinition must be present",
-                "(//bpmn:startEvent[@id = //bpmn:messageFlow/@targetRef])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:startEvent",
                 13);
     }
 

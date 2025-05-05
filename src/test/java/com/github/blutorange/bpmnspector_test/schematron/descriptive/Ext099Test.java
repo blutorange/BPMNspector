@@ -16,15 +16,13 @@ public class Ext099Test extends TestCase {
     @Test
     public void testConstraintEventFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_event.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0), "(//bpmn:process[./@id = //bpmn:callActivity/@calledElement])[1]", 6);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process[2]", 6);
     }
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_eventref.bpmn"), 1);
-        assertViolation(
-                result.getViolations().get(0), "(//bpmn:process[./@id = //bpmn:callActivity/@calledElement])[1]", 7);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process[2]", 7);
     }
 
     @Test

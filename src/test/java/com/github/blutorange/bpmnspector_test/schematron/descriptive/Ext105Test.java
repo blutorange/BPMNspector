@@ -16,13 +16,14 @@ public class Ext105Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_end_without_sub-events.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:startEvent)[1]", 4);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:startEvent", 4);
     }
 
     @Test
     public void testConstraintSubFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_with_sub-startevent.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:startEvent)[2]", 10);
+        assertViolation(
+                result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:startEvent", 10);
     }
 
     @Test

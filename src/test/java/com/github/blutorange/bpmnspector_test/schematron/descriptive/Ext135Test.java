@@ -19,20 +19,20 @@ public class Ext135Test extends TestCase {
     @Test
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail.bpmn"), 2);
-        assertViolation(result.getViolations().get(0), "(//bpmn:parallelGateway)[1]", 10);
-        assertViolation(result.getViolations().get(1), "(//bpmn:parallelGateway)[2]", 20);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:parallelGateway[1]", 10);
+        assertViolation(result.getViolations().get(1), "/bpmn:definitions/bpmn:process/bpmn:parallelGateway[2]", 20);
     }
 
     @Test
     public void testConstraintSubFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_no_connection.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:parallelGateway)[1]", 4);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:parallelGateway", 4);
     }
 
     @Test
     public void testConstraintEXSubFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("fail_ex_no_connection.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "(//bpmn:exclusiveGateway)[1]", 4);
+        assertViolation(result.getViolations().get(0), "/bpmn:definitions/bpmn:process/bpmn:exclusiveGateway", 4);
     }
 
     @Test

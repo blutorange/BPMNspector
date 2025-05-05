@@ -19,12 +19,12 @@ public class Ext107Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                "(//bpmn:sequenceFlow[@targetRef])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow",
                 9);
         assertViolation(
                 result.getViolations().get(1),
                 "An End Event MUST have at least one incoming Sequence Flow",
-                "(//bpmn:endEvent)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:endEvent",
                 4);
     }
 

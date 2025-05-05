@@ -19,7 +19,7 @@ public class Ext088Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A DataOutput must be referenced by at least one OutputSet",
-                "(//bpmn:dataOutput)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:ioSpecification/bpmn:dataOutput",
                 5);
     }
 

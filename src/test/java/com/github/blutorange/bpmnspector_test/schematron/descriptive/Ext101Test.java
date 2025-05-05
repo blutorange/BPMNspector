@@ -19,12 +19,12 @@ public class Ext101Test extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
-                "(//bpmn:sequenceFlow[@sourceRef])[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:sequenceFlow",
                 9);
         assertViolation(
                 result.getViolations().get(1),
                 "A startEvent must have a outgoing subelement",
-                "(//bpmn:startEvent)[1]",
+                "/bpmn:definitions/bpmn:process/bpmn:startEvent",
                 4);
     }
 
