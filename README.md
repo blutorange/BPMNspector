@@ -1,4 +1,4 @@
-# BPMNspector <img align="right" src="src/main/resources/reporting/res/logo-h100.png" height="100" width="217"/>
+## BPMNspector
 
 **Static analysis for BPMN 2.0 process models**
 
@@ -22,3 +22,39 @@ This is a fork of https://github.com/uniba-dsg/BPMNspector with the following ch
     files instead of declaring them. The original project was also not available via Maven Central.
 * Update all dependencies to their latest versions.
   * The original project used outdated dependencies, some of which have changed their package name.
+
+## Usage
+
+See also https://github.com/uniba-dsg/BPMNspector, but briefly:
+
+Include as a Maven dependency in your `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>com.github.blutorange</groupId>
+  <artifactId>bpmnspector</artifactId>
+  <version>${bpmnspector.version}</version>
+</dependency>
+```
+
+Then you can use it:
+
+```java
+import com.github.blutorange.bpmnspector.api.BPMNspector;
+
+public class Main {
+  public static void main(String[] args) {
+    var inspector = new BPMNspector();
+
+    // you can also use an InputStream if you have the content in memory
+    var result = inspector.validate("path/to/your/bpmn/file.bpmn");
+    
+    if (!result.isValid()) {
+      System.out.println("Validation failed");
+      for (var violation : result.getViolations()) {
+        System.out.println(violation.getLocation()+ ": " + violation.getMessage());
+      }
+    }
+  }
+}
+```
