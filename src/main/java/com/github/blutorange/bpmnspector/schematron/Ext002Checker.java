@@ -87,7 +87,7 @@ class Ext002Checker {
             Violation violation2 = new Violation(location2, "Resources have id duplicates", CONSTRAINTNUMBER);
             validationResult.addViolation(violation2);
 
-            LOGGER.info("violation of constraint {} found.", CONSTRAINTNUMBER);
+            LOGGER.debug("violation of constraint {} found.", CONSTRAINTNUMBER);
         } catch (ValidationException e) {
             throw new IllegalArgumentException("Invalid baseURI detected.", e);
         }

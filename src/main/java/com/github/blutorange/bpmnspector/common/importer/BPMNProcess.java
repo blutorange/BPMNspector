@@ -227,7 +227,6 @@ public class BPMNProcess {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         var that = (BPMNProcess) o;
-        System.out.println(processAsDoc.toString());
         return Objects.equals(baseURI, that.baseURI)
                 && Objects.equals(namespace, that.namespace)
                 && processAsDoc.toString().equals(that.processAsDoc.toString());

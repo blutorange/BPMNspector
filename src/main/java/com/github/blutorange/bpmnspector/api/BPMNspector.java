@@ -51,7 +51,7 @@ public class BPMNspector implements Validator {
         BPMNProcess process = bpmnImporter.importProcessFromPath(file, result);
 
         if (process == null) {
-            LOGGER.info("Process could not parsed correctly. Further processing is skipped.");
+            LOGGER.warn("Process could not parsed correctly. Further processing is skipped.");
         } else {
             if (validationOptions.contains(ValidationOption.REF)) {
                 refValidator.validate(process, result);
@@ -63,7 +63,7 @@ public class BPMNspector implements Validator {
 
         var resultString = result.isValid() ? "valid" : "invalid";
         resultString += result.getWarnings().isEmpty() ? "" : " with warnings";
-        LOGGER.info("Overall result for '{}': {}", file.getFileName().toString(), resultString);
+        LOGGER.debug("Overall result for '{}': {}", file.getFileName().toString(), resultString);
 
         return result;
     }
@@ -84,13 +84,13 @@ public class BPMNspector implements Validator {
         BPMNProcess process = bpmnImporter.importProcessFromStreamSource(source, resourceName, result);
 
         if (process == null) {
-            LOGGER.info("Process could not parsed correctly. Further processing is skipped.");
+            LOGGER.warn("Process could not parsed correctly. Further processing is skipped.");
         } else {
             refValidator.validate(process, result);
             extValidator.validate(process, result);
         }
         var resultString = result.isValid() ? "valid" : "invalid";
-        LOGGER.info("Overall result for '{}': {}", resourceName, resultString);
+        LOGGER.debug("Overall result for '{}': {}", resourceName, resultString);
         return result;
     }
 }

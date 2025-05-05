@@ -66,14 +66,14 @@ public class PreProcessor {
      * @return a cloned org.jdom2.Document representation of the BPMN process including all imported nodes
      */
     public Document preProcess(BPMNProcess process) {
-        LOGGER.info("Starting to preprocess file: {}", process.getBaseURI());
+        LOGGER.debug("Starting to preprocess file: {}", process.getBaseURI());
 
         Document cloneOfDoc = process.getProcessAsDoc().clone();
 
         // Preprocessing can be skipped if no files are imported and there is no Prefix used for the targetNamespace
         if (process.getChildren().isEmpty()
                 && !JDOMUtils.getUsedPrefixForTargetNamespace(cloneOfDoc).isPresent()) {
-            LOGGER.info("Skipping preprocessing.");
+            LOGGER.debug("Skipping preprocessing.");
             return cloneOfDoc;
         }
 
@@ -105,7 +105,7 @@ public class PreProcessor {
             addNodesToDocument(result, cloneOfDoc);
         }
 
-        LOGGER.info("Preprocessing of file {} completed.", process.getBaseURI());
+        LOGGER.debug("Preprocessing of file {} completed.", process.getBaseURI());
 
         return cloneOfDoc;
     }

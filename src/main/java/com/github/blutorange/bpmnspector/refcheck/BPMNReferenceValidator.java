@@ -74,7 +74,7 @@ public class BPMNReferenceValidator implements BpmnProcessValidator {
                     RESULT_TEXT_TEMPLATE,
                     process.getBaseURI(),
                     validationResult.getViolations().size());
-            LOGGER.info(resultText);
+            LOGGER.debug(resultText);
         } catch (ValidationException e) {
             LOGGER.error("Validation of process {} failed, due to an error: {}", process.getBaseURI(), e);
         }

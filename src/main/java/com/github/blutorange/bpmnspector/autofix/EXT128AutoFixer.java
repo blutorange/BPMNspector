@@ -38,7 +38,7 @@ public class EXT128AutoFixer implements ViolationFixer {
     public boolean fixSingleViolation(Document processAsDoc, String xPath) {
         Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(processAsDoc, xPath);
         if (!elementOptional.isPresent()) {
-            LOGGER.warn("Could not fix EXT.128 violation: affected MessageEventDefiniton was not found");
+            LOGGER.warn("Could not fix EXT.128 violation: affected MessageEventDefinition was not found");
             return false;
         }
         Element elem = elementOptional.get();
@@ -50,7 +50,7 @@ public class EXT128AutoFixer implements ViolationFixer {
         }
         Element processElem = optionalParent.get();
         processElem.setAttribute("isExecutable", "false");
-        LOGGER.info("Set isExecutable attribute of element " + processElem + " to false");
+        LOGGER.debug("Set isExecutable attribute of element {} to false", processElem);
         return true;
     }
 

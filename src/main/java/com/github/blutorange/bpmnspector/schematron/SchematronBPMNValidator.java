@@ -87,7 +87,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
 
     public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
 
-        LOGGER.info("Validating {}", process.getBaseURI());
+        LOGGER.debug("Validating {}", process.getBaseURI());
 
         try {
             // EXT.002 checks whether there are ID duplicates - as ID
@@ -115,7 +115,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
             throw new ValidationException("Something went wrong during schematron validation!");
         }
 
-        LOGGER.info("Validating process successfully done, file is valid: {}", validationResult.isValid());
+        LOGGER.debug("Validating process successfully done, file is valid: {}", validationResult.isValid());
     }
 
     private List<ISchematronResource> loadAndValidateSchematronFiles() throws ValidationException {
@@ -238,7 +238,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
             }
         }
 
-        LOGGER.info(logText);
+        LOGGER.debug(logText);
         if ("EXT.076".equals(constraint)) {
             Warning warning = new Warning(errorMessage, violationLocation);
             validationResult.addWarning(warning);

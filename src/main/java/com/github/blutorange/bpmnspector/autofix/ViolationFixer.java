@@ -26,13 +26,14 @@ public interface ViolationFixer {
         for (Violation singleViolation : violationList) {
             if (!getConstraintId().equals(singleViolation.getConstraint())) {
                 getLogger()
-                        .warn("Invalid violation for " + getConstraintId() + " fixer, constraint ID is: "
-                                + singleViolation.getConstraint());
+                        .warn(
+                                "Invalid violation for {} fixer, constraint ID is: {}",
+                                getConstraintId(),
+                                singleViolation.getConstraint());
             }
             if (!singleViolation.getLocation().getXpath().isPresent()) {
                 getLogger()
-                        .warn("Could not fix " + getConstraintId() + " violation " + singleViolation
-                                + ": no XPath present.");
+                        .warn("Could not fix {} violation {}: no XPath present.", getConstraintId(), singleViolation);
                 continue;
             }
             if (fixSingleViolation(
