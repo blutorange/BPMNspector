@@ -36,8 +36,7 @@ public interface ViolationFixer {
                         .warn("Could not fix {} violation {}: no XPath present.", getConstraintId(), singleViolation);
                 continue;
             }
-            if (fixSingleViolation(
-                    docToFix, singleViolation.getLocation().getXpath().get())) {
+            if (fixSingleViolation(docToFix, singleViolation.getLocation().getXpath())) {
                 report.addFixedViolation(singleViolation);
             }
         }

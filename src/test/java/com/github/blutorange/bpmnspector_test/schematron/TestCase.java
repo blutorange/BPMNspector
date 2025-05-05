@@ -97,7 +97,7 @@ public class TestCase {
 
     protected void assertViolation(Violation v, String message, String xpath, int line) {
         assertEquals(message.replaceAll("\\s+", " "), v.getMessage().replaceAll("\\s+", " "));
-        assertEquals(xpath, v.getLocation().getXpath().orElse(""));
+        assertEquals(xpath, v.getLocation().getXpath());
         assertEquals(line, v.getLocation().getLocation().getRow());
     }
 
