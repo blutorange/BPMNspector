@@ -11,5 +11,6 @@ validator.log
 *.ipr
 *.iws
 .idea
+.spotless-index
 reports/
 target

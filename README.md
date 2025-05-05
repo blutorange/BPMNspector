@@ -23,6 +23,10 @@ This is a fork of https://github.com/uniba-dsg/BPMNspector with the following ch
 * Update all dependencies to their latest versions.
   * The original project used outdated dependencies, some of which have changed their package name.
 
+## Javax / Jakarta
+
+Currently, this still uses the javax namespace for compatibility. Will soon be updated to the jakarta namespace.
+
 ## Usage
 
 See also https://github.com/uniba-dsg/BPMNspector, but briefly:

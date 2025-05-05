@@ -33,7 +33,8 @@ public class ReferenceLoaderTest {
     public void loadNonExistentFile() {
         var e = assertThrows(
                 ValidationException.class,
-                () -> referenceLoader.load("NON_EXISTING", "/com/github/blutorange/bpmnspector/resources/references.xsd"));
+                () -> referenceLoader.load(
+                        "NON_EXISTING", "/com/github/blutorange/bpmnspector/resources/references.xsd"));
         assertEquals("Problems occurred while traversing the file 'NON_EXISTING'", e.getMessage());
     }
 
@@ -41,7 +42,8 @@ public class ReferenceLoaderTest {
     public void useNonExistentXsd() {
         var e = assertThrows(
                 ValidationException.class,
-                () -> referenceLoader.load("/com/github/blutorange/bpmnspector/resources/references.xml", "NON_EXISTING"));
+                () -> referenceLoader.load(
+                        "/com/github/blutorange/bpmnspector/resources/references.xml", "NON_EXISTING"));
         assertEquals(
                 "Problems occurred while trying to check the references XML file against the corresponding XSD file.",
                 e.getMessage());
