@@ -8,7 +8,7 @@ import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.EXT012FirstOptionNotExecutableFixer;
-import com.github.blutorange.bpmnspector.autofix.FixReport;
+import com.github.blutorange.bpmnspector.autofix.FixReportBuilder;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class EXT012FirstOptionNotExecutableFixerTest {
         violationList = Collections.emptyList();
         EXT012FirstOptionNotExecutableFixer fixer = new EXT012FirstOptionNotExecutableFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -60,11 +60,11 @@ public class EXT012FirstOptionNotExecutableFixerTest {
     @Test
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(
-                new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
+                new Location(Paths.get("empty"), LocationCoordinate.empty()), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
         EXT012FirstOptionNotExecutableFixer fixer = new EXT012FirstOptionNotExecutableFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -75,7 +75,7 @@ public class EXT012FirstOptionNotExecutableFixerTest {
         violationList = Collections.singletonList(testViolation);
         EXT012FirstOptionNotExecutableFixer fixer = new EXT012FirstOptionNotExecutableFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(fixedVersionOfDoc, clonedDoc);
         assertTrue(report.violationsHaveBeenFixed());

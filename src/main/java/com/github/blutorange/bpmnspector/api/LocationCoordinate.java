@@ -2,8 +2,7 @@ package com.github.blutorange.bpmnspector.api;
 
 /** A location in a file with a row and column. */
 public final class LocationCoordinate {
-
-    public static final LocationCoordinate EMPTY = new LocationCoordinate(-1, -1);
+    private static final LocationCoordinate EMPTY = new LocationCoordinate(-1, -1);
 
     private final int row;
     private final int column;
@@ -69,5 +68,14 @@ public final class LocationCoordinate {
     @Override
     public String toString() {
         return "Location{" + "row=" + row + ", column=" + column + '}';
+    }
+
+    /**
+     * Returns an empty LocationCoordinate with row and column set to -1.
+     *
+     * @return an empty LocationCoordinate
+     */
+    public static LocationCoordinate empty() {
+        return EMPTY;
     }
 }

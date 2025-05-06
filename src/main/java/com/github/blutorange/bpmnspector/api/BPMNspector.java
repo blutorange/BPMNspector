@@ -1,6 +1,5 @@
 package com.github.blutorange.bpmnspector.api;
 
-import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
 import com.github.blutorange.bpmnspector.common.importer.ProcessImporter;
 import com.github.blutorange.bpmnspector.common.util.FileUtils;
 import com.github.blutorange.bpmnspector.refcheck.BPMNReferenceValidator;
@@ -63,12 +62,12 @@ public final class BPMNspector {
      */
     public ValidationResult inspectFile(Path file, List<ValidationOption> validationOptions)
             throws ValidationException {
-
-        ValidationResultBuilder result = new UnsortedValidationResult();
+        final var result = new UnsortedValidationResult();
 
         // Trying to generate BPMNProcess structure - XSD validation is always
         // performed is included here
-        BPMNProcess process = bpmnImporter.importProcessFromPath(file, result);
+        final var process = bpmnImporter.importProcessFromPath(file, result, false);
+        result.setBpmnProcess(process);
 
         if (process == null) {
             LOGGER.warn("Process could not parsed correctly. Further processing is skipped.");
@@ -81,9 +80,7 @@ public final class BPMNspector {
             }
         }
 
-        var resultString = result.isValid() ? "valid" : "invalid";
-        resultString += result.getWarnings().isEmpty() ? "" : " with warnings";
-        LOGGER.debug("Overall result for '{}': {}", file.getFileName().toString(), resultString);
+        logResult(result, file.getFileName().toString());
 
         return result;
     }
@@ -107,7 +104,7 @@ public final class BPMNspector {
      * @throws ValidationException if an error occurs during validation
      */
     public ValidationResult validate(Path path) throws ValidationException {
-        List<ValidationOption> options = new ArrayList<>();
+        final var options = new ArrayList<ValidationOption>();
         options.add(ValidationOption.EXT);
         options.add(ValidationOption.REF);
         return inspectFile(path, options);
@@ -122,12 +119,12 @@ public final class BPMNspector {
      * @throws ValidationException if an error occurs during validation
      */
     public ValidationResult validate(InputStream source, String resourceName) throws ValidationException {
-
-        ValidationResultBuilder result = new UnsortedValidationResult();
-
         // Trying to generate BPMNProcess structure - XSD validation is always
         // performed is included here
-        BPMNProcess process = bpmnImporter.importProcessFromStreamSource(source, resourceName, result);
+        final var process = bpmnImporter.importProcessFromStreamSource(source, resourceName, false);
+
+        final var result = new UnsortedValidationResult();
+        result.setBpmnProcess(process);
 
         if (process == null) {
             LOGGER.warn("Process could not parsed correctly. Further processing is skipped.");
@@ -135,8 +132,15 @@ public final class BPMNspector {
             refValidator.validate(process, result);
             extValidator.validate(process, result);
         }
-        var resultString = result.isValid() ? "valid" : "invalid";
-        LOGGER.debug("Overall result for '{}': {}", resourceName, resultString);
+
+        logResult(result, resourceName);
+
         return result;
+    }
+
+    private static void logResult(ValidationResultBuilder result, String resourceName) {
+        var resultString = result.isValid() ? "valid" : "invalid";
+        resultString += result.getWarnings().isEmpty() ? "" : " with warnings";
+        LOGGER.debug("Overall result for '{}': {}", resourceName, resultString);
     }
 }

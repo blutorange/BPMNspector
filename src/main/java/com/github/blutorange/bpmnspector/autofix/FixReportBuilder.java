@@ -4,11 +4,10 @@ import com.github.blutorange.bpmnspector.api.Violation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FixReport {
-
+public final class FixReportBuilder {
     private final List<Violation> fixedViolations;
 
-    public FixReport() {
+    public FixReportBuilder() {
         this.fixedViolations = new ArrayList<>();
     }
 
@@ -24,7 +23,7 @@ public class FixReport {
         return fixedViolations;
     }
 
-    public static FixReport createUnchangedFixReport() {
-        return new FixReport();
+    public static FixReportBuilder createUnchangedFixReport() {
+        return new FixReportBuilder();
     }
 }

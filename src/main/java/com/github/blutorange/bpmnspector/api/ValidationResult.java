@@ -1,11 +1,38 @@
 package com.github.blutorange.bpmnspector.api;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /** The result of a validation process with violations and warnings. */
 public interface ValidationResult {
+    /**
+     * Fixes all possible issues found during the validation process; and outputs the fixed XML.
+     *
+     * @param options Options for the auto-fix process.
+     * @param writer The writer to write the fixed XML to.
+     */
+    FixReport<Void> autoFix(AutoFixOptions options, Writer writer) throws IOException;
+
+    /**
+     * Fixes all possible issues found during the validation process; and outputs the fixed XML.
+     *
+     * @param options Options for the auto-fix process.
+     * @param writer The writer to write the fixed XML to.
+     */
+    FixReport<Void> autoFix(AutoFixOptions options, OutputStream writer) throws IOException;
+
+    /**
+     * Fixes all possible issues found during the validation process; and returns the fixed XML.
+     *
+     * @param options Options for the auto-fix process.
+     * @return The fixed XML as a string
+     */
+    FixReport<String> autoFix(AutoFixOptions options);
+
     /**
      * Returns a list of all files that have violations.
      *

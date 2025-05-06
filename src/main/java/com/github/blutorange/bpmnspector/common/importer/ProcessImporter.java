@@ -22,13 +22,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Objects;
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import org.apache.commons.io.IOUtils;
-import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
@@ -61,32 +59,30 @@ public class ProcessImporter {
     public BPMNProcess importProcessFromPath(Path path, ValidationResultBuilder result, boolean removeDI)
             throws ValidationException {
         if (Files.notExists(path) || !Files.isRegularFile(path)) {
-            var msg = "BPMNProcess cannot be created: Path " + path + " is invalid.";
+            final var msg = "BPMNProcess cannot be created: Path " + path + " is invalid.";
             throw new ValidationException(msg);
         }
-        Resource resource = new Resource(path);
+        final var resource = new Resource(path);
         return importProcessRecursively(resource, null, null, result, removeDI);
     }
 
-    public BPMNProcess importProcessFromStreamSource(
-            InputStream src, String resourceName, ValidationResultBuilder result) throws ValidationException {
-        return importProcessFromStreamSource(src, resourceName, result, true);
+    public BPMNProcess importProcessFromStreamSource(InputStream src, String resourceName) throws ValidationException {
+        return importProcessFromStreamSource(src, resourceName, true);
     }
 
-    public BPMNProcess importProcessFromStreamSource(
-            InputStream src, String resourceName, ValidationResultBuilder result, boolean removeDI)
+    public BPMNProcess importProcessFromStreamSource(InputStream src, String resourceName, boolean removeDI)
             throws ValidationException {
         try {
-            Resource resource = new Resource(resourceName);
-            byte[] streamContent = IOUtils.toByteArray(src);
-            Document processAsDoc = builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
+            final var resource = new Resource(resourceName);
+            final var streamContent = IOUtils.toByteArray(src);
+            final var processAsDoc = builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
 
             if ("definitions".equals(processAsDoc.getRootElement().getName())
                     && ConstantHelper.BPMN_NAMESPACE_STRING.equals(
                             processAsDoc.getRootElement().getNamespaceURI())) {
-                String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
+                final var processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
 
-                BPMNProcess process = new BPMNProcess(processAsDoc, resourceName, processNamespace, null);
+                final var process = new BPMNProcess(processAsDoc, resourceName, processNamespace, null);
 
                 if (removeDI) {
                     // remove BPMNDI information
@@ -112,17 +108,16 @@ public class ProcessImporter {
             boolean removeDI)
             throws ValidationException {
         result.addResource(resource);
-        try (InputStream stream = openStreamToResource(resource)) {
+        try (final var stream = openStreamToResource(resource)) {
             try {
-                byte[] streamContent = IOUtils.toByteArray(stream);
-                Document processAsDoc =
+                final var streamContent = IOUtils.toByteArray(stream);
+                final var processAsDoc =
                         builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
                 if ("definitions".equals(processAsDoc.getRootElement().getName())
                         && ConstantHelper.BPMN_NAMESPACE_STRING.equals(
                                 processAsDoc.getRootElement().getNamespaceURI())) {
-                    String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
-
-                    BPMNProcess process =
+                    final var processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
+                    final var process =
                             new BPMNProcess(processAsDoc, resource.getResourceName(), processNamespace, parent);
 
                     if (removeDI) {
@@ -155,28 +150,27 @@ public class ProcessImporter {
             BPMNProcess process, BPMNProcess rootProcess, ValidationResultBuilder result, boolean removeDI)
             throws ValidationException {
 
-        List<Element> importElements =
-                process.getProcessAsDoc().getRootElement().getChildren("import", getBPMNNamespace());
+        final var importElements = process.getProcessAsDoc().getRootElement().getChildren("import", getBPMNNamespace());
 
-        for (Element elem : importElements) {
-            String importType = elem.getAttributeValue("importType");
+        for (final var elem : importElements) {
+            final var importType = elem.getAttributeValue("importType");
 
             // fail fast if import type is not supported
             if (!(ConstantHelper.BPMN_NAMESPACE_STRING.equals(importType)
                     || ConstantHelper.WSDL2_NAMESPACE.equals(importType)
                     || ConstantHelper.XSD_NAMESPACE.equals(importType))) {
 
-                int line = ((LocatedElement) elem).getLine();
-                int column = ((LocatedElement) elem).getColumn();
-                String xpath = XPathHelper.getAbsolutePath(elem);
-                Location loc =
+                final var line = ((LocatedElement) elem).getLine();
+                final var column = ((LocatedElement) elem).getColumn();
+                final var xpath = XPathHelper.getAbsolutePath(elem);
+                final var loc =
                         new Location(Paths.get(process.getBaseURI()), new LocationCoordinate(line, column), xpath);
                 result.addWarning(new Warning(
                         "The import type '" + importType + "' is not supported. Import will be ignored.", loc));
                 return;
             }
 
-            String location = elem.getAttributeValue("location");
+            final var location = elem.getAttributeValue("location");
 
             Resource resource = null;
             // determine whether an absolute URL or a file is used and create corresponding Resource
@@ -187,11 +181,11 @@ public class ProcessImporter {
                 if (importUri.isAbsolute()
                         && importUri.getScheme().toLowerCase().startsWith("http")) {
                     // process as URL
-                    var asURL = importUri.toURL();
+                    final var asURL = importUri.toURL();
                     resource = new Resource(asURL);
                 } else {
                     // process as file
-                    var decodedUrlString = URLDecoder.decode(importUri.toString(), StandardCharsets.UTF_8);
+                    final var decodedUrlString = URLDecoder.decode(importUri.toString(), StandardCharsets.UTF_8);
                     var importPath = Paths.get(decodedUrlString);
                     if (!importPath.isAbsolute()) {
                         // resolve relative path based on the baseURI from the process
@@ -222,7 +216,7 @@ public class ProcessImporter {
                     case ConstantHelper.BPMN_NAMESPACE_STRING:
                         if (!isFileAlreadyImported(resource.getResourceName(), rootProcess)) {
                             try {
-                                BPMNProcess importedProcess =
+                                final var importedProcess =
                                         importProcessRecursively(resource, process, rootProcess, result, removeDI);
 
                                 if (importedProcess != null) {
@@ -234,7 +228,7 @@ public class ProcessImporter {
                         }
                         break;
                     case ConstantHelper.WSDL2_NAMESPACE:
-                        try (InputStream stream = openStreamToResource(resource)) {
+                        try (final var stream = openStreamToResource(resource)) {
 
                             result.addResource(resource);
 
@@ -248,15 +242,15 @@ public class ProcessImporter {
                         }
                         break;
                     case ConstantHelper.XSD_NAMESPACE:
-                        try (InputStream stream = openStreamToResource(resource)) {
+                        try (final var stream = openStreamToResource(resource)) {
                             result.addResource(resource);
-                            var schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                            final var schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
                             schemaFactory.newSchema(new StreamSource(stream));
                         } catch (ValidationException e) {
                             // Creation of stream failed object could not be found
                             result.addViolation(createViolation(process, elem, e.getMessage()));
                         } catch (SAXException e) {
-                            String msg = "File " + resource.getResourceName() + " is not a valid XSD file.";
+                            final var msg = "File " + resource.getResourceName() + " is not a valid XSD file.";
                             result.addViolation(createViolation(process, elem, msg));
                         } catch (IOException e) {
                             throw new ValidationException(
@@ -277,11 +271,11 @@ public class ProcessImporter {
     }
 
     private Violation createViolation(BPMNProcess parent, Element importElement, String msg) {
-        int line = ((LocatedElement) importElement).getLine();
-        int column = ((LocatedElement) importElement).getColumn();
-        String xpath = XPathHelper.getAbsolutePath(importElement);
+        final var line = ((LocatedElement) importElement).getLine();
+        final var column = ((LocatedElement) importElement).getColumn();
+        final var xpath = XPathHelper.getAbsolutePath(importElement);
 
-        Location location = new Location(Paths.get(parent.getBaseURI()), new LocationCoordinate(line, column), xpath);
+        final var location = new Location(Paths.get(parent.getBaseURI()), new LocationCoordinate(line, column), xpath);
         return new Violation(location, msg, "EXT.001");
     }
 
@@ -289,7 +283,7 @@ public class ProcessImporter {
         if (process.getBaseURI().equals(baseURI)) {
             return true;
         } else {
-            for (BPMNProcess child : process.getChildren()) {
+            for (final var child : process.getChildren()) {
                 if (isFileAlreadyImported(baseURI, child)) {
                     return true;
                 }

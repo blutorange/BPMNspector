@@ -9,6 +9,7 @@ module com.github.blutorange.bpmnspector {
 
     opens com.github.blutorange.bpmnspector.resources;
 
+    // for tests
     exports com.github.blutorange.bpmnspector.autofix to
             com.github.blutorange.bpmnspector_test;
     exports com.github.blutorange.bpmnspector.common.importer to
@@ -25,5 +26,7 @@ module com.github.blutorange.bpmnspector {
             com.github.blutorange.bpmnspector_test;
     exports com.github.blutorange.bpmnspector.validation to
             com.github.blutorange.bpmnspector_test;
+
+    // public
     exports com.github.blutorange.bpmnspector.api;
 }

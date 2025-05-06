@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class SimpleValidationResult implements ValidationResultBuilder {
+public class SimpleValidationResult extends ValidationResultBuilder {
 
     private final List<Violation> violations = new ArrayList<>();
     private final List<Warning> warnings = new ArrayList<>();

@@ -51,6 +51,13 @@ public class DocHandlingHelper {
         return importer.importProcessFromPath(fullPath, new SimpleValidationResult());
     }
 
+    public static BPMNProcess loadResource(String path, boolean removeDI) throws ValidationException {
+        ProcessImporter importer = new ProcessImporter();
+
+        var fullPath = Paths.get(PATH_PREFIX + File.separator + path);
+        return importer.importProcessFromPath(fullPath, new SimpleValidationResult(), removeDI);
+    }
+
     public static Document loadResourceAsDoc(String path) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
         return builder.build(new File(PATH_PREFIX + File.separator + path));

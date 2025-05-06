@@ -5,5 +5,4 @@ public enum FixingStrategy {
     AUTO_FIX,
     FIRST_OPTION,
     SECOND_OPTION,
-    REMOVE
 }

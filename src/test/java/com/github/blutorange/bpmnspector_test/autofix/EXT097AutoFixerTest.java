@@ -9,7 +9,7 @@ import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.ValidationException;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.EXT097AutoFixer;
-import com.github.blutorange.bpmnspector.autofix.FixReport;
+import com.github.blutorange.bpmnspector.autofix.FixReportBuilder;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -52,7 +52,7 @@ public class EXT097AutoFixerTest {
     public void emptyViolationListDoesNotChangeDocument() {
         violationList = Collections.emptyList();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -61,10 +61,10 @@ public class EXT097AutoFixerTest {
     @Test
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(
-                new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
+                new Location(Paths.get("empty"), LocationCoordinate.empty()), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -75,7 +75,7 @@ public class EXT097AutoFixerTest {
             throws IOException, ValidationException {
         violationList = Collections.singletonList(testViolation);
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         assertTrue(report.violationsHaveBeenFixed());
         assertEquals(violationList, report.getFixedViolations());
@@ -89,7 +89,7 @@ public class EXT097AutoFixerTest {
         violationList = Collections.singletonList(testViolation);
         docToFix = DocHandlingHelper.loadResourceAsDoc("097/single_task_with_no_start.bpmn");
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         assertTrue(report.violationsHaveBeenFixed());
         assertEquals(violationList, report.getFixedViolations());

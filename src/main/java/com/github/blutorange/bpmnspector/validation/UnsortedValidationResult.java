@@ -8,21 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UnsortedValidationResult implements ValidationResultBuilder {
-
+public class UnsortedValidationResult extends ValidationResultBuilder {
+    private final List<Resource> resources = new ArrayList<>();
     private final List<Violation> violations = new ArrayList<>();
     private final List<Warning> warnings = new ArrayList<>();
-    private final List<Resource> resources = new ArrayList<>();
-
-    @Override
-    public void addWarning(Warning warning) {
-        warnings.add(warning);
-    }
-
-    @Override
-    public void addViolation(Violation violation) {
-        violations.add(violation);
-    }
 
     @Override
     public void addFile(Path s) {
@@ -35,18 +24,13 @@ public class UnsortedValidationResult implements ValidationResultBuilder {
     }
 
     @Override
-    public List<Violation> getViolations() {
-        return new ArrayList<>(violations);
+    public void addViolation(Violation violation) {
+        violations.add(violation);
     }
 
     @Override
-    public List<Warning> getWarnings() {
-        return new ArrayList<>(warnings);
-    }
-
-    @Override
-    public List<Resource> getResources() {
-        return new ArrayList<>(resources);
+    public void addWarning(Warning warning) {
+        warnings.add(warning);
     }
 
     @Override
@@ -61,6 +45,21 @@ public class UnsortedValidationResult implements ValidationResultBuilder {
         return Objects.equals(violations, that.violations)
                 && Objects.equals(warnings, that.warnings)
                 && Objects.equals(resources, that.resources);
+    }
+
+    @Override
+    public List<Resource> getResources() {
+        return new ArrayList<>(resources);
+    }
+
+    @Override
+    public List<Violation> getViolations() {
+        return new ArrayList<>(violations);
+    }
+
+    @Override
+    public List<Warning> getWarnings() {
+        return new ArrayList<>(warnings);
     }
 
     @Override

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 /** @author Matthias Geiger */
 public class ViolationTest {
 
-    private final Location dummyLocationEmpty = new Location(Paths.get("dummy file"), LocationCoordinate.EMPTY);
+    private final Location dummyLocationEmpty = new Location(Paths.get("dummy file"), LocationCoordinate.empty());
     private final Location dummyLocation_1_1 = new Location(Paths.get("dummy file"), new LocationCoordinate(1, 1));
     private final Location dummyLocation_1_2 = new Location(Paths.get("dummy file"), new LocationCoordinate(1, 2));
 

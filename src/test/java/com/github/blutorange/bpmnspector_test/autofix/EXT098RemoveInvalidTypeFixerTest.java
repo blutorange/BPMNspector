@@ -9,7 +9,7 @@ import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.ValidationException;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.EXT098RemoveInvalidTypeFixer;
-import com.github.blutorange.bpmnspector.autofix.FixReport;
+import com.github.blutorange.bpmnspector.autofix.FixReportBuilder;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -45,7 +45,7 @@ public class EXT098RemoveInvalidTypeFixerTest {
         violationList = Collections.emptyList();
         EXT098RemoveInvalidTypeFixer fixer = new EXT098RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(defaultDocToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -54,11 +54,11 @@ public class EXT098RemoveInvalidTypeFixerTest {
     @Test
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(
-                new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
+                new Location(Paths.get("empty"), LocationCoordinate.empty()), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
         EXT098RemoveInvalidTypeFixer fixer = new EXT098RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(defaultDocToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -75,7 +75,7 @@ public class EXT098RemoveInvalidTypeFixerTest {
 
         EXT098RemoveInvalidTypeFixer fixer = new EXT098RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(invalidMultiple, violationList);
+        FixReportBuilder report = fixer.fixIssues(invalidMultiple, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(fixedMultiple, invalidMultiple);
         assertTrue(report.violationsHaveBeenFixed());
@@ -137,7 +137,7 @@ public class EXT098RemoveInvalidTypeFixerTest {
 
         EXT098RemoveInvalidTypeFixer fixer = new EXT098RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(docToFix, violationList);
+        FixReportBuilder report = fixer.fixIssues(docToFix, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(fixedVersionOfDoc, docToFix);
         assertTrue(report.violationsHaveBeenFixed());

@@ -14,7 +14,7 @@ public class EXT105AutoFixer implements ViolationFixer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EXT105AutoFixer.class.getSimpleName());
     private static final String CONSTRAINT_ID = "EXT.105";
-    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.AUTO_FIX;
+    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.FIRST_OPTION;
 
     private final BpmnXPathHelper bpmnXPathHelper = new BpmnXPathHelper();
 

@@ -9,7 +9,7 @@ import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.ValidationException;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.EXT151AutoFixer;
-import com.github.blutorange.bpmnspector.autofix.FixReport;
+import com.github.blutorange.bpmnspector.autofix.FixReportBuilder;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class EXT151AutoFixerTest {
         violationList = Collections.emptyList();
         EXT151AutoFixer fixer = new EXT151AutoFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -60,11 +60,11 @@ public class EXT151AutoFixerTest {
     @Test
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(
-                new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
+                new Location(Paths.get("empty"), LocationCoordinate.empty()), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
         EXT151AutoFixer fixer = new EXT151AutoFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -77,7 +77,7 @@ public class EXT151AutoFixerTest {
         testViolation = new Violation(
                 new Location(
                         Paths.get(doc.getBaseURI().replace("file:/", "")),
-                        LocationCoordinate.EMPTY,
+                        LocationCoordinate.empty(),
                         "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent])[1]"),
                 "msg",
                 "EXT.151");
@@ -85,7 +85,7 @@ public class EXT151AutoFixerTest {
 
         EXT151AutoFixer fixer = new EXT151AutoFixer();
 
-        FixReport report = fixer.fixIssues(doc, violationList);
+        FixReportBuilder report = fixer.fixIssues(doc, violationList);
 
         assertTrue(report.violationsHaveBeenFixed());
         assertEquals(violationList, report.getFixedViolations());
@@ -99,7 +99,7 @@ public class EXT151AutoFixerTest {
         testViolation = new Violation(
                 new Location(
                         Paths.get(doc.getBaseURI().replace("file:/", "")),
-                        LocationCoordinate.EMPTY,
+                        LocationCoordinate.empty(),
                         "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent])[4]"),
                 "msg",
                 "EXT.151");
@@ -107,7 +107,7 @@ public class EXT151AutoFixerTest {
 
         EXT151AutoFixer fixer = new EXT151AutoFixer();
 
-        FixReport report = fixer.fixIssues(doc, violationList);
+        FixReportBuilder report = fixer.fixIssues(doc, violationList);
 
         assertTrue(report.violationsHaveBeenFixed());
         assertEquals(violationList, report.getFixedViolations());
@@ -122,7 +122,7 @@ public class EXT151AutoFixerTest {
         testViolation = new Violation(
                 new Location(
                         Paths.get(doc.getBaseURI().replace("file:/", "")),
-                        LocationCoordinate.EMPTY,
+                        LocationCoordinate.empty(),
                         "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent])[1]"),
                 "msg",
                 "EXT.151");
@@ -130,7 +130,7 @@ public class EXT151AutoFixerTest {
 
         EXT151AutoFixer fixer = new EXT151AutoFixer();
 
-        FixReport report = fixer.fixIssues(doc, violationList);
+        FixReportBuilder report = fixer.fixIssues(doc, violationList);
 
         assertTrue(report.violationsHaveBeenFixed());
         assertEquals(violationList, report.getFixedViolations());

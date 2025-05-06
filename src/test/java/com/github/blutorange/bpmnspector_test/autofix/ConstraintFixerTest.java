@@ -7,19 +7,11 @@ import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.ConstraintFixer;
 import com.github.blutorange.bpmnspector.autofix.FixingStrategy;
 import com.github.blutorange.bpmnspector.common.importer.BPMNProcess;
-import com.github.blutorange.bpmnspector.common.importer.ProcessImporter;
 import java.nio.file.Paths;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 public class ConstraintFixerTest {
-
-    private static final String PATH_PREFIX = Paths.get(System.getProperty("user.dir"))
-            .resolve("src/test/resources")
-            .toString();
-
-    private ProcessImporter importer = new ProcessImporter();
-
     private ConstraintFixer fixer;
 
     @Test
@@ -32,8 +24,8 @@ public class ConstraintFixerTest {
 
     @Test
     public void fixingEXT128FailureMarksProcessAsNotExecutable() throws ValidationException {
-        BPMNProcess invalidProcess = DocHandlingHelper.loadResource("128/EXT128_failure_endEvent.bpmn");
-        Violation singleViolation = new Violation(
+        var invalidProcess = DocHandlingHelper.loadResource("128/EXT128_failure_endEvent.bpmn");
+        var singleViolation = new Violation(
                 new Location(
                         Paths.get(invalidProcess.getBaseURI()),
                         new LocationCoordinate(11, 7),
@@ -41,7 +33,8 @@ public class ConstraintFixerTest {
                 "msg",
                 "EXT.128");
 
-        fixer = new ConstraintFixer(invalidProcess, Collections.singletonMap(singleViolation, FixingStrategy.AUTO_FIX));
+        fixer = new ConstraintFixer(
+                invalidProcess, Collections.singletonMap(singleViolation, FixingStrategy.FIRST_OPTION));
         fixer.fixAllPossibleIssues();
 
         DocHandlingHelper.assertEqualBPMNProcess(

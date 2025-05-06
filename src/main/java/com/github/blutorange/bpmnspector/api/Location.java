@@ -51,7 +51,7 @@ public final class Location implements Comparable<Location> {
      * @return The location
      */
     public LocationCoordinate getLocation() {
-        return location != null ? location : LocationCoordinate.EMPTY;
+        return location != null ? location : LocationCoordinate.empty();
     }
 
     /**

@@ -9,7 +9,7 @@ import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.ValidationException;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.EXT106RemoveInvalidTypeFixer;
-import com.github.blutorange.bpmnspector.autofix.FixReport;
+import com.github.blutorange.bpmnspector.autofix.FixReportBuilder;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -43,7 +43,7 @@ public class EXT106RemoveInvalidTypeFixerTest {
         violationList = Collections.emptyList();
         EXT106RemoveInvalidTypeFixer fixer = new EXT106RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(defaultDocToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -52,11 +52,11 @@ public class EXT106RemoveInvalidTypeFixerTest {
     @Test
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(
-                new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
+                new Location(Paths.get("empty"), LocationCoordinate.empty()), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
         EXT106RemoveInvalidTypeFixer fixer = new EXT106RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(defaultDocToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -88,7 +88,7 @@ public class EXT106RemoveInvalidTypeFixerTest {
 
         EXT106RemoveInvalidTypeFixer fixer = new EXT106RemoveInvalidTypeFixer();
 
-        FixReport report = fixer.fixIssues(docToFix, violationList);
+        FixReportBuilder report = fixer.fixIssues(docToFix, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(expectedResult, docToFix);
         assertTrue(report.violationsHaveBeenFixed());

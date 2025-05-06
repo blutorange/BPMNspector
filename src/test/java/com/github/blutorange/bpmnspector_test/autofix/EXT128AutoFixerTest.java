@@ -8,7 +8,7 @@ import com.github.blutorange.bpmnspector.api.Location;
 import com.github.blutorange.bpmnspector.api.LocationCoordinate;
 import com.github.blutorange.bpmnspector.api.Violation;
 import com.github.blutorange.bpmnspector.autofix.EXT128AutoFixer;
-import com.github.blutorange.bpmnspector.autofix.FixReport;
+import com.github.blutorange.bpmnspector.autofix.FixReportBuilder;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -52,7 +52,7 @@ public class EXT128AutoFixerTest {
         violationList = Collections.emptyList();
         EXT128AutoFixer fixer = new EXT128AutoFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -61,11 +61,11 @@ public class EXT128AutoFixerTest {
     @Test
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(
-                new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
+                new Location(Paths.get("empty"), LocationCoordinate.empty()), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
         EXT128AutoFixer fixer = new EXT128AutoFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(docToFix, clonedDoc);
         assertFalse(report.violationsHaveBeenFixed());
@@ -76,7 +76,7 @@ public class EXT128AutoFixerTest {
         violationList = Collections.singletonList(testViolation);
         EXT128AutoFixer fixer = new EXT128AutoFixer();
 
-        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+        FixReportBuilder report = fixer.fixIssues(clonedDoc, violationList);
 
         DocHandlingHelper.assertEqualDocumentSerialization(fixedVersionOfDoc, clonedDoc);
         assertTrue(report.violationsHaveBeenFixed());

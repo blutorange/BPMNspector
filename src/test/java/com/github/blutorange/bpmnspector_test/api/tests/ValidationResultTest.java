@@ -100,14 +100,14 @@ public class ValidationResultTest {
 
         var warn1Msg = "1-sample warning";
         var warn2Msg = "2-sample warning";
-        result.addWarning(new Warning(warn2Msg, new Location(Paths.get("dummy path"), LocationCoordinate.EMPTY)));
-        result.addWarning(new Warning(warn1Msg, new Location(Paths.get("dummy path"), LocationCoordinate.EMPTY)));
+        result.addWarning(new Warning(warn2Msg, new Location(Paths.get("dummy path"), LocationCoordinate.empty())));
+        result.addWarning(new Warning(warn1Msg, new Location(Paths.get("dummy path"), LocationCoordinate.empty())));
 
         assertTrue(result.isValid());
         assertEquals(2, result.getWarnings().size());
         assertEquals(warn1Msg, result.getWarnings().get(0).getMessage());
         assertEquals(
-                LocationCoordinate.EMPTY,
+                LocationCoordinate.empty(),
                 result.getWarnings().get(0).getLocation().getLocation());
         assertEquals(warn2Msg, result.getWarnings().get(1).getMessage());
     }

@@ -30,8 +30,17 @@ public class FixerRepository {
     }
 
     public Optional<ViolationFixer> getFixerForConstraintAndStrategy(String constraintId, FixingStrategy strategy) {
-        FixerIdentifier identifier = new FixerIdentifier(constraintId, strategy);
+        final var identifier = new FixerIdentifier(constraintId, strategy);
         return Optional.ofNullable(availableFixes.get(identifier));
+    }
+
+    public ViolationFixer getFirstFixerForConstraint(String constraintId) {
+        return availableFixes.entrySet().stream()
+                .filter(entry -> entry.getKey().constraintId.equals(constraintId))
+                .filter(entry -> entry.getKey().fixingStrategy == FixingStrategy.FIRST_OPTION)
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(null);
     }
 
     public List<ViolationFixer> getAllFixersForConstraint(String constraintId) {

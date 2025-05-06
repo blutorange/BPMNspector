@@ -17,12 +17,12 @@ public interface ViolationFixer {
 
     boolean fixSingleViolation(Document processAsDoc, String xPath);
 
-    default FixReport fixIssues(Document docToFix, List<Violation> violationList) {
+    default FixReportBuilder fixIssues(Document docToFix, List<Violation> violationList) {
         if (violationList.isEmpty()) {
-            return FixReport.createUnchangedFixReport();
+            return FixReportBuilder.createUnchangedFixReport();
         }
 
-        FixReport report = new FixReport();
+        FixReportBuilder report = new FixReportBuilder();
         for (Violation singleViolation : violationList) {
             if (!getConstraintId().equals(singleViolation.getConstraint())) {
                 getLogger()
