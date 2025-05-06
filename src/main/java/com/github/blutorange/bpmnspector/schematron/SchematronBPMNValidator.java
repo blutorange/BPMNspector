@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+import javax.xml.XMLConstants;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 import org.jdom2.Element;
@@ -38,7 +39,6 @@ import org.jdom2.output.DOMOutputter;
 import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 /**
  * Does the validation process of the xsd and the schematron validation and returns the results of the validation
@@ -49,36 +49,25 @@ import org.w3c.dom.Document;
  */
 public class SchematronBPMNValidator implements BpmnProcessValidator {
 
-    private final PreProcessor preProcessor;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SchematronBPMNValidator.class.getSimpleName());
+    private static final Pattern XPATH_ELEM_NUMBER_REGEX = Pattern.compile("(.*)\\[(\\d*)]");
     private final ProcessImporter bpmnImporter;
     private final Ext002Checker ext002Checker;
-
-    private static final Pattern XPATH_ELEM_NUMBER_REGEX = Pattern.compile("(.*)\\[(\\d*)]");
-
+    private final PreProcessor preProcessor;
     private final List<ISchematronResource> schemaToCheck;
-    private static final Logger LOGGER = LoggerFactory.getLogger(SchematronBPMNValidator.class.getSimpleName());
 
     public SchematronBPMNValidator() throws ValidationException {
         preProcessor = new PreProcessor();
         bpmnImporter = new ProcessImporter();
         ext002Checker = new Ext002Checker();
-
         schemaToCheck = loadAndValidateSchematronFiles();
     }
 
-    public List<ValidationResultBuilder> validateFiles(List<File> xmlFiles) throws ValidationException {
-        List<ValidationResultBuilder> validationResults = new ArrayList<>();
-        for (File xmlFile : xmlFiles) {
-            validationResults.add(validate(xmlFile));
-        }
-        return validationResults;
-    }
-
     public ValidationResultBuilder validate(File xmlFile) throws ValidationException {
+        final var validationResult = new UnsortedValidationResult();
 
-        ValidationResultBuilder validationResult = new UnsortedValidationResult();
         // Trying to import process
-        BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
+        final var process = bpmnImporter.importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
         if (process != null) {
             validate(process, validationResult);
         }
@@ -98,10 +87,10 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
             }
 
             final var documentToCheck = preProcessor.preProcess(process);
-            DOMOutputter domOutputter = new DOMOutputter();
-            Document w3cDoc = domOutputter.output(documentToCheck);
-            var domSource = new DOMSource(w3cDoc);
-            for (ISchematronResource schematronFile : schemaToCheck) {
+            final var domOutputter = new DOMOutputter();
+            final var w3cDoc = domOutputter.output(documentToCheck);
+            final var domSource = new DOMSource(w3cDoc);
+            for (final var schematronFile : schemaToCheck) {
                 final var schematronOutputType = schematronFile.applySchematronValidationToSVRL(domSource);
                 if (schematronOutputType != null) {
                     schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert().stream()
@@ -118,61 +107,51 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
         LOGGER.debug("Validating process successfully done, file is valid: {}", validationResult.isValid());
     }
 
-    private List<ISchematronResource> loadAndValidateSchematronFiles() throws ValidationException {
-        List<ISchematronResource> schemasToCheck = new ArrayList<>();
+    public List<ValidationResultBuilder> validateFiles(List<File> xmlFiles) throws ValidationException {
+        final var validationResults = new ArrayList<ValidationResultBuilder>();
+        for (final var xmlFile : xmlFiles) {
+            validationResults.add(validate(xmlFile));
+        }
+        return validationResults;
+    }
 
-        XPathConfig xpathConfig;
+    private XPathConfig createXPathConfig() throws ValidationException {
         try {
             final var xpathFactory = javax.xml.xpath.XPathFactory.newInstance("http://java.sun.com/jaxp/xpath/dom");
-            final var setProperty =
-                    javax.xml.xpath.XPathFactory.class.getMethod("setProperty", String.class, String.class);
-            setProperty.invoke(xpathFactory, "jdk.xml.xpathExprOpLimit", "600");
-            setProperty.invoke(xpathFactory, "jdk.xml.xpathExprGrpLimit", "30");
-            xpathConfig = new XPathConfig(xpathFactory, null, null);
+
+            try {
+                final var setProperty =
+                        javax.xml.xpath.XPathFactory.class.getMethod("setProperty", String.class, String.class);
+                setProperty.invoke(xpathFactory, "jdk.xml.xpathExprOpLimit", "600");
+                setProperty.invoke(xpathFactory, "jdk.xml.xpathExprGrpLimit", "30");
+            } catch (final NoSuchMethodException e) {
+                // Available only since JDK 18
+                // For earlier versions, you must set this globally for the JVM
+                final var exprOpLimit = getNumericalSystemProperty("jdk.xml.xpathExprOpLimit", 100);
+                final var exprGrpLimit = getNumericalSystemProperty("jdk.xml.xpathExprGrpLimit", 10);
+                if (exprOpLimit < 600) {
+                    throw new ValidationException(
+                            "The system property 'jdk.xml.xpathExprOpLimit' must be at least 600");
+                }
+                if (exprGrpLimit < 30) {
+                    throw new ValidationException(
+                            "The system property 'jdk.xml.xpathExprGrpLimit' must be at least 30");
+                }
+            }
+            xpathFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            return new XPathConfig(xpathFactory, null, null);
         } catch (final XPathFactoryConfigurationException | ReflectiveOperationException e) {
             throw new ValidationException("Could not create XPathFactory", e);
         }
+    }
 
-        final var schematronSchemaDescriptive =
-                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_descriptive.xml");
-        schematronSchemaDescriptive.setXPathConfig(xpathConfig);
-        if (!schematronSchemaDescriptive.isValidSchematron()) {
-            LOGGER.debug("schematron file for Descriptive Conformance class is invalid");
-            throw new ValidationException("Invalid Schematron file (EXT_descriptive.xml)!");
-        } else {
-            schemasToCheck.add(schematronSchemaDescriptive);
+    private int getNumericalSystemProperty(String name, int defaultValue) {
+        final var value = System.getProperty(name);
+        try {
+            return value != null && !value.isEmpty() ? Integer.parseInt(value) : defaultValue;
+        } catch (final NumberFormatException e) {
+            return defaultValue;
         }
-
-        final var schematronSchemaAnalytic =
-                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_analytic.xml");
-        schematronSchemaAnalytic.setXPathConfig(xpathConfig);
-        if (!schematronSchemaAnalytic.isValidSchematron()) {
-            LOGGER.debug("schematron file for Analytic Conformance class is invalid");
-            throw new ValidationException("Invalid Schematron file (EXT_analytic.xml)!");
-        } else {
-            schemasToCheck.add(schematronSchemaAnalytic);
-        }
-
-        final var schematronSchemaCommonExec =
-                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_commonExec.xml");
-        schematronSchemaCommonExec.setXPathConfig(xpathConfig);
-        if (!schematronSchemaCommonExec.isValidSchematron()) {
-            LOGGER.debug("schematron file for Common Executable Conformance class is invalid");
-            throw new ValidationException("Invalid Schematron file (EXT_commonExec.xml)!");
-        } else {
-            schemasToCheck.add(schematronSchemaCommonExec);
-        }
-
-        final var schematronSchemaFull =
-                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_full.xml");
-        schematronSchemaFull.setXPathConfig(xpathConfig);
-        if (!schematronSchemaFull.isValidSchematron()) {
-            LOGGER.debug("schematron file for Full Conformance class is invalid");
-            throw new ValidationException("Invalid Schematron file (EXT_full.xml)!");
-        } else {
-            schemasToCheck.add(schematronSchemaFull);
-        }
-        return schemasToCheck;
     }
 
     /**
@@ -246,6 +225,53 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
             Violation violation = new Violation(violationLocation, errorMessage, constraint);
             validationResult.addViolation(violation);
         }
+    }
+
+    private List<ISchematronResource> loadAndValidateSchematronFiles() throws ValidationException {
+        final var schemasToCheck = new ArrayList<ISchematronResource>();
+
+        final var xpathConfig = createXPathConfig();
+
+        final var schematronSchemaDescriptive =
+                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_descriptive.xml");
+        schematronSchemaDescriptive.setXPathConfig(xpathConfig);
+        if (!schematronSchemaDescriptive.isValidSchematron()) {
+            LOGGER.debug("schematron file for Descriptive Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_descriptive.xml)!");
+        } else {
+            schemasToCheck.add(schematronSchemaDescriptive);
+        }
+
+        final var schematronSchemaAnalytic =
+                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_analytic.xml");
+        schematronSchemaAnalytic.setXPathConfig(xpathConfig);
+        if (!schematronSchemaAnalytic.isValidSchematron()) {
+            LOGGER.debug("schematron file for Analytic Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_analytic.xml)!");
+        } else {
+            schemasToCheck.add(schematronSchemaAnalytic);
+        }
+
+        final var schematronSchemaCommonExec =
+                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_commonExec.xml");
+        schematronSchemaCommonExec.setXPathConfig(xpathConfig);
+        if (!schematronSchemaCommonExec.isValidSchematron()) {
+            LOGGER.debug("schematron file for Common Executable Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_commonExec.xml)!");
+        } else {
+            schemasToCheck.add(schematronSchemaCommonExec);
+        }
+
+        final var schematronSchemaFull =
+                SchematronResourcePure.fromClassPath("com/github/blutorange/bpmnspector/resources/EXT_full.xml");
+        schematronSchemaFull.setXPathConfig(xpathConfig);
+        if (!schematronSchemaFull.isValidSchematron()) {
+            LOGGER.debug("schematron file for Full Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_full.xml)!");
+        } else {
+            schemasToCheck.add(schematronSchemaFull);
+        }
+        return schemasToCheck;
     }
 
     /**
