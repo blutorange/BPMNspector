@@ -24,6 +24,28 @@
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <name>Matthias Geiger</name>
+      <url>https://github.com/matthiasgeiger</url>
+      <roles>
+        <role>Original author</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+    <developer>
+      <name>Andre Wachsmuth</name>
+      <email>wachsmuth.andre@gmx.de</email>
+      <url>https://github.com/blutorange</url>
+      <roles>
+        <role>Project owner</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+  </developers>
+
   <scm>
     <connection>scm:git:https://github.com/blutorange/bpmnspector.git</connection>
     <developerConnection>scm:git:git@github.com:blutorange/bpmnspector.git</developerConnection>
