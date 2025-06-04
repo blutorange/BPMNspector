@@ -11,13 +11,14 @@ import org.junit.jupiter.api.Test;
  * @author Matthias Geiger
  * @version 1.0
  */
-public class Ext070Test extends TestCase {
+public class Ext070aTest extends TestCase {
 
-    private static final String ERR_MSG = "Type of DataInput must be the scalar of the loopDataInput type.";
+    private static final String ERR_MSG =
+            "Type of DataInput must be the scalar of the loopDataInput type for CallActivity or Task.";
 
     @Test
     public void testConstraintFailIsCollection() throws ValidationException {
-        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070_failure_isCollection.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070a_failure_isCollection.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -27,7 +28,7 @@ public class Ext070Test extends TestCase {
 
     @Test
     public void testConstraintFailUnequalStructureRef() throws ValidationException {
-        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070_failure_unequalStructureRef.bpmn"), 1);
+        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070a_failure_unequalStructureRef.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -37,11 +38,11 @@ public class Ext070Test extends TestCase {
 
     @Test
     public void testConstraintSuccess() throws ValidationException {
-        verifyValidResult(createFile("EXT070_success.bpmn"));
+        verifyValidResult(createFile("EXT070a_success.bpmn"));
     }
 
     @Override
     protected String getExtNumber() {
-        return "070";
+        return "070a";
     }
 }
