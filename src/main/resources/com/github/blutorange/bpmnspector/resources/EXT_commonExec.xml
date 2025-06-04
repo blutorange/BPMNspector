@@ -485,8 +485,8 @@
 
     <iso:pattern name="EXT.069b">
         <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataOutputRef and bpmn:outputDataItem and parent::bpmn:subProcess]">
-            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:loopDataOutputRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef =
-                    //bpmn:itemDefinition[@id=current()/bpmn:outputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef" diagnostics="id">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:loopDataOutputRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=current()/bpmn:outputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef or
+                    //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=current()/bpmn:loopDataOutputRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=current()/bpmn:outputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef" diagnostics="id">
                 EXT.069b|Type of DataObject must be the scalar of the loopDataOutput type for SubProcess.
             </iso:assert>
         </iso:rule>
@@ -503,8 +503,8 @@
 
     <iso:pattern name="EXT.070b">
         <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataInputRef and bpmn:inputDataItem and parent::bpmn:subProcess]">
-            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:loopDataInputRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef =
-                    //bpmn:itemDefinition[@id=current()/bpmn:inputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef" diagnostics="id">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:loopDataInputRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=current()/bpmn:inputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef or
+                    //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=current()/bpmn:loopDataInputRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=current()/bpmn:inputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef" diagnostics="id">
                 EXT.070b|Type of DataObject must be the scalar of the loopDataInput type for SubProcess.
             </iso:assert>
         </iso:rule>

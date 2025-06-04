@@ -16,8 +16,9 @@ public class Ext070bTest extends TestCase {
             "Type of DataObject must be the scalar of the loopDataInput type for SubProcess.";
 
     @Test
-    public void testConstraintFailIsCollection() throws ValidationException {
-        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070b_failure_isCollection.bpmn"), 1);
+    public void testConstraintFailIsCollectionDataObjectReference() throws ValidationException {
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT070b_failure_isCollection_data_object_reference.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -26,8 +27,20 @@ public class Ext070bTest extends TestCase {
     }
 
     @Test
-    public void testConstraintFailUnequalStructureRef() throws ValidationException {
-        ValidationResultBuilder result = verifyInvalidResult(createFile("EXT070b_failure_unequalStructureRef.bpmn"), 1);
+    public void testConstraintFailIsCollectionDataObject() throws ValidationException {
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT070b_failure_isCollection_data_object.bpmn"), 1);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:multiInstanceLoopCharacteristics",
+                13);
+    }
+
+    @Test
+    public void testConstraintFailUnequalStructureRefDataObjectReference() throws ValidationException {
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT070b_failure_unequalStructureRef_data_object_reference.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
                 ERR_MSG,
@@ -36,8 +49,24 @@ public class Ext070bTest extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidationException {
-        verifyValidResult(createFile("EXT070b_success.bpmn"));
+    public void testConstraintFailUnequalStructureRefDataObject() throws ValidationException {
+        ValidationResultBuilder result =
+                verifyInvalidResult(createFile("EXT070b_failure_unequalStructureRef_data_object.bpmn"), 1);
+        assertViolation(
+                result.getViolations().get(0),
+                ERR_MSG,
+                "/bpmn:definitions/bpmn:process/bpmn:subProcess/bpmn:multiInstanceLoopCharacteristics",
+                13);
+    }
+
+    @Test
+    public void testConstraintSuccessDataObjectReference() throws ValidationException {
+        verifyValidResult(createFile("EXT070b_success_data_object_reference.bpmn"));
+    }
+
+    @Test
+    public void testConstraintSuccessDataObject() throws ValidationException {
+        verifyValidResult(createFile("EXT070b_success_data_object.bpmn"));
     }
 
     @Override
