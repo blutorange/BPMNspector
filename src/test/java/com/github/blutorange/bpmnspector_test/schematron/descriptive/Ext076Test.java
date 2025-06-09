@@ -74,6 +74,11 @@ public class Ext076Test extends TestCase {
         assertValidValidationResultForFile("Success.bpmn");
     }
 
+    @Test
+    public void testConstraintSuccess2() throws ValidationException {
+        assertValidValidationResultForFile("Success2.bpmn");
+    }
+
     @Override
     protected String getErrorMessage() {
         return "Naming Convention: name = Data Object Name [Data Object Reference State]";

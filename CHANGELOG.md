@@ -1,3 +1,8 @@
+## 1.1.3
+
+* Fix: Rule Ext.076 does not check the naming convention for DataObjectReference when it does not contain a DataState.
+  The DataState is optional, the naming convention should be checked only when it is present.
+
 ## 1.1.2
 
 * Fix: Remove check for rules Ext.069 and Ext.070. Upon closer investigation, these cannot be checked programmatically, and
